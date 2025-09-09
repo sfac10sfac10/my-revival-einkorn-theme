@@ -118,6 +118,55 @@
         "padding_bottom": 36
       }
     },
+    "image_banner_gLqwqB": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_gmbhK3": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>What is Einkorn?</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_yaNN3h": {
+          "type": "text",
+          "settings": {
+            "text": "Einkorn has never been hybridized, the only wheat unchanged by time. Bursting with unparalleled flavor and nutrition, richer in protein and antioxidants than modern wheat varieties. We invite you to experience wheat exactly as Mother Nature intended.",
+            "text_style": "body"
+          }
+        },
+        "buttons_jVxD3p": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Discover Einkorn",
+            "button_link_1": "shopify://pages/what-is-einkorn",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_gmbhK3",
+        "text_yaNN3h",
+        "buttons_jVxD3p"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/home-what-is-einkorn.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
     "collage": {
       "type": "collage",
       "blocks": {
@@ -230,6 +279,7 @@
     "17574508336770cce9",
     "rich_text",
     "featured_collection",
+    "image_banner_gLqwqB",
     "collage",
     "video",
     "multicolumn"
