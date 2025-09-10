@@ -37,7 +37,8 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button"
+            "picker_type": "button",
+            "swatch_shape": "circle"
           }
         },
         "quantity_selector": {
@@ -47,7 +48,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
+            "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
         },
@@ -55,40 +56,22 @@
           "type": "description",
           "settings": {}
         },
-        "collapsible-row-0": {
-          "type": "collapsible_tab",
+        "icon_with_text_BFdAKq": {
+          "type": "icon-with-text",
           "settings": {
-            "heading": "Materials",
-            "icon": "leather",
-            "content": "",
-            "page": ""
+            "layout": "vertical",
+            "icon_1": "truck",
+            "heading_1": "Free shipping on orders of $55 or more!",
+            "icon_2": "none",
+            "heading_2": "",
+            "icon_3": "none",
+            "heading_3": ""
           }
         },
-        "collapsible-row-1": {
-          "type": "collapsible_tab",
+        "custom_liquid_CwhRjg": {
+          "type": "custom_liquid",
           "settings": {
-            "heading": "Shipping & Returns",
-            "icon": "truck",
-            "content": "",
-            "page": ""
-          }
-        },
-        "collapsible-row-2": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Dimensions",
-            "icon": "ruler",
-            "content": "",
-            "page": ""
-          }
-        },
-        "collapsible-row-3": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Care Instructions",
-            "icon": "heart",
-            "content": "",
-            "page": ""
+            "custom_liquid": ""
           }
         },
         "share": {
@@ -107,111 +90,148 @@
         "quantity_selector",
         "buy_buttons",
         "description",
-        "collapsible-row-0",
-        "collapsible-row-1",
-        "collapsible-row-2",
-        "collapsible-row-3",
+        "icon_with_text_BFdAKq",
+        "custom_liquid_CwhRjg",
         "share"
       ],
       "settings": {
         "enable_sticky_info": true,
-        "media_size": "large",
+        "color_scheme": "",
+        "media_size": "small",
         "constrain_to_viewport": true,
-        "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
     },
-    "image-with-text": {
-      "type": "image-with-text",
+    "feature_icon_list_mbdYhV": {
+      "type": "feature-icon-list",
       "blocks": {
-        "image-with-text-0": {
-          "type": "heading",
+        "item_4izNC6": {
+          "type": "item",
           "settings": {
-            "heading": "Image with text",
-            "heading_size": "h1"
+            "image": "shopify://shop_images/product-icon-1.png",
+            "alt": "",
+            "title": "EASY TO DIGEST"
           }
         },
-        "image-with-text-1": {
-          "type": "text",
+        "item_EfdFxY": {
+          "type": "item",
           "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_style": "body"
+            "image": "shopify://shop_images/product-icon-2.png",
+            "alt": "",
+            "title": "SUPPORTS MICROBIOME"
+          }
+        },
+        "item_ieJFW3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-3.png",
+            "alt": "",
+            "title": "EXCELLENT SOURCE OF PROTEIN AND FIBER"
+          }
+        },
+        "item_rd7E8e": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-4.png",
+            "alt": "",
+            "title": "PLANT-BASED"
+          }
+        },
+        "item_UBGVUP": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-5.png",
+            "alt": "",
+            "title": "100% ORGANIC INGREDIENTS"
+          }
+        },
+        "item_76pLiN": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-6.png",
+            "alt": "",
+            "title": "NEVER HIBRIDIZED"
+          }
+        },
+        "item_nMQbkW": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-7.png",
+            "alt": "",
+            "title": "100% WHOLEGRAIN"
+          }
+        },
+        "item_F3ywpC": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-8.png",
+            "alt": "",
+            "title": "NO IRRIGATION"
+          }
+        },
+        "item_H7ehHc": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/product-icon-9.png",
+            "alt": "",
+            "title": "REGENERATIVELY FARMED"
           }
         }
       },
       "block_order": [
-        "image-with-text-0",
-        "image-with-text-1"
+        "item_4izNC6",
+        "item_EfdFxY",
+        "item_ieJFW3",
+        "item_rd7E8e",
+        "item_UBGVUP",
+        "item_76pLiN",
+        "item_nMQbkW",
+        "item_F3ywpC",
+        "item_H7ehHc"
       ],
+      "name": "Feature icon list",
       "settings": {
-        "height": "small",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "color_scheme": "scheme-2",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "multicolumn": {
-      "type": "multicolumn",
-      "blocks": {
-        "column-0": {
-          "type": "column",
-          "settings": {
-            "title": "Free Shipping",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column-1": {
-          "type": "column",
-          "settings": {
-            "title": "Hassle-Free Exchanges",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column-0",
-        "column-1"
-      ],
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "full",
-        "image_ratio": "adapt",
-        "button_label": "",
-        "button_link": "",
-        "columns_desktop": 2,
-        "column_alignment": "left",
-        "background_style": "none",
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "color_scheme": "scheme-c0687695-b420-48e2-9c6e-b323ba37d720",
+        "layout": "column",
+        "pad_y": 32,
+        "cols_desktop": 5,
+        "cols_tablet": 4,
+        "cols_mobile": "3",
+        "gap_x": 10,
+        "gap_y": 10,
+        "image_size": 100,
+        "shape": "square",
+        "badge_radius": 0,
+        "badge_bg": "#ffcb1f",
+        "badge_shadow": "",
+        "text_size": 17,
+        "text_weight": "700",
+        "text_letter_spacing": 0,
+        "text_uppercase": true
       }
     },
     "related-products": {
       "type": "related-products",
+      "custom_css": [
+        "h2 {text-align: center;}"
+      ],
       "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "columns_desktop": 4,
-        "columns_mobile": "2",
+        "heading": "<strong>You may also like</strong>",
+        "heading_size": "h1",
+        "products_to_show": 3,
+        "columns_desktop": 3,
+        "columns_mobile": "1",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
+        "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
@@ -222,8 +242,7 @@
   },
   "order": [
     "main",
-    "image-with-text",
-    "multicolumn",
+    "feature_icon_list_mbdYhV",
     "related-products"
   ]
 }
