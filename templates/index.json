@@ -376,6 +376,23 @@
         "padding_bottom": 36
       }
     },
+    "1757542932f5eb1594": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_preview_badge_homepage_7CwcAa": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge_homepage/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_homepage_7CwcAa"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "rich_text_kgkx3g": {
       "type": "rich-text",
       "blocks": {
@@ -536,6 +553,7 @@
     "rich_text_4D6LYw",
     "17574763113626dfe9",
     "multicolumn_7WxkTi",
+    "1757542932f5eb1594",
     "rich_text_kgkx3g",
     "collage_YGpafM",
     "video",
