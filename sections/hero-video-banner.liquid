@@ -1,0 +1,440 @@
+{% comment %}
+  Hero Video Banner (background video)
+  - Full-bleed background video (autoplay, loop, muted, playsinline)
+  - Title: configurable size, weight, letter-spacing, uppercase, optional text-shadow
+  - Description: configurable size
+  - 0–2 buttons (primary = solid; secondary = outline)
+  - Uses Dawn color schemes within the section wrapper
+{% endcomment %}
+
+<section
+  class="hero-video color-{{ section.settings.color_scheme }} gradient"
+  data-section-id="{{ section.id }}"
+  style="
+    --hero-h-mobile: {{ section.settings.hero_height_mobile }};
+    --hero-h-desktop: {{ section.settings.hero_height_desktop }};
+    --title-size: {{ section.settings.title_size }}px;
+    --title-weight: {{ section.settings.title_weight }};
+    --title-ls: {{ section.settings.letter_spacing }}px;
+    --desc-size: {{ section.settings.desc_size }}px;
+    --btn-radius: {{ section.settings.button_radius }}px;
+    --desc-opacity: {{ section.settings.desc_opacity | times: 0.01 }};
+  "
+>
+  <div class="hero-video__media">
+    {%- if section.settings.video != blank -%}
+      {{
+        section.settings.video
+        | video_tag:
+          class: 'hero-video__video',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true,
+          controls: false
+      }}
+    {%- elsif section.settings.video_mp4_url != blank -%}
+      <video
+        class="hero-video__video"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        {% if section.settings.poster != blank %}
+          poster="{{ section.settings.poster | image_url: width: 2400 }}"
+        {% endif %}
+      >
+        <source src="{{ section.settings.video_mp4_url }}" type="video/mp4">
+      </video>
+    {%- elsif section.settings.poster != blank -%}
+      {{
+        section.settings.poster
+        | image_url: width: 2400
+        | image_tag: class: 'hero-video__image', loading: 'eager', alt: section.settings.title
+        | escape
+      }}
+    {%- endif -%}
+    <div class="hero-video__overlay" style="opacity: {{ section.settings.overlay | times: 0.01 }}"></div>
+  </div>
+
+  <div
+    class="hero-video__inner hero-video__inner--h-{{ section.settings.h_align }} hero-video__inner--v-{{ section.settings.v_align }}"
+    style="--content-max: {{ section.settings.content_max | default: 960 }}px;"
+  >
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="hero-video__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.title != blank -%}
+      <h1
+        class="hero-video__title"
+        style="
+          {% if section.settings.uppercase %}--title-tt: uppercase;{% endif %}
+          {% if section.settings.shadow_enable %}--title-shadow: {{ section.settings.shadow_x }}px {{ section.settings.shadow_y }}px {{ section.settings.shadow_blur }}px {{ section.settings.shadow_color }};{% endif %}
+        "
+      >
+        {{ section.settings.title }}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <div class="hero-video__text rte">{{ section.settings.text }}</div>
+    {%- endif -%}
+
+    {%- assign b1 = section.settings.btn1_label | strip -%}
+    {%- assign b2 = section.settings.btn2_label | strip -%}
+    {%- if b1 != blank or b2 != blank -%}
+      <div class="hero-video__actions">
+        {%- if b1 != blank and section.settings.btn1_link != blank -%}
+          <a
+            href="{{ section.settings.btn1_link }}"
+            class="button hero-button{% if section.settings.btn1_style == 'secondary' %} button--secondary{% endif %}"
+          >
+            {{ section.settings.btn1_label }}
+          </a>
+        {%- endif -%}
+        {%- if b2 != blank and section.settings.btn2_link != blank -%}
+          <a
+            href="{{ section.settings.btn2_link }}"
+            class="button hero-button{% if section.settings.btn2_style == 'secondary' %} button--secondary{% endif %}"
+          >
+            {{ section.settings.btn2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <style>
+    /* Section layout */
+    .hero-video[data-section-id="{{ section.id }}"]{
+      position: relative;
+      min-height: var(--hero-h-mobile, 70vh);
+      display: grid;
+      place-items: stretch;
+      overflow: clip;
+      padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 0 {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 0;
+    }
+    @media (min-width: 990px){
+      .hero-video[data-section-id="{{ section.id }}"]{
+        min-height: var(--hero-h-desktop, 90vh);
+        padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+      }
+    }
+
+    /* Media */
+    .hero-video__media{ position:absolute; inset:0; }
+    .hero-video__video,
+    .hero-video__image{
+      width: 100%; height: 100%; object-fit: cover; object-position: center; display:block;
+    }
+    .hero-video__overlay{ position:absolute; inset:0; background:#000; pointer-events:none; }
+
+    /* Content wrapper */
+    .hero-video__inner{
+      position:relative; z-index:1;
+      display:flex; flex-direction:column; gap: .75rem;
+      margin-inline: auto;
+      width: min(100%, var(--content-max, 960px));
+      text-align: left;
+      padding: 1rem;
+    }
+    .hero-video__inner--h-left{ margin-left: max(1rem, env(safe-area-inset-left)); margin-right:auto; }
+    .hero-video__inner--h-center{ margin-inline:auto; text-align:center; }
+    .hero-video__inner--h-right{ margin-right: max(1rem, env(safe-area-inset-right)); margin-left:auto; text-align:right; }
+
+    .hero-video__inner--v-top{ align-self: stretch; justify-content: flex-start; }
+    .hero-video__inner--v-center{ align-self: stretch; justify-content: center; }
+    .hero-video__inner--v-bottom{ align-self: stretch; justify-content: flex-end; }
+
+    .hero-video__eyebrow{
+      text-transform: uppercase; letter-spacing: .08em; font-size: .92rem; opacity: .95; margin: 0;
+    }
+
+    /* Title (Revival-like controls) */
+    .hero-video__title{
+      font-family: Poppins, var(--font-heading-family, ui-sans-serif), system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+      font-weight: var(--title-weight, 900);
+      font-style: normal;
+      font-size: clamp(28px, 6vw, var(--title-size, 64px));
+      letter-spacing: var(--title-ls, 3.2px);
+      text-transform: var(--title-tt, none);
+      line-height: 1.05;
+      margin: 0 0 32px 0;
+      {% if section.settings.shadow_enable %}text-shadow: var(--title-shadow);{% endif %}
+    }
+
+    /* Description */
+    .hero-video__text{
+    font-size: clamp(16px, 2.6vw, var(--desc-size, 20px));
+    color: rgb(var(--color-foreground));
+    opacity: var(--desc-opacity, 1);
+    max-width: 70ch;
+    margin-inline: auto;
+    width: 80%;
+    margin: 10px auto;
+    }
+    .hero-video__inner--h-left .hero-video__text{ margin-inline: 0; }
+
+    /* Actions / Buttons */
+    .hero-video__actions{
+    display:flex; gap: .75rem; flex-wrap: wrap;
+    justify-content: flex-start;
+    }
+    .hero-video__inner--h-center .hero-video__actions{ justify-content: center; }
+    .hero-video__inner--h-right .hero-video__actions{ justify-content: flex-end; }
+
+    /* Kill Dawn's hover ring just in this hero */
+    .hero-video[data-section-id="{{ section.id }}"] {
+    --border-offset: 0;          /* neutralize outer ring */
+    --buttons-border-offset: 0;  /* some Dawn versions use this var */
+    }
+
+    /* Base + hover/focus (mouse): no outline, no box-shadow, no pseudo rings */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button,
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:hover,
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    }
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button::before,
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button::after {
+    box-shadow: none !important;
+    border: 0 !important;
+    /* if your Dawn uses a ring via pseudo, this prevents it */
+    }
+
+    /* Keep a keyboard-only focus style that follows the rounded corners */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:focus-visible {
+    outline: none !important;
+    /* shadow respects border-radius, unlike outline */
+    box-shadow: 0 0 0 2px rgb(var(--color-outline-button, var(--color-foreground))) !important;
+    }
+
+    /* Optional: also remove any theme hover halo */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:hover {
+    box-shadow: none !important;
+    }
+
+    /* Button styling scoped to this section (small rounded corners) */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button{
+    border-radius: var(--btn-radius, 8px);
+    padding: .7rem 1.15rem;
+    border-width: 1px;
+    border-style: solid;
+    transition: transform .06s ease;
+    font-weight: 600;
+    margin: 10px;
+    }
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:active{
+    transform: translateY(1px);
+    }
+
+    /* Primary (solid): uses Solid button background + Solid button label */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button:not(.button--secondary){
+    background-color: rgb(var(--color-button));           /* sólido */
+    border-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    }
+
+    /* Secondary (outline): transparent bg; text & border use Outline button */
+    .hero-video[data-section-id="{{ section.id }}"] .hero-button.button--secondary{
+    background-color: transparent;
+    color: rgb(var(--color-outline-button, var(--color-foreground)));
+    border-color: rgb(var(--color-outline-button, var(--color-foreground)));
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Video Banner",
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "video", "id": "video", "label": "Shopify-hosted video" },
+    { "type": "url", "id": "video_mp4_url", "label": "MP4 URL (alternative)" },
+    { "type": "image_picker", "id": "poster", "label": "Poster / Fallback image" },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Dark overlay",
+      "min": 0,
+      "max": 95,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (optional)", "default": "EARTH’S FIRST WHEAT" },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Unhybridized, nutrient-rich, naturally gluten-friendly."
+    },
+
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size (px)",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "default": 64
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "default": "900",
+      "options": [
+        { "value": "400", "label": "400 (Normal)" },
+        { "value": "500", "label": "500 (Medium)" },
+        { "value": "600", "label": "600 (Semibold)" },
+        { "value": "700", "label": "700 (Bold)" },
+        { "value": "800", "label": "800 (Extra Bold)" },
+        { "value": "900", "label": "900 (Black)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Title letter-spacing (px)",
+      "min": 0,
+      "max": 8,
+      "step": 0.2,
+      "default": 3.2
+    },
+    { "type": "checkbox", "id": "uppercase", "label": "Uppercase title", "default": false },
+
+    { "type": "checkbox", "id": "shadow_enable", "label": "Enable title text-shadow", "default": true },
+    { "type": "color", "id": "shadow_color", "label": "Shadow color", "default": "#f9a726" },
+    { "type": "range", "id": "shadow_x", "label": "Shadow X (px)", "min": -10, "max": 10, "step": 1, "default": 2 },
+    { "type": "range", "id": "shadow_y", "label": "Shadow Y (px)", "min": -10, "max": 10, "step": 1, "default": 2 },
+    { "type": "range", "id": "shadow_blur", "label": "Shadow blur (px)", "min": 0, "max": 20, "step": 1, "default": 0 },
+
+    { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Ancient goodness for modern life.</p>" },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Description size (px)",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "default": 20
+    },
+
+    {
+      "type": "range",
+      "id": "desc_opacity",
+      "label": "Description opacity (%)",
+      "min": 50,
+      "max": 100,
+      "step": 1,
+      "default": 100
+    },
+
+    { "type": "text", "id": "btn1_label", "label": "Primary button label", "default": "Shop now" },
+    { "type": "url", "id": "btn1_link", "label": "Primary button link" },
+    {
+      "type": "select",
+      "id": "btn1_style",
+      "label": "Primary button style",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "Primary (solid)" },
+        { "value": "secondary", "label": "Secondary (outline)" }
+      ]
+    },
+
+    { "type": "text", "id": "btn2_label", "label": "Secondary button label", "default": "Why Einkorn?" },
+    { "type": "url", "id": "btn2_link", "label": "Secondary button link" },
+    {
+      "type": "select",
+      "id": "btn2_style",
+      "label": "Secondary button style",
+      "default": "secondary",
+      "options": [
+        { "value": "primary", "label": "Primary (solid)" },
+        { "value": "secondary", "label": "Secondary (outline)" }
+      ]
+    },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "h_align",
+      "label": "Horizontal alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "v_align",
+      "label": "Vertical alignment",
+      "default": "center",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "content_max",
+      "label": "Content max width (px)",
+      "min": 480,
+      "max": 1280,
+      "step": 20,
+      "default": 960
+    },
+
+    {
+      "type": "select",
+      "id": "hero_height_mobile",
+      "label": "Mobile height",
+      "default": "70vh",
+      "options": [
+        { "value": "60vh", "label": "60vh" },
+        { "value": "70vh", "label": "70vh" },
+        { "value": "90vh", "label": "90vh" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "hero_height_desktop",
+      "label": "Desktop height",
+      "default": "90vh",
+      "options": [
+        { "value": "60vh", "label": "60vh" },
+        { "value": "75vh", "label": "75vh" },
+        { "value": "90vh", "label": "90vh" },
+        { "value": "100vh", "label": "100vh" }
+      ]
+    },
+
+    { "type": "color_scheme", "id": "color_scheme", "label": "Content color scheme", "default": "scheme-1" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 60, "step": 4, "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 60, "step": 4, "default": 0 }
+  ],
+  "presets": [{ "name": "Hero Video Banner" }]
+}
+{% endschema %}

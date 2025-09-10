@@ -9,51 +9,42 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image banner",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop now",
-            "button_link_1": "shopify://collections/our-products",
-            "button_style_secondary_1": false,
-            "button_label_2": "Why Einkorn?",
-            "button_link_2": "shopify://pages/what-is-einkorn",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "button"
-      ],
+    "hero_video_banner_YcEC6y": {
+      "type": "hero-video-banner",
+      "name": "Hero Video Banner",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-2",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "video": "shopify://files/videos/home-page-video.mp4",
+        "video_mp4_url": "",
+        "overlay": 30,
+        "eyebrow": "",
+        "title": "EARTH'S FIRST WHEAT",
+        "title_size": 64,
+        "title_weight": "900",
+        "letter_spacing": 3.2,
+        "uppercase": false,
+        "shadow_enable": true,
+        "shadow_color": "#f9a726",
+        "shadow_x": 2,
+        "shadow_y": 2,
+        "shadow_blur": 0,
+        "text": "<p>Revival Einkorn brings you earth’s first wheat – unhybridized, nutrient-rich, and naturally gluten-friendly.<br/>Rediscover how food was meant to nourish.</p>",
+        "desc_size": 20,
+        "desc_opacity": 100,
+        "btn1_label": "Shop now",
+        "btn1_link": "shopify://collections/our-products",
+        "btn1_style": "primary",
+        "btn2_label": "Why Einkorn?",
+        "btn2_link": "shopify://pages/what-is-einkorn",
+        "btn2_style": "secondary",
+        "button_radius": 8,
+        "h_align": "center",
+        "v_align": "center",
+        "content_max": 740,
+        "hero_height_mobile": "70vh",
+        "hero_height_desktop": "90vh",
+        "color_scheme": "scheme-afb3c429-3c04-4435-b082-f25c0f3e942f",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "17574508336770cce9": {
@@ -258,7 +249,7 @@
             "primary_button_color": "#121212",
             "primary_button_text_color": "#ffffff",
             "primary_button_hover_color": "#000000",
-            "secondary_button_color": "transparent",
+            "secondary_button_color": "rgba(0,0,0,0)",
             "secondary_button_text_color": "#121212",
             "secondary_button_hover_color": "#f3f3f3",
             "title_size": 32,
@@ -560,7 +551,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "hero_video_banner_YcEC6y",
     "17574508336770cce9",
     "rich_text",
     "featured_collection",
