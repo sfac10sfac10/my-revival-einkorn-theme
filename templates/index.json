@@ -167,36 +167,186 @@
         "show_text_below": true
       }
     },
-    "collage": {
-      "type": "collage",
+    "featured_product_EQw4mE": {
+      "type": "featured-product",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "text_n8PALT": {
+          "type": "text",
           "settings": {
-            "collection": ""
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
           }
         },
-        "product": {
-          "type": "product",
+        "title_yaaJip": {
+          "type": "title",
           "settings": {
-            "product": "",
-            "second_image": false
+            "heading_size": "h1"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "price_P6V6Kt": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_V766yw": {
+          "type": "variant_picker",
           "settings": {
-            "collection": ""
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_Xh9Xkd": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_yfgBtm": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_w4RGJh": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "text_n8PALT",
+        "title_yaaJip",
+        "price_P6V6Kt",
+        "variant_picker_V766yw",
+        "quantity_selector_Xh9Xkd",
+        "buy_buttons_yfgBtm",
+        "share_w4RGJh"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "artisan-s-daily-crackers-copy",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "175747319703cff1c8": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_07b5d86_X4JiM8": {
+          "type": "ai_gen_block_07b5d86",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy",
+            "custom_title": "Artisan's Daily Sourdough Crackers",
+            "custom_description": "Crafted from stone-milled, whole grain einkorn and artisanal sourdough, these crackers are high in dietary fiber and protein. Experience the true essence of wheat with our crackers, crafted as Mother Nature intended.",
+            "truncate_description": false,
+            "custom_image": "shopify://shop_images/home-artisans-crackers-custom-image.webp",
+            "layout": "image_left",
+            "show_quantity": false,
+            "add_to_cart_text": "Add to cart",
+            "view_product_text": "View product",
+            "background_color": "#ffffff",
+            "text_color": "#121212",
+            "price_color": "#121212",
+            "primary_button_color": "#121212",
+            "primary_button_text_color": "#ffffff",
+            "primary_button_hover_color": "#000000",
+            "secondary_button_color": "transparent",
+            "secondary_button_text_color": "#121212",
+            "secondary_button_hover_color": "#f3f3f3",
+            "title_size": 32,
+            "description_size": 16,
+            "price_size": 20,
+            "section_padding": 40,
+            "content_gap": 40,
+            "text_spacing": 16,
+            "border_radius": 8,
+            "image_border_radius": 8,
+            "button_border_radius": 4
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_07b5d86_X4JiM8"
+      ],
+      "settings": {}
+    },
+    "image_with_text_zUbhq3": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_LxKEzE": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text",
+            "heading_size": "h1"
+          }
+        },
+        "text_zfVzDG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_TqLCjz": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "shopify://products/artisan-s-daily-crackers-copy",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_LxKEzE",
+        "text_zfVzDG",
+        "button_TqLCjz"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collage": {
+      "type": "collage",
+      "blocks": {
+        "image_KjB6eY": {
+          "type": "image",
+          "settings": {}
+        },
+        "product": {
+          "type": "product",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy",
+            "second_image": false
+          }
+        }
+      },
+      "block_order": [
+        "image_KjB6eY",
+        "product"
       ],
       "settings": {
-        "heading": "Multimedia collage",
+        "heading": "",
         "heading_size": "h2",
         "desktop_layout": "left",
         "mobile_layout": "collage",
@@ -280,6 +430,9 @@
     "rich_text",
     "featured_collection",
     "image_banner_gLqwqB",
+    "featured_product_EQw4mE",
+    "175747319703cff1c8",
+    "image_with_text_zUbhq3",
     "collage",
     "video",
     "multicolumn"
