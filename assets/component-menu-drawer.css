@@ -104,6 +104,10 @@ details[open].menu-opening > .menu-drawer__submenu {
   font-size: 1.8rem;
 }
 
+.menu-drawer__parent-link {
+  margin: -1.1rem -3rem;
+}
+
 .menu-drawer summary.menu-drawer__menu-item {
   padding-right: 5.2rem;
 }

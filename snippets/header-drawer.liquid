@@ -29,7 +29,12 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
-                        {{ link.title | escape }}
+                        <a
+                          href="{{ link.url }}"
+                          class="menu-drawer__parent-link menu-drawer__menu-item list-menu__item link link--text focus-inset"
+                        >
+                          {{ link.title | escape }}
+                        </a>
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                         </span>
