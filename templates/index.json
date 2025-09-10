@@ -352,6 +352,10 @@
         "padding_bottom": 52
       }
     },
+    "17574763113626dfe9": {
+      "type": "_blocks",
+      "settings": {}
+    },
     "multicolumn_7WxkTi": {
       "type": "multicolumn",
       "blocks": {
@@ -404,6 +408,49 @@
         "swipe_on_mobile": false,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "rich_text_kgkx3g": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_xNFred": {
+          "type": "heading",
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "h1"
+          }
+        },
+        "text_cjmtFq": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Emmer</strong></p><p><em>Tritticum spelta</em></p><p>6,000 BC</p><p></p><h2>TEST</h2>"
+          }
+        },
+        "button_9jBWJp": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_xNFred",
+        "text_cjmtFq",
+        "button_9jBWJp"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     },
     "collage_YGpafM": {
@@ -522,7 +569,9 @@
     "175747319703cff1c8",
     "collage",
     "rich_text_4D6LYw",
+    "17574763113626dfe9",
     "multicolumn_7WxkTi",
+    "rich_text_kgkx3g",
     "collage_YGpafM",
     "video",
     "multicolumn"
