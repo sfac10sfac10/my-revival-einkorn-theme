@@ -1,0 +1,297 @@
+{% comment %}
+  Feature Icon List
+  - Grid of items: [badge image] + [multi-line text]
+  - Equal image size; circle or square badge
+  - Items are vertically centered (icon aligns to middle of text block)
+  - Responsive columns with per-breakpoint controls
+{% endcomment %}
+
+{% assign badge_radius_value = section.settings.badge_radius | append: 'px' %}
+{% if section.settings.shape == 'circle' %}
+  {% assign badge_radius_value = '9999px' %}
+{% endif %}
+
+<section class="feature-icon-list color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div
+      class="feature-icon-list__grid fil--layout-{{ section.settings.layout }}"
+      data-cols-mobile="{{ section.settings.cols_mobile }}"
+      data-cols-tablet="{{ section.settings.cols_tablet }}"
+      data-cols-desktop="{{ section.settings.cols_desktop }}"
+      style="
+        --cols-desktop: {{ section.settings.cols_desktop }};
+        --cols-tablet: {{ section.settings.cols_tablet }};
+        --cols-mobile: {{ section.settings.cols_mobile }};
+        --gap-x: {{ section.settings.gap_x }}px;
+        --gap-y: {{ section.settings.gap_y }}px;
+        --img-size: {{ section.settings.image_size }}px;
+        --badge-radius: {{ badge_radius_value }};
+        --badge-bg: {{ section.settings.badge_bg | default: 'rgb(var(--color-background))' }};
+        --badge-shadow: {{ section.settings.badge_shadow | default: '0 0 0 0 transparent' }};
+        --text-size: {{ section.settings.text_size }}px;
+        --text-weight: {{ section.settings.text_weight }};
+        --text-ls: {{ section.settings.text_letter_spacing | times: 0.01 }}em;
+        --single-col-pad-max: {{ section.settings.single_col_pad_max | default: 140 }}px;
+      "
+    >
+      {% for block in section.blocks %}
+        <div class="feature-icon-list__item" {{ block.shopify_attributes }}>
+          <div class="feature-icon-list__media">
+            {% if block.settings.image != blank %}
+              {% assign alt_txt = block.settings.alt | default: block.settings.image.alt | escape %}
+              <span class="feature-icon-list__badge">
+                {{
+                  block.settings.image
+                  | image_url: width: 300
+                  | image_tag: class: 'feature-icon-list__img', alt: alt_txt, loading: 'lazy'
+                }}
+              </span>
+            {% else %}
+              <span class="feature-icon-list__badge">
+                <svg class="feature-icon-list__img" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </span>
+            {% endif %}
+          </div>
+
+          <div class="feature-icon-list__text">
+            {% if block.settings.title != blank %}
+              <div
+                class="
+                  feature-icon-list__title
+                  {% if section.settings.text_uppercase %}is-uppercase{% endif %}
+                "
+              >
+                {{ block.settings.title }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .feature-icon-list { padding: {{ section.settings.pad_y }}px 0; }
+
+    /* Wrapper as flex so the last row can be centered */
+    .feature-icon-list__grid{
+    --cols: var(--cols-mobile);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-y) var(--gap-x);          /* row-gap / column-gap */
+    }
+
+    /* Each item has a width of 1/N --cols */
+    .feature-icon-list__item{
+    box-sizing: border-box;
+    flex: 0 1 calc((100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols));
+    max-width: calc((100% - (var(--cols) - 1) * var(--gap-x)) / var(--cols));
+    min-width: 0;
+    display: grid;
+    gap: 1rem;
+    }
+
+    /* Global Layout */
+    .feature-icon-list__grid.fil--layout-row .feature-icon-list__item{
+    grid-template-columns: var(--img-size) 1fr;
+    align-items: center;
+    text-align: left;
+    }
+    .feature-icon-list__grid.fil--layout-column .feature-icon-list__item{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    justify-items: center;
+    text-align: center;
+    gap: .75rem;
+    }
+
+    /* Change number of columns */
+    @media (min-width: 750px){
+    .feature-icon-list__grid{ --cols: var(--cols-tablet); }
+    }
+    @media (min-width: 990px){
+    .feature-icon-list__grid{ --cols: var(--cols-desktop); }
+    }
+
+    /* Badge / image sizing */
+    .feature-icon-list__badge{
+      display: grid; place-items: center;
+      width: var(--img-size); height: var(--img-size);
+      background: var(--badge-bg);
+      border-radius: var(--badge-radius);
+      box-shadow: var(--badge-shadow);
+      overflow: hidden;
+    }
+    .feature-icon-list__img{
+      width: 70%; height: 70%;
+      object-fit: contain; object-position: center;
+      display: block;
+    }
+
+    /* Text */
+    .feature-icon-list__title{
+      color: rgb(var(--color-foreground));
+      font-size: clamp(16px, 2.6vw, var(--text-size));
+      font-weight: var(--text-weight);
+      letter-spacing: var(--text-ls);
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .feature-icon-list__title.is-uppercase{ text-transform: uppercase; }
+
+    /* Tighten vertical rhythm a bit on small screens */
+    @media (max-width: 749.98px){
+      .feature-icon-list__item{ gap: .85rem; }
+    }
+
+    /* Mobile (≤ 749px) */
+    @media (max-width: 749.98px){
+    .feature-icon-list__grid.fil--layout-row{ padding-inline-start: 0; }
+    .feature-icon-list__grid.fil--layout-row[data-cols-mobile="1"]{
+        padding-inline-start: max(0px, calc(20% - 30px));
+    }
+    }
+
+    /* Tablet (750–989px) */
+    @media (min-width: 750px) and (max-width: 989.98px){
+    .feature-icon-list__grid.fil--layout-row{ padding-inline-start: 0; }
+    .feature-icon-list__grid.fil--layout-row[data-cols-tablet="1"]{
+        padding-inline-start: max(0px, calc(20% - 30px));
+    }
+    }
+
+    /* Desktop (≥ 990px) */
+    @media (min-width: 990px){
+    .feature-icon-list__grid.fil--layout-row{ padding-inline-start: 0; }
+    .feature-icon-list__grid.fil--layout-row[data-cols-desktop="1"]{
+        padding-inline-start: max(0px, calc(20% - 30px));
+    }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Feature icon list",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Item layout",
+      "default": "row",
+      "options": [
+        { "value": "row", "label": "Image left, text right" },
+        { "value": "column", "label": "Image top, text below" }
+      ]
+    },
+    { "type": "range", "id": "pad_y", "label": "Vertical padding", "min": 0, "max": 80, "step": 4, "default": 40 },
+    {
+      "type": "range",
+      "id": "cols_desktop",
+      "label": "Columns (desktop ≥ 990px)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "cols_tablet",
+      "label": "Columns (tablet ≥ 750px)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "cols_mobile",
+      "label": "Columns (mobile)",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    },
+    { "type": "range", "id": "gap_x", "label": "Column gap (px)", "min": 0, "max": 64, "step": 2, "default": 32 },
+    { "type": "range", "id": "gap_y", "label": "Row gap (px)", "min": 0, "max": 64, "step": 2, "default": 28 },
+
+    { "type": "header", "content": "Badge / image" },
+    {
+      "type": "range",
+      "id": "image_size",
+      "label": "Image size (px)",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "default": 88
+    },
+    {
+      "type": "select",
+      "id": "shape",
+      "label": "Shape",
+      "default": "circle",
+      "options": [
+        { "value": "circle", "label": "Circle" },
+        { "value": "square", "label": "Square" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Square corner radius (px)",
+      "min": 0,
+      "max": 28,
+      "step": 1,
+      "default": 20
+    },
+    { "type": "color", "id": "badge_bg", "label": "Badge background", "default": "#ffffff" },
+    { "type": "text", "id": "badge_shadow", "label": "Badge shadow (CSS)", "default": "0 10px 24px rgba(0,0,0,.06)" },
+
+    { "type": "header", "content": "Text" },
+    { "type": "range", "id": "text_size", "label": "Text size (px)", "min": 14, "max": 28, "step": 1, "default": 22 },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "label": "Text weight",
+      "default": "700",
+      "options": [
+        { "value": "500", "label": "500 (Medium)" },
+        { "value": "600", "label": "600 (Semibold)" },
+        { "value": "700", "label": "700 (Bold)" },
+        { "value": "800", "label": "800 (Extra Bold)" },
+        { "value": "900", "label": "900 (Black)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_letter_spacing",
+      "label": "Letter spacing (×0.01em)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 2
+    },
+    { "type": "checkbox", "id": "text_uppercase", "label": "Uppercase", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Feature item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Image alt text" },
+        { "type": "text", "id": "title", "label": "Text", "default": "EASILY DIGESTIBLE" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Feature icon list", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

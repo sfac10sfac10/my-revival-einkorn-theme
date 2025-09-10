@@ -47,39 +47,80 @@
         "padding_bottom": 0
       }
     },
-    "17574508336770cce9": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "rich_text": {
-      "type": "rich-text",
+    "feature_icon_list_mA9hWt": {
+      "type": "feature-icon-list",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "item_QGmXhz": {
+          "type": "item",
           "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
+            "image": "shopify://shop_images/home-icon-1.webp",
+            "alt": "",
+            "title": "EASILY DIGESTIBLE"
           }
         },
-        "text": {
-          "type": "text",
+        "item_MVEDRi": {
+          "type": "item",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "image": "shopify://shop_images/home-icon-2.webp",
+            "alt": "",
+            "title": "SUPPORTS MICROBIOME"
+          }
+        },
+        "item_jy9KWm": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/home-icon-3.webp",
+            "alt": "",
+            "title": "EXCELLENT SOURCE OF PROTEIN & FIBER"
+          }
+        },
+        "item_6eVzyA": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/home-icon-4.webp",
+            "alt": "",
+            "title": "NEVER HYBRIDIZED"
+          }
+        },
+        "item_RGCC3E": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/home-icon-5.webp",
+            "alt": "",
+            "title": "REGENERATIVELY FARMED"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text"
+        "item_QGmXhz",
+        "item_MVEDRi",
+        "item_jy9KWm",
+        "item_6eVzyA",
+        "item_RGCC3E"
       ],
+      "name": "Feature icon list",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
+        "color_scheme": "scheme-2",
+        "pad_y": 40,
+        "cols_desktop": 3,
+        "cols_tablet": 3,
+        "cols_mobile": "1",
+        "gap_x": 32,
+        "gap_y": 28,
+        "image_size": 82,
+        "shape": "circle",
+        "badge_radius": 20,
+        "badge_bg": "#ffffff",
+        "badge_shadow": "0 10px 24px rgba(0,0,0,.06)",
+        "text_size": 22,
+        "text_weight": "700",
+        "text_letter_spacing": 2,
+        "text_uppercase": true
       }
+    },
+    "17574508336770cce9": {
+      "type": "_blocks",
+      "settings": {}
     },
     "featured_collection": {
       "type": "featured-collection",
@@ -552,8 +593,8 @@
   },
   "order": [
     "hero_video_banner_YcEC6y",
+    "feature_icon_list_mA9hWt",
     "17574508336770cce9",
-    "rich_text",
     "featured_collection",
     "image_banner_gLqwqB",
     "featured_product_EQw4mE",
