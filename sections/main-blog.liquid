@@ -21,6 +21,22 @@
   {% assign per_page = 200 %}
 {% endif %}
 
+{% if section.settings.blog_style == 'news' and section.settings.news_sidebar_enabled %}
+  {% capture news_aside %}
+    <aside class="news-aside" aria-labelledby="news-aside-title-{{ section.id }}">
+      <h3 id="news-aside-title-{{ section.id }}" class="news-aside__title">{{ section.settings.news_sidebar_title }}</h3>
+      <ul class="news-aside__list" role="list">
+        {% for a in blog.articles limit: section.settings.news_sidebar_count %}
+          <li class="news-aside__item">
+            <a href="{{ a.url }}" class="news-aside__link">{{ a.title }}</a>
+            <span class="news-aside__date">{{ a.published_at | time_tag: format: 'date' }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </aside>
+  {% endcapture %}
+{% endif %}
+
 {%- paginate blog.articles by per_page -%}
   <div
     class="main-blog page-width section-{{ section.id }}-padding"
@@ -31,28 +47,66 @@
       {{ blog.title | escape }}
     </h1>
 
-    <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
-      {%- for article in blog.articles -%}
-        <div
-          class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-        >
-          {%-
-            render 'article-card',
-            article: article,
-            media_height: section.settings.image_height,
-            media_aspect_ratio: article.image.aspect_ratio,
-            show_image: section.settings.show_image,
-            show_date: section.settings.show_date,
-            show_author: section.settings.show_author,
-            show_excerpt: section.settings.blog_style != 'recipes'
-          -%}
+    {% if section.settings.blog_style == 'news' %}
+      <div
+        class="news-layout"
+        data-variant="news"
+        data-section-id="{{ section.id }}"
+        style="--news-date-col: {{ section.settings.news_date_col_width }}%; --news-aside-w: {{ section.settings.news_aside_width }}%;"
+      >
+        <div class="news-main">
+          {%- for article in blog.articles -%}
+            <article class="news-item">
+              <div class="news-date">
+                {{ article.published_at | time_tag: format: 'date' }}
+              </div>
+              <div class="news-content">
+                {%-
+                  render 'article-card',
+                  article: article,
+                  media_height: 'adapt',
+                  media_aspect_ratio: article.image.aspect_ratio,
+                  show_image: section.settings.show_image,
+                  show_date: false,  /* date is shown in left column */
+                  show_author: section.settings.show_author,
+                  show_excerpt: true,
+                  title_truncate: false,
+                  show_read_more: section.settings.show_read_more
+                -%}
+              </div>
+            </article>
+          {%- endfor -%}
         </div>
-      {%- endfor -%}
-    </div>
+
+        {%- if section.settings.news_sidebar_enabled -%}
+          {{ news_aside }}
+        {%- endif -%}
+      </div>
+    {% else %}
+      <div class="blog-articles {% if section.settings.layout == 'collage' %}blog-articles--collage{% endif %}">
+        {%- for article in blog.articles -%}
+          <div
+            class="blog-articles__article article{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+          >
+            {%-
+              render 'article-card',
+              article: article,
+              media_height: section.settings.image_height,
+              media_aspect_ratio: article.image.aspect_ratio,
+              show_image: section.settings.show_image,
+              show_date: section.settings.show_date,
+              show_author: section.settings.show_author,
+              show_excerpt: section.settings.blog_style != 'recipes',
+              show_read_more: section.settings.show_read_more
+            -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {% endif %}
 
     {%- if paginate.pages > 1 -%}
       {%- unless section.settings.blog_style == 'recipes' and section.settings.recipes_show_all -%}
@@ -111,16 +165,6 @@
       text-decoration: none !important;
     }
 
-    /* Read more pseudo-element placed on the H3 (always visible as a thin rule) */
-    .main-blog[data-variant="recipes"][data-section-id="{{ section.id }}"] h3::after{
-      content: "Read more";
-      display: inline-block;
-      font-size: 15px;
-      line-height: 1.4;
-      border-bottom: 1px solid #373737;
-      position: relative;
-    }
-
     /* On hover, emphasize the Read more underline (thicker/darker) */
     .main-blog[data-variant="recipes"][data-section-id="{{ section.id }}"] h3:hover::after{
       border-bottom-width: 2px;
@@ -160,11 +204,13 @@
       transform: none !important;
     }
 
-    /* ---------- News variant ---------- */
+    /* ---------- News variant (2 columns ≥750px; mobile: single column, no sidebar) ---------- */
     .main-blog[data-variant="news"][data-section-id="{{ section.id }}"]{
-        padding: 0;
-      }
+      width: 90%;
+      padding: 0;
+    }
 
+    /* Title spacing similar to the reference */
     .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] h1{
       padding: 20px 0 30px;
       margin: 20px auto 30px;
@@ -174,14 +220,12 @@
       font-size: clamp(32px, 6vw, 56px);
       max-width: min(1660px, 90vw);
     }
-
     @media (min-width: 750px){
       .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] h1{
         padding: 50px 0 70px;
         margin: 50px auto 70px;
       }
     }
-
     @media (min-width: 990px){
       .main-blog[data-variant="news"][data-section-id="{{ section.id }}"]{
         width: 80%;
@@ -189,33 +233,153 @@
       }
     }
 
-    /* Editorial single-column list with a readable measure */
-    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .blog-articles{
+    /* Grid wrapper: main + aside (aside hidden on mobile) */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-layout{
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-      max-width: 820px;
-      margin-inline: auto;
+      gap: 32px;
+    }
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside{ display: none; }
+    @media (min-width: 750px){
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-layout{
+        grid-template-columns: minmax(0, 1fr) var(--news-aside-w, 28%);
+        align-items: start;
+      }
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside{ display: block; }
     }
 
-    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .card__heading{
-      font-weight: 600;
-    }
-    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] time{
-      display: inline-block;
-      font-weight: 600;
-      margin: 4px 0 8px;
+    /* Main list */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-main{
+      display: grid;
+      gap: 56px;
     }
 
-    /* Rounded images for News as well */
+    /* Each article row: date left, content right on ≥750px; stack on mobile */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-item{
+      display: grid;
+      gap: 16px;
+      border-bottom: 1px solid #e6e6e6;
+      padding-bottom: 28px;
+    }
+    @media (min-width: 750px){
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-main{
+        padding-left: 20px;
+      }
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-item{
+        grid-template-columns: var(--news-date-col, 12%) 1fr;
+        gap: 24px;
+      }
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-date{
+        padding-top: 6px;
+        color: rgba(55,55,55,.65);
+        font-size: 12px;
+      }
+    }
+    @media (max-width: 749.98px){
+      .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-date{
+        order: -1;
+        margin-bottom: 8px;
+        color: rgba(55,55,55,.65);
+        font-size: 12px;
+      }
+    }
+
+    /* Sidebar: Recent articles */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__title{
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__list{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 20px;
+    }
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__item{
+      border-top: 1px solid #e6e6e6;
+      padding-top: 16px;
+    }
+
+    /* Sidebar links: inherit text color and underline on hover only */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__link{
+      color: rgba(55,55,55,1);
+      opacity: 1;
+      text-decoration: none;
+    }
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__link:hover{
+      text-decoration: underline;
+    }
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .news-aside__date{
+      display: block;
+      margin-top: 6px;
+      color: rgba(55,55,55,.6);
+      font-size: .9em;
+    }
+
+    /* --- News: image corners & natural ratio (media_height:'adapt') --- */
     .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .article-card__image-wrapper,
     .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .card__inner{
       border-radius: 12px;
       overflow: hidden;
     }
 
+    /* Disable Dawn's media hover zoom for News (and keep the Recipes rule as you already have) */
+    .main-blog[data-section-id="{{ section.id }}"][data-variant="news"] .media--hover-effect > img{
+      transform: none !important;
+      transition: none !important;
+    }
+    .main-blog[data-section-id="{{ section.id }}"][data-variant="news"] .card:hover .media--hover-effect > img{
+      transform: none !important;
+    }
+
+    /* News: stronger titles and no truncation (handled in snippet) */
+    .main-blog[data-variant="news"][data-section-id="{{ section.id }}"] .card__heading{
+      font-weight: 700;
+    }
+
+    /* Read more block: thin underline, thicker on hover */
+    .main-blog[data-section-id="{{ section.id }}"] .article-card__readmore{
+      margin-top: 8px;
+    }
+    .main-blog[data-section-id="{{ section.id }}"] .read-more-link{
+      color: inherit;
+      font-weight:600;
+      text-decoration: none;
+      border-bottom: 1px solid #373737;
+    }
+    .main-blog[data-section-id="{{ section.id }}"] .read-more-link:hover{
+      border-bottom: 2px solid #373737;
+    }
+
+    /* Kill the stretched link overlay only in this section for Recipes & News.
+     Otherwise it sits above everything and swallows hover events. */
+    .main-blog[data-section-id="{{ section.id }}"][data-variant="news"] .card .full-unstyled-link::after,
+    .main-blog[data-section-id="{{ section.id }}"][data-variant="recipes"] .card .full-unstyled-link::after{
+      content: none !important;
+    }
+
+    .main-blog[data-section-id="{{ section.id }}"] .article-card__image-hit{
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      /* optional: show hand cursor explicitly */
+      cursor: pointer;
+    }
+
+    /* --- Never underline the title (both link:hover and card:hover) --- */
+    .main-blog[data-section-id="{{ section.id }}"] .underline-links-hover .card__heading a:hover,
+    .main-blog[data-section-id="{{ section.id }}"] .underline-links-hover .card__heading a:focus,
+    .main-blog[data-section-id="{{ section.id }}"] .card:hover .card__heading a,
+    .main-blog[data-section-id="{{ section.id }}"] .card:focus-within .card__heading a{
+      text-decoration: none !important;
+    }
+
     /* Safety reset */
     .main-blog[data-section-id="{{ section.id }}"] p:last-child{ margin-bottom: 0; }
+
+    .content-for-layout {
+      color: #373737;
+    }
   </style>
 {%- endpaginate -%}
 
@@ -261,7 +425,38 @@
       "step": 1,
       "default": 12
     },
-    { "type": "checkbox", "id": "recipes_show_all", "label": "Show all recipes on one page", "default": true },
+    { "type": "checkbox", "id": "recipes_show_all", "label": "Show all articles on one page", "default": true },
+    { "type": "checkbox", "id": "show_read_more", "label": "Show “Read more” link on cards", "default": true },
+    { "type": "header", "content": "News options" },
+    { "type": "checkbox", "id": "news_sidebar_enabled", "label": "Show sidebar (Recent articles)", "default": true },
+    { "type": "text", "id": "news_sidebar_title", "label": "Sidebar title", "default": "Recent articles" },
+    {
+      "type": "range",
+      "id": "news_sidebar_count",
+      "label": "Recent articles to show",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "news_date_col_width",
+      "label": "Date column width (%)",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "news_aside_width",
+      "label": "Sidebar width (%)",
+      "min": 20,
+      "max": 40,
+      "step": 1,
+      "default": 28
+    },
     {
       "type": "checkbox",
       "id": "show_image",

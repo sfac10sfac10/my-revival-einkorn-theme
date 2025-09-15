@@ -11,11 +11,18 @@
   "sections": {
     "main": {
       "type": "main-blog",
+      "custom_css": [],
       "settings": {
         "layout": "grid",
         "blog_style": "recipes",
         "articles_per_page": 12,
         "recipes_show_all": true,
+        "show_read_more": true,
+        "news_sidebar_enabled": true,
+        "news_sidebar_title": "Recent articles",
+        "news_sidebar_count": 4,
+        "news_date_col_width": 12,
+        "news_aside_width": 28,
         "show_image": true,
         "image_height": "medium",
         "show_date": false,
@@ -68,7 +75,8 @@
         "img {border-radius: 12px;}",
         "p {font-size: 16px; line-height: 1.4; letter-spacing: normal; color: rgba(var(--color-foreground));}",
         "p:last-child {margin-top: 12px;}",
-        "a:hover {border-bottom-width: 2px;}"
+        "a:hover {border-bottom-width: 2px;}",
+        "@media (min-width: 990px) {.multicolumn .page-width {padding-inline: calc(5% + 50px);}}"
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {

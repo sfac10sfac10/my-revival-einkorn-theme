@@ -11,6 +11,14 @@
   "sections": {
     "hero_video_banner_YcEC6y": {
       "type": "hero-video-banner",
+      "custom_css": [
+        ".hero-button {padding: 20px 40px; font-size: 20px; display: grid;}",
+        ".hero-video__actions {display: grid;}",
+        ".hero-video__text {margin-bottom: 20px; max-width: 600px;}",
+        ".hero-video__title {font-size: 48px; font-style: normal; letter-spacing: 1px; font-family: Poppins, sans-serif;}",
+        "@media (min-width: 750px) {.hero-video, .hero-video__inner, .hero-video__media, .hero-video__video {height: 75vh; } .hero-video__title {font-size: 48px; } .hero-video__actions {display: flex; }}",
+        "@media (min-width: 990px) {.hero-video__title {font-size: 64px; }}"
+      ],
       "name": "Hero Video Banner",
       "settings": {
         "video": "shopify://files/videos/home-page-video.mp4",
@@ -39,9 +47,9 @@
         "button_radius": 8,
         "h_align": "center",
         "v_align": "center",
-        "content_max": 740,
+        "content_max": 900,
         "hero_height_mobile": "70vh",
-        "hero_height_desktop": "90vh",
+        "hero_height_desktop": "60vh",
         "color_scheme": "scheme-afb3c429-3c04-4435-b082-f25c0f3e942f",
         "padding_top": 0,
         "padding_bottom": 0
@@ -98,6 +106,9 @@
         "item_6eVzyA",
         "item_RGCC3E"
       ],
+      "custom_css": [
+        ".feature-icon-list__text {font-family: \"Roboto Condensed\", \"Roboto\", serif;}"
+      ],
       "name": "Feature icon list",
       "settings": {
         "color_scheme": "scheme-2",
@@ -114,7 +125,7 @@
         "badge_bg": "#ffffff",
         "badge_shadow": "0 10px 24px rgba(0,0,0,.06)",
         "text_size": 22,
-        "text_weight": "700",
+        "text_weight": "600",
         "text_letter_spacing": 2,
         "text_uppercase": true
       }
@@ -125,6 +136,12 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "custom_css": [
+        ".collection__title,.card__information,.price {text-align: center;}",
+        "h3 {font-size: 20px;}",
+        ".card__media,.card__inner {border-radius: 12px;}",
+        "@media (min-width: 750px) {.grid {column-gap: 40px; margin-inline: calc(20% - 150px); } .grid__item {width: calc(33% - 40px); }}"
+      ],
       "settings": {
         "collection": "our-products",
         "products_to_show": 3,

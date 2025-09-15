@@ -16,6 +16,12 @@
         "blog_style": "news",
         "articles_per_page": 4,
         "recipes_show_all": true,
+        "show_read_more": true,
+        "news_sidebar_enabled": true,
+        "news_sidebar_title": "Recent articles",
+        "news_sidebar_count": 4,
+        "news_date_col_width": 20,
+        "news_aside_width": 25,
         "show_image": true,
         "image_height": "medium",
         "show_date": true,
@@ -23,9 +29,75 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "multicolumn_7E3LtG": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_CB8Bek": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/blog-recipes-extras-1.webp",
+            "title": "<strong>Find a retailer</strong>",
+            "text": "<p>Find Revival Einkorn at a retailer near you!</p><p><a href=\"https://revivaleinkorn.com/pages/find-retailer\"><strong>Search now</strong></a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_KmYV3L": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/blog-recipes-extras-2.webp",
+            "title": "<strong>Join the revival</strong>",
+            "text": "<p>Join our community for exclusive offers, company news and more!</p><p><a href=\"https://revivaleinkorn.com/pages/join-the-revival\"><strong>Subscribe</strong></a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_NkfDqL": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/blog-recipes-extras-3.webp",
+            "title": "<strong>More recipes on Instagram</strong>",
+            "text": "<p>Interested in latest news, promos, recipes, and more.</p><p><a href=\"https://www.instagram.com/revivaleinkorn/\"><strong>Follow us</strong></a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_CB8Bek",
+        "column_KmYV3L",
+        "column_NkfDqL"
+      ],
+      "custom_css": [
+        ".multicolumn-card {background: white;}",
+        "img {border-radius: 12px;}",
+        "p {font-size: 16px; line-height: 1.4; letter-spacing: normal; color: rgba(var(--color-foreground));}",
+        "p:last-child {margin-top: 12px;}",
+        "a:hover {border-bottom-width: 2px;}",
+        "@media (min-width: 990px) {.multicolumn .page-width {padding-inline: calc(5% + 50px);}}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multicolumn_7E3LtG"
   ]
 }
