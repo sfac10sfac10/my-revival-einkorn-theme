@@ -1,0 +1,213 @@
+{%- comment -%}
+  Media + text with featured products
+  - Left/Right image on desktop (stacked on mobile)
+  - Heading, rich text, CTA button
+  - 1–2 products rendered with 'product-card-fancy' snippet (square images)
+
+  Requirements:
+  - snippets/product-card-fancy.liquid must exist.
+  - Dawn’s quick-add assets loaded for AJAX add-to-cart.
+
+  All styles are scoped to this section id.
+{%- endcomment -%}
+
+{%- assign cols = section.blocks.size | at_least: 1 | at_most: 2 -%}
+
+<section class="mtp-{{ section.id }} section-{{ section.id }}">
+  <div class="mtp__inner page-width {% if section.settings.image_side == 'right' %}is-image-right{% endif %}">
+    <div class="mtp__media">
+      {%- if section.settings.image != blank -%}
+        {%- assign img_alt = section.settings.image.alt | default: section.settings.heading -%}
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            widths: '800, 1200, 1600, 2000',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            alt: img_alt,
+            class: 'mtp__img',
+            loading: 'lazy'
+        }}
+      {%- endif -%}
+    </div>
+
+    <div class="mtp__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="mtp__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <div class="mtp__subheading rte">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <p class="mtp__cta">
+          <a class="mtp__btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+        </p>
+      {%- endif -%}
+
+      <div class="mtp__grid" style="--cols: {{ cols }};">
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p -%}
+            <div class="mtp__cell" {{ block.shopify_attributes }}>
+              {%- render 'product-card-fancy',
+                product: p,
+                hover_media_index: block.settings.hover_media_index,
+                show_reviews: section.settings.show_reviews,
+                image_ratio: 'square'
+              -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ---------- Scoped styles ---------- */
+    .section-{{ section.id }} .mtp__inner{
+      display:grid; gap: clamp(24px, 4vw, 48px);
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+
+    /* Reorder on desktop when image is on the right */
+    .section-{{ section.id }} .mtp__inner.is-image-right .mtp__media{ order: 2; }
+    .section-{{ section.id }} .mtp__inner.is-image-right .mtp__content{ order: 1; }
+
+    /* Image box (fill, rounded corners) */
+    .section-{{ section.id }} .mtp__media{
+      border-radius: 16px; overflow:hidden; background:#f6f6f6;
+    }
+    .section-{{ section.id }} .mtp__img{
+      display:block; width:100%; height:auto;
+      aspect-ratio: 1 / 1;            /* keep a pleasant square crop */
+      object-fit: cover; object-position: center;
+      border-radius: 16px;
+    }
+
+    .section-{{ section.id }} .mtp__heading{
+      font-weight:800; line-height:1.1;
+      font-size: clamp(28px, 5vw, 56px);
+      margin: 0 0 12px;
+    }
+    .section-{{ section.id }} .mtp__subheading{
+      font-size: clamp(16px, 2.4vw, 20px);
+      opacity:.95; margin: 0 0 18px;
+    }
+    .section-{{ section.id }} .mtp__btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 14px 20px; border-radius: 14px;
+      border: 1px solid currentColor; text-decoration:none; font-weight:700;
+      color: inherit;
+    }
+    .section-{{ section.id }} .mtp__btn:hover{ filter: brightness(.95); }
+
+    /* Product grid under the text */
+    .section-{{ section.id }} .mtp__grid{
+      margin-top: 18px;
+      display:grid; gap: 24px;
+      grid-template-columns: repeat(var(--cols), minmax(0,1fr));
+    }
+
+    /* Mobile layout: stack, image first; products 1 per row */
+    @media (max-width: 989px){
+      .section-{{ section.id }} .mtp__inner{
+        grid-template-columns: 1fr;
+      }
+      .section-{{ section.id }} .mtp__media{ order: 1; }
+      .section-{{ section.id }} .mtp__content{ order: 2; }
+      .section-{{ section.id }} .mtp__grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Section paddings */
+    .section-{{ section.id }}{
+      padding-top: {{ section.settings.pad_top | default: 36 | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.pad_bottom | default: 36 | times: 0.75 | round: 0 }}px;
+    }
+    @media (min-width: 750px){
+      .section-{{ section.id }}{
+        padding-top: {{ section.settings.pad_top | default: 36 }}px;
+        padding-bottom: {{ section.settings.pad_bottom | default: 36 }}px;
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Media+text with products",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Image position (desktop)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Organic Einkorn Crackers" },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Text",
+      "default": "<p>Indulge in ancient goodness for a flavorful snacking experience with our artisanal, sourdough flatbread crackers. Crunchy and satisfying, they're a delightful treat for any occasion.</p>"
+    },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop all crackers" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "checkbox", "id": "show_reviews", "label": "Show Judge.me reviews on cards", "default": true },
+
+    { "type": "header", "content": "Padding" },
+    {
+      "type": "range",
+      "id": "pad_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        {
+          "type": "range",
+          "id": "hover_media_index",
+          "label": "Hover image index (1-based)",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media + text with products",
+      "blocks": [{ "type": "product" }, { "type": "product" }]
+    }
+  ]
+}
+{% endschema %}

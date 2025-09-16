@@ -1,0 +1,169 @@
+{%- comment -%}
+  Favorite products grid (2–4 columns) with:
+  - heading + subheading
+  - up to 4 product blocks (equal width)
+  - optional hover image index per product (default 3rd media)
+  - CTA button under the grid
+
+  Styles are scoped by section id. Card behavior:
+  - rounded images
+  - image swaps on hover (desktop)
+  - CTA overlay appears on hover desktop; always visible on mobile
+  - button text changes based on product availability/variants
+  - optional Judge.me preview badge
+
+  Requires the snippet:
+    snippets/product-card-fancy.liquid
+{%- endcomment -%}
+
+{%- assign cols = section.blocks.size -%}
+{%- if cols < 2 -%}{% assign cols = 2 %}{% endif -%}
+{%- if cols > 4 -%}{% assign cols = 4 %}{% endif -%}
+
+<section class="favorites-{{ section.id }} section-{{ section.id }}">
+  <div class="favorites__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="favorites__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="favorites__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="favorites__grid" style="--cols: {{ cols }};">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if p -%}
+          <div class="favorites__cell" {{ block.shopify_attributes }}>
+            {%- render 'product-card-fancy',
+              product: p,
+              hover_media_index: block.settings.hover_media_index,
+              show_reviews: section.settings.show_reviews,
+              section_id: section.id
+            -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+      <div class="favorites__cta">
+        <a class="favorites__cta-btn" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <style>
+    /* ---------- Scoped styles (only this section) ---------- */
+    .section-{{ section.id }} .favorites__heading{
+      text-align:center; font-weight:800; font-size:clamp(28px,5vw,48px); margin: 10px 0 8px;
+    }
+    .section-{{ section.id }} .favorites__subheading{
+      text-align:center; font-size: clamp(16px,2.5vw,20px); opacity:.9; margin: 0 0 28px;
+    }
+
+    .section-{{ section.id }} .favorites__grid{
+      display:grid; gap: 28px;
+      grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    }
+    @media (max-width: 989px){
+      .section-{{ section.id }} .favorites__grid{
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 749px){
+      .section-{{ section.id }} .favorites__grid{ grid-template-columns: 1fr; }
+    }
+
+    /* ---- Card base ---- */
+    .section-{{ section.id }} .pcard{
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .section-{{ section.id }} .pcard__imgwrap{
+      position:relative; border-radius: 14px; overflow:hidden; background:#f4f4f4;
+    }
+    .section-{{ section.id }} .pcard:hover .pcard__img--hover,
+    .section-{{ section.id }} .pcard:focus-within .pcard__img--hover{ opacity:1; }
+    .section-{{ section.id }} .pcard:hover .pcard__img--default,
+    .section-{{ section.id }} .pcard:focus-within .pcard__img--default{ opacity:0; }
+
+    /* Overlay button inside the image */
+    .section-{{ section.id }} .pcard__overlay{
+      position:absolute; left:0; right:0; bottom:16px; display:flex; justify-content:center;
+      opacity:0; transition:opacity .2s ease; padding:0 16px; pointer-events:none;
+    }
+    .section-{{ section.id }} .pcard:hover .pcard__overlay,
+    .section-{{ section.id }} .pcard:focus-within .pcard__overlay{ opacity:1; pointer-events:auto; }
+    @media (max-width: 749px){
+      .section-{{ section.id }} .pcard__overlay{ opacity:1; pointer-events:auto; }
+    }
+
+    .section-{{ section.id }} .pcard__btn{
+      display:inline-flex; align-items:center; justify-content:center; min-height:48px; width:100%;
+      border-radius: 14px; padding: 10px 14px; background:#2f2f2f; color:#fff; font-weight:700; text-decoration:none;
+      border:0; cursor:pointer;
+    }
+    .section-{{ section.id }} .pcard__btn--disabled{ background: #9a9a9a; cursor: not-allowed; }
+
+    /* Body */
+    .section-{{ section.id }} .pcard__title{
+      font-weight:700; font-size: clamp(16px,2.2vw,22px); margin: 2px 0 2px; text-align:center;
+    }
+    .section-{{ section.id }} .pcard__title a{ color:inherit; text-decoration:none; }
+    .section-{{ section.id }} .pcard__title a:hover{ text-decoration:underline; }
+    .section-{{ section.id }} .pcard__reviews{ display:flex; justify-content:center; }
+    .section-{{ section.id }} .pcard__price{ text-align:center; margin-top:6px; font-weight:600; }
+
+    /* Footer CTA */
+    .section-{{ section.id }} .favorites__cta{ margin-top: 28px; text-align:center; }
+    .section-{{ section.id }} .favorites__cta-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 14px 22px; border-radius: 14px; border:1px solid #1f1f1f; text-decoration:none; color:inherit;
+    }
+    .section-{{ section.id }} .favorites__cta-btn:hover{ filter: brightness(.95); }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Favorite products",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Favorites" },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop our favorites, from handcrafted pastas to wholesome snacks."
+    },
+    { "type": "checkbox", "id": "show_reviews", "label": "Show Judge.me reviews", "default": true },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Explore einkorn products" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        {
+          "type": "range",
+          "id": "hover_media_index",
+          "label": "Hover image index (1-based)",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Favorite products",
+      "blocks": [{ "type": "product" }, { "type": "product" }, { "type": "product" }]
+    }
+  ]
+}
+{% endschema %}

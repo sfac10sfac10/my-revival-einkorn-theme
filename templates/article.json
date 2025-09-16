@@ -42,10 +42,71 @@
         "share",
         "content"
       ],
-      "settings": {}
+      "settings": {
+        "show_back_to_blog": false,
+        "aside_enabled": true,
+        "aside_title": "Recent articles",
+        "aside_count": 4,
+        "aside_width_percent": 28,
+        "show_print_button": true,
+        "always_show_print": false,
+        "share_show_fb": true,
+        "share_show_x": true,
+        "share_show_pin": true,
+        "show_prev_next": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "17580548693952e6e7": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "favorite_products_44U6R6": {
+      "type": "favorite-products",
+      "blocks": {
+        "product_zwfLbV": {
+          "type": "product",
+          "settings": {
+            "product": "roasted-garlic-chili-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_hexxpJ": {
+          "type": "product",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_J87HwP": {
+          "type": "product",
+          "settings": {
+            "product": "organic-einkorn-spaghetti-copy",
+            "hover_media_index": 3
+          }
+        }
+      },
+      "block_order": [
+        "product_zwfLbV",
+        "product_hexxpJ",
+        "product_J87HwP"
+      ],
+      "name": "Favorite products",
+      "settings": {
+        "heading": "Our Favorites",
+        "subheading": "Shop our favorites, from handcrafted pastas to wholesome snacks.",
+        "show_reviews": true,
+        "cta_label": "Explore einkorn products",
+        "cta_link": "shopify://collections/our-products"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "17580548693952e6e7",
+    "favorite_products_44U6R6"
   ]
 }
