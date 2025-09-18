@@ -20,7 +20,7 @@
       --pcard-cta-bg: #333;
       --pcard-cta-disabled: #9aa0a6;
       /* Optional safety if card is not inside a grid; remove if no need */
-      --pcard-max-w: 520px;
+      --pcard-max-w: 350px;
     }
     .pcard__imgwrap {
       position: relative;
@@ -76,6 +76,9 @@
       transform: translateY(8px);
       opacity: 0;
       transition: transform 0.2s ease, opacity 0.2s ease;
+      product-form {
+        width: 100%;
+      }
     }
     .pcard:hover .pcard__overlay,
     .pcard:focus-within .pcard__overlay {
@@ -99,8 +102,22 @@
       border-radius: var(--pcard-radius);
       background: var(--pcard-cta-bg);
       color: #fff;
-      font-weight: 700;
+      font-weight: 600;
+      font-family: Roboto, sans-serif;
+      font-size: 14px;
       text-decoration: none;
+      --border-offset: 0; /* neutralize outer ring */
+      --buttons-border-offset: 0; /* some Dawn versions use this var */
+    }
+    .pcard__form .button:hover,
+    .pcard__form .button:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .pcard__form .button::before,
+    .pcard__form .button::after {
+      box-shadow: none !important;
+      border: 0 !important;
     }
     .pcard__btn--disabled {
       background: var(--pcard-cta-disabled);
@@ -109,26 +126,74 @@
 
     .pcard__body {
       text-align: center;
-      padding: 14px 4px 0;
+      padding: 8px 0 0;
     }
     .pcard__title {
-      font-weight: 800;
       margin: 0 0 6px;
-      line-height: 1.2;
     }
     .pcard__title a {
       color: inherit;
       text-decoration: none;
+      font-family: 'Roboto Condensed', 'Roboto', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.6;
+      letter-spacing: 0px;
     }
     .pcard__title a:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
     .pcard__reviews {
       margin: 6px 0;
     }
     .pcard__price {
       margin-top: 6px;
-      font-weight: 600;
+      line-height: 1.6;
+      font-weight: 300;
+      color: rgba(var(--color-foreground), 1);
+    }
+    /* ==== Rating (stars + count) ==== */
+    .pcard__reviews {
+      margin: 6px 0;
+    }
+    .pcard__rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .pcard__rating-stars {
+      --star-size: 18px; /* ajusta tamaño a gusto */
+      position: relative;
+      width: calc(var(--star-size) * 5);
+      height: var(--star-size);
+    }
+    /* capa base: contorno de 5 estrellas */
+    .pcard__stars {
+      position: absolute;
+      inset: 0;
+      background-repeat: repeat-x;
+      background-size: var(--star-size) var(--star-size);
+      pointer-events: none;
+    }
+    .pcard__stars--outline {
+      background-image: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
+      <path d="M12 2.3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.8 6.2 20.1l1.1-6.4L2.6 9.1l6.5-.9L12 2.3z" fill="none" stroke="%23FFCB1F" stroke-width="2" stroke-linejoin="round"/>\
+      </svg>');
+    }
+    .pcard__stars--fill {
+      background-image: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
+      <path d="M12 2.3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.8 6.2 20.1l1.1-6.4L2.6 9.1l6.5-.9L12 2.3z" fill="%23FFCB1F" stroke="%23FFCB1F" stroke-width="2" stroke-linejoin="round"/>\
+      </svg>');
+      width: var(--rating-pct, 0%);
+      overflow: hidden;
+    }
+    .pcard__count {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.72);
+      white-space: nowrap;
     }
   </style>
 {%- endunless -%}
@@ -287,14 +352,37 @@
 
     {% comment %} Reviews {% endcomment %}
     {%- if show_reviews != false -%}
-      <div class="pcard__reviews">
-        <div
-          class="jdgm-widget jdgm-preview-badge"
-          data-id="{{ prod.id }}"
-          data-template="manual-installation"
-          data-widget-name="preview_badge"
-        ></div>
-      </div>
+      {%- liquid
+        assign rating_obj = prod.metafields.reviews.rating.value
+        assign rating_val = 0
+        assign rating_max = 5
+        assign reviews_count = 0
+
+        if rating_obj
+          assign rating_val = rating_obj.rating | plus: 0
+          assign rating_max = rating_obj.scale_max | default: 5 | plus: 0
+          assign reviews_count = prod.metafields.reviews.rating_count | default: 0 | plus: 0
+        endif
+
+        assign pct = 0
+        if rating_max > 0
+          assign pct = rating_val | times: 100.0 | divided_by: rating_max
+        endif
+      -%}
+
+      {%- if reviews_count > 0 -%}
+        <div class="pcard__reviews">
+          <div class="pcard__rating" aria-label="{{ rating_val }} out of {{ rating_max }} stars">
+            <span class="pcard__rating-stars" aria-hidden="true">
+              <span class="pcard__stars pcard__stars--fill" style="--rating-pct: {{ pct }}%;"></span>
+              <span class="pcard__stars pcard__stars--outline"></span>
+            </span>
+            <span class="pcard__count">
+              {%- if reviews_count == 1 -%}1 review{%- else -%}{{ reviews_count }} reviews{%- endif -%}
+            </span>
+          </div>
+        </div>
+      {%- endif -%}
     {%- endif -%}
 
     <div class="pcard__price">

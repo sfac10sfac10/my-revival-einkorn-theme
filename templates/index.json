@@ -130,42 +130,43 @@
         "text_uppercase": true
       }
     },
-    "17574508336770cce9": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "custom_css": [
-        ".collection__title,.card__information,.price {text-align: center;}",
-        "h3 {font-size: 20px;}",
-        ".card__media,.card__inner {border-radius: 12px;}",
-        "@media (min-width: 750px) {.grid {column-gap: 40px; margin-inline: calc(20% - 150px); } .grid__item {width: calc(33% - 40px); }}"
+    "favorite_products_jUH9jf": {
+      "type": "favorite-products",
+      "blocks": {
+        "product_GJXYF7": {
+          "type": "product",
+          "settings": {
+            "product": "roasted-garlic-chili-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_6tALRG": {
+          "type": "product",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_JARAgr": {
+          "type": "product",
+          "settings": {
+            "product": "toasted-sesame-honey-crackers-copy",
+            "hover_media_index": 3
+          }
+        }
+      },
+      "block_order": [
+        "product_GJXYF7",
+        "product_6tALRG",
+        "product_JARAgr"
       ],
+      "name": "Favorite products",
       "settings": {
-        "collection": "our-products",
-        "products_to_show": 3,
-        "title": "Our Favorites",
-        "heading_size": "h1",
-        "description": "<p>Shop our favorites, from handcrafted pastas to wholesome snacks.<br/><br/></p>",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 3,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "outline",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 28,
-        "padding_bottom": 36
+        "heading": "Our Favorites",
+        "subheading": "Shop our favorites, from handcrafted pastas to wholesome snacks.",
+        "show_reviews": false,
+        "cta_label": "Explore einkorn products",
+        "cta_link": "shopify://collections/our-products"
       }
     },
     "image_banner_gLqwqB": {
@@ -344,10 +345,6 @@
         "pad_bottom": 36
       }
     },
-    "17574763113626dfe9": {
-      "type": "_blocks",
-      "settings": {}
-    },
     "media_text_with_products_twGjMQ": {
       "type": "media-text-with-products",
       "blocks": {
@@ -517,13 +514,11 @@
   "order": [
     "hero_video_banner_YcEC6y",
     "feature_icon_list_mA9hWt",
-    "17574508336770cce9",
-    "featured_collection",
+    "favorite_products_jUH9jf",
     "image_banner_gLqwqB",
     "175747319703cff1c8",
     "rich_text_4D6LYw",
     "media_text_with_products_WM7Mba",
-    "17574763113626dfe9",
     "media_text_with_products_twGjMQ",
     "featured_blog_bVJWbN",
     "17580608083475f65f",
