@@ -11,6 +11,10 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
+      "custom_css": [
+        "h1 {text-align: center;}",
+        ".collection-hero__description {width: 100%; max-width: none; margin-inline: auto; text-align: center;}"
+      ],
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
