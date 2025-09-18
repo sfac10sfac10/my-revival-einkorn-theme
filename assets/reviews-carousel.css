@@ -1,0 +1,54 @@
+/* Custom styles for Reviews Carousel judgme section */
+.jdgm-carousel__left-arrow,
+.jdgm-carousel__right-arrow,
+.jdgm-all-reviews-rating-wrapper{
+    display:none !important;
+}
+
+.jdgm-carousel-title {
+    font-size:28px;
+    color:#ffcb1f;
+}
+
+.jdgm-carousel__item-wrapper {
+    height:100% !important; 
+}
+
+.jdgm-carousel-item{
+    position:relative;
+    vertical-align: top !important;
+    padding-bottom:20px !important;
+}
+
+.jdgm-carousel-item__review {
+    margin-bottom: 20px !important;
+}
+
+.jdgm-carousel-item__reviewer-name {
+    font-size:16px !important;
+    color:#ffcb1f;
+    font-style:italic;
+    font-weight:700;
+    opacity:1 !important;
+}
+
+.jdgm-carousel-item__review-title {
+    color:#fff;
+    font-style:italic;
+    font-weight:400 !important;
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.jdgm-carousel-item__review-body {
+    color:#fff;
+    font-weight:400;
+    -webkit-line-clamp:none !important;
+}
+
+.jdgm-carousel-item__review-body p::before,
+.jdgm-carousel-item__review-body p::after {
+    content: '"';
+}

@@ -469,6 +469,16 @@
                     {{ block.settings.text | default: block.settings.page.title | escape }}
                   </button>
                 </modal-opener>
+              {%- when 'certifications_auto' -%}
+                {% render 'certifications-row-inline',
+                  product: product,
+                  heading: block.settings.heading,
+                  max_height: block.settings.max_height,
+                  gap: block.settings.gap,
+                  rounded: block.settings.rounded,
+                  hide_when_empty: block.settings.hide_when_empty,
+                  block_id: block.id
+                %}
               {%- when 'share' -%}
                 {% liquid
                   assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
@@ -932,6 +942,34 @@
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
       "limit": 1
+    },
+    {
+      "type": "certifications_auto",
+      "name": "Certifications (auto)",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Certifications" },
+        {
+          "type": "range",
+          "id": "max_height",
+          "label": "Max badge height (px)",
+          "min": 24,
+          "max": 120,
+          "step": 2,
+          "default": 48
+        },
+        {
+          "type": "range",
+          "id": "gap",
+          "label": "Gap between badges (px)",
+          "min": 8,
+          "max": 60,
+          "step": 2,
+          "default": 20
+        },
+        { "type": "checkbox", "id": "rounded", "label": "Rounded corners", "default": false },
+        { "type": "checkbox", "id": "hide_when_empty", "label": "Hide block when empty", "default": true }
+      ]
     },
     {
       "type": "share",

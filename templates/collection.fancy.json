@@ -24,6 +24,8 @@
         "columns_desktop": 3,
         "columns_mobile": "2",
         "color_scheme": "",
+        "hover_media_index": 3,
+        "show_reviews": true,
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": false,
@@ -36,10 +38,24 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "certifications_row_auto_BJXRBF": {
+      "type": "certifications-row-auto",
+      "name": "Certifications (auto)",
+      "settings": {
+        "heading": "",
+        "max_height": 70,
+        "gap": 28,
+        "rounded": false,
+        "full_width": true,
+        "hide_when_empty": true,
+        "empty_text": "No certifications yet."
+      }
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "product-grid",
+    "certifications_row_auto_BJXRBF"
   ]
 }

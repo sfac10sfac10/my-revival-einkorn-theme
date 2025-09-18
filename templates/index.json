@@ -415,6 +415,9 @@
       "block_order": [
         "judge_me_reviews_featured_carousel_7Acqze"
       ],
+      "custom_css": [
+        ".page-width {background: #2b2b2b;}",
+      ],
       "settings": {
         "include_margins": true
       }

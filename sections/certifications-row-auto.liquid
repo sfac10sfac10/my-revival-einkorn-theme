@@ -1,0 +1,138 @@
+{%- comment -%}
+  Certifications Row (auto)
+  - Auto-detects context: Product page -> product.metafields.custom.certifications
+                          Collection page -> collection.metafields.custom.certifications
+  - If nothing is found and "Hide when empty" is ON, nothing is rendered.
+  - Badges are Metaobjects of type "Badge" with fields: name (text), logo (image).
+{%- endcomment -%}
+
+{%- assign badges = blank -%}
+{%- assign context_label = '' -%}
+
+{%- if product and product.metafields.custom.certifications != blank -%}
+  {%- assign badges = product.metafields.custom.certifications.value -%}
+  {%- assign context_label = 'product' -%}
+{%- elsif collection and collection.metafields.custom.certifications != blank -%}
+  {%- assign badges = collection.metafields.custom.certifications.value -%}
+  {%- assign context_label = 'collection' -%}
+{%- endif -%}
+
+{%- if badges != blank or section.settings.hide_when_empty == false -%}
+  <section class="certs-{{ section.id }}{% if section.settings.full_width %} certs--full{% endif %}">
+    <div class="certs__inner page-width">
+      {%- if section.settings.heading != blank -%}
+        <h3 class="certs__heading">{{ section.settings.heading }}</h3>
+      {%- endif -%}
+
+      <div
+        class="certs-row"
+        role="list"
+        aria-label="Certifications{% if context_label != '' %} for {{ context_label }}{% endif %}"
+      >
+        {%- if badges != blank -%}
+          {%- for b in badges -%}
+            {%- assign img = b.logo -%}
+            {%- assign label = b.name | default: 'Certification' | escape -%}
+            {%- if img != blank -%}
+              <div class="certs-row__item" role="listitem">
+                {{
+                  img
+                  | image_url: width: 600
+                  | image_tag:
+                    widths: '200, 300, 400, 600',
+                    sizes: '(min-width: 990px) 12vw, (min-width: 750px) 18vw, 40vw',
+                    alt: label,
+                    class: 'certs-row__img',
+                    loading: 'lazy',
+                    width: img.width,
+                    height: img.height
+                }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- unless section.settings.hide_when_empty -%}
+            <div class="certs-row__placeholder">{{ section.settings.empty_text }}</div>
+          {%- endunless -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <style>
+      /* ===== Scoped styles for this section only ===== */
+      .certs-{{ section.id }} {
+        --cert-gap: {{ section.settings.gap | default: 28 }}px;
+        --cert-max-h: {{ section.settings.max_height | default: 70 }}px;
+        --cert-radius: {% if section.settings.rounded %}10{% else %}0{% endif %}px;
+      }
+      .certs-{{ section.id }}.certs--full .page-width { max-width: none; }
+
+      .certs-{{ section.id }} .certs__heading {
+        text-align: center;
+        margin: 0 0 18px;
+        font-weight: 700;
+      }
+
+      .certs-{{ section.id }} .certs-row {
+        display: flex;
+        gap: var(--cert-gap);
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap; /* one row on wide screens; wraps on small */
+      }
+
+      .certs-{{ section.id }} .certs-row__item { line-height: 0; }
+
+      .certs-{{ section.id }} .certs-row__img {
+        display: block;
+        height: var(--cert-max-h);
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        border-radius: var(--cert-radius);
+        background: transparent;
+      }
+
+      .certs-{{ section.id }} .certs-row__placeholder {
+        opacity: .6;
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      @media (max-width: 749px){
+        .certs-{{ section.id }} .certs-row__img { height: calc(var(--cert-max-h) * 0.9); }
+      }
+    </style>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Certifications (auto)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Certifications" },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Max badge height (px)",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "default": 70
+    },
+    { "type": "range", "id": "gap", "label": "Gap between badges (px)", "min": 8, "max": 60, "step": 2, "default": 28 },
+    { "type": "checkbox", "id": "rounded", "label": "Rounded corners", "default": false },
+    { "type": "checkbox", "id": "full_width", "label": "Stretch to full width", "default": true },
+    { "type": "checkbox", "id": "hide_when_empty", "label": "Hide section when no badges found", "default": true },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Fallback text (when not hidden)",
+      "default": "No certifications yet."
+    }
+  ],
+  "presets": [{ "name": "Certifications (auto)" }]
+}
+{% endschema %}

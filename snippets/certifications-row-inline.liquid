@@ -1,0 +1,85 @@
+{%- comment -%}
+  Certifications Row (inline for Product information)
+  - Reads product.metafields.custom.certifications (list of Badge metaobjects)
+  - Metaobject "Badge" fields: name (text), logo (image)
+
+  Accepts (all optional):
+    heading         : string
+    max_height      : number (px)
+    gap             : number (px)
+    rounded         : boolean
+    hide_when_empty : boolean
+    block_id        : string (for CSS scoping)
+{%- endcomment -%}
+
+{%- assign badges_mf = product.metafields.custom.certifications -%}
+{%- assign badges_values = badges_mf.value | default: blank -%}
+{%- assign hide_when_empty_flag = hide_when_empty | default: true -%}
+{%- assign css_scope = block_id | default: 'inline' -%}
+{%- assign heading_text = heading | default: '' -%}
+{%- assign badge_max_h = max_height | default: 48 -%}
+{%- assign badge_gap = gap | default: 20 -%}
+{%- assign rounded_flag = rounded | default: false -%}
+
+{%- if badges_values != blank or hide_when_empty_flag == false -%}
+  <div class="certs-{{ css_scope }}">
+    {%- if heading_text != blank -%}
+      <h3 class="certs__heading">{{ heading_text }}</h3>
+    {%- endif -%}
+
+    <div class="certs-row" role="list" aria-label="Certifications">
+      {%- if badges_values != blank -%}
+        {%- for badge in badges_values -%}
+          {%- assign img = badge.logo -%}
+          {%- assign label = badge.name | default: 'Certification' | escape -%}
+          {%- if img != blank -%}
+            <div class="certs-row__item" role="listitem">
+              {{
+                img
+                | image_url: width: 600
+                | image_tag:
+                  widths: '200, 300, 400, 600',
+                  sizes: '(min-width: 990px) 420px, (min-width: 750px) 300px, 240px',
+                  alt: label,
+                  class: 'certs-row__img',
+                  loading: 'lazy',
+                  width: img.width,
+                  height: img.height
+              }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- unless hide_when_empty_flag -%}
+          <div class="certs-row__placeholder">No certifications yet.</div>
+        {%- endunless -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <style>
+    /* === Scoped styles for this block only === */
+    .certs-{{ css_scope }} {
+      --cert-gap: {{ badge_gap }}px;
+      --cert-max-h: {{ badge_max_h }}px;
+      --cert-radius: {% if rounded_flag %}10{% else %}0{% endif %}px;
+    }
+    .certs-{{ css_scope }} .certs__heading { margin: 0 0 10px; font-weight: 700; }
+    .certs-{{ css_scope }} .certs-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap; /* wrap gracefully in narrow sidebars */
+      gap: var(--cert-gap);
+    }
+    .certs-{{ css_scope }} .certs-row__item { line-height: 0; }
+    .certs-{{ css_scope }} .certs-row__img {
+      height: var(--cert-max-h);
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: var(--cert-radius);
+      display: block;
+    }
+    .certs-{{ css_scope }} .certs-row__placeholder { opacity:.6; }
+  </style>
+{%- endif -%}
