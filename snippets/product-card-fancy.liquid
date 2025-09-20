@@ -333,9 +333,7 @@
         {%- endif -%}
       {%- else -%}
         {%- if prod.available -%}
-          <a class="pcard__btn" href="{{ prod.url }}">
-            {{ 'products.product.view_full_details' | t | default: 'View options' }}
-          </a>
+          <a class="pcard__btn" href="{{ prod.url }}"> View options </a>
         {%- else -%}
           <button type="button" class="pcard__btn pcard__btn--disabled" disabled>
             {{ 'products.product.sold_out' | t }}

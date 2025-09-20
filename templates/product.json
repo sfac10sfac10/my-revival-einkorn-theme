@@ -12,13 +12,6 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {}
@@ -84,7 +77,6 @@
         }
       },
       "block_order": [
-        "vendor",
         "title",
         "caption",
         "price",
@@ -95,6 +87,9 @@
         "description",
         "icon_with_text_BFdAKq",
         "certifications_auto_TKdVcF"
+      ],
+      "custom_css": [
+        ".page-width {padding-inline: 30px;}"
       ],
       "settings": {
         "enable_sticky_info": true,

@@ -1,0 +1,439 @@
+{%- comment -%}
+  Highlight with Mini Cards
+  -----------------------------------------
+  A responsive section with one big "feature" column (image + rich text stack)
+  and a responsive grid of mini cards on the side.
+
+  Key behaviors
+  - Feature image: rounded corners + accent outline; keeps a rectangular ratio and never distorts (object-fit).
+  - Mini cards: same visual size, rectangular ratio, rounded corners.
+  - Desktop: feature takes the left (or right) column; mini cards try to fill the remaining space; if they don’t fit on one row they wrap underneath.
+  - Mobile (<750px): feature on top, then a 3-column grid of mini cards.
+  - All comments are in English as requested.
+
+  Settings
+  - Accent color (default #FFCB1F)
+  - Background color
+  - Max width of the whole content
+  - Feature position (left/right)
+  - Feature image + alt
+  - Feature text stack via “Feature text” blocks (each block lets you choose style)
+  - Mini cards via “Mini card” blocks
+
+  Notes
+  - Uses `image_tag` so width/height attributes are present.
+  - Safe defaults for sizes and ratios; adjust in the schema if needed.
+{%- endcomment -%}
+
+{%- assign accent = section.settings.accent | default: '#FFCB1F' -%}
+{%- assign main = section.settings.main | default: '#FFFFFF' -%}
+{%- assign bg = section.settings.bg | default: 'transparent' -%}
+{%- assign maxw = section.settings.max_width | default: 1200 -%}
+{%- assign feature_pos = section.settings.feature_position | default: 'left' -%}
+
+<section
+  class="hlmc hlmc--{{ feature_pos }} section-{{ section.id }}"
+  style="--hl-accent: {{ accent }}; --hl-main: {{ main }}; --hl-bg: {{ bg }}; --hl-max: {{ maxw }}px;"
+>
+  <div class="hlmc__inner">
+    {%- comment -%} Feature (image + text stack) {%- endcomment -%}
+    <div class="hlmc__feature">
+      {%- if section.settings.feature_image != blank -%}
+        {%- assign fimg = section.settings.feature_image -%}
+        {%- assign fimg_alt = section.settings.feature_alt | default: section.settings.title -%}
+
+        <div class="hlmc__feature-media">
+          {{
+            fimg
+            | image_url: width: 1400
+            | image_tag:
+              widths: '480, 700, 960, 1200, 1400',
+              sizes: '(min-width: 1200px) 38vw, (min-width: 990px) 45vw, 100vw',
+              class: 'hlmc__feature-img',
+              alt: fimg_alt,
+              loading: 'lazy',
+              width: fimg.width,
+              height: fimg.height
+          }}
+        </div>
+      {%- endif -%}
+
+      <div class="hlmc__feature-text">
+        {%- comment -%} Loop only "Feature text" blocks {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature_text' -%}
+            {%- case block.settings.kind -%}
+              {%- when 'eyebrow' -%}
+                <p class="hlmc__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
+              {%- when 'h1' -%}
+                <h2 class="hlmc__h1" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+              {%- when 'h2' -%}
+                <h3 class="hlmc__h2" {{ block.shopify_attributes }}>{{ block.settings.richtext }}</h3>
+              {%- when 'body' -%}
+                <div class="hlmc__body" {{ block.shopify_attributes }}>{{ block.settings.richtext }}</div>
+              {%- when 'note' -%}
+                <p class="hlmc__note" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+            {%- endcase -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} Aside grid with mini cards {%- endcomment -%}
+    <div class="hlmc__aside">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'mini_card' -%}
+          {%- assign cimg = block.settings.image -%}
+          {%- assign cimg_alt = block.settings.alt | default: block.settings.title -%}
+          <div class="hlmc-card" {{ block.shopify_attributes }}>
+            {%- if cimg != blank -%}
+              <div class="hlmc-card__media">
+                {{
+                  cimg
+                  | image_url: width: 700
+                  | image_tag:
+                    widths: '280, 420, 560, 700',
+                    sizes: '(min-width: 1200px) 18vw, (min-width: 990px) 22vw, 28vw',
+                    class: 'hlmc-card__img',
+                    alt: cimg_alt,
+                    loading: 'lazy',
+                    width: cimg.width,
+                    height: cimg.height
+                }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h4 class="hlmc-card__title">{{ block.settings.title }}</h4>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <p class="hlmc-card__subtitle">
+                {{ block.settings.subtitle }}
+              </p>
+            {%- endif -%}
+            {%- if block.settings.meta != blank -%}
+              <p class="hlmc-card__meta">{{ block.settings.meta }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <style>
+    /* ====== Layout shell ====== */
+    .section-{{ section.id }}.hlmc{ background: var(--hl-bg); }
+    .section-{{ section.id }} .hlmc__inner{
+        margin-inline: auto;
+        padding: 50px 128px 128px;
+        display: grid;
+        gap: clamp(20px, 3vw, 40px);
+        /* Mobile-first: single column; desktop switches to two columns */
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 750px){
+        .section-{{ section.id }} .hlmc__inner{
+        grid-template-columns: 1.1fr 1fr;
+        align-items: start;
+        }
+        /* Swap columns when section setting = "right" */
+        .section-{{ section.id }}.hlmc--right .hlmc__feature{ order: 2; }
+        .section-{{ section.id }}.hlmc--right .hlmc__aside{   order: 1; }
+    }
+
+    /* ====== Feature column ====== */
+    .section-{{ section.id }} .hlmc__feature{
+        display: grid;
+        gap: clamp(16px, 2.5vw, 24px);
+    }
+    @media (min-width: 750px){
+        /* Desktop: always image left + text right */
+        .section-{{ section.id }} .hlmc__feature{
+        grid-template-columns: auto 1fr;
+        align-items: start;
+        column-gap: clamp(18px, 3vw, 40px);
+        }
+    }
+
+    /* Feature image wrapper */
+    .section-{{ section.id }} .hlmc__feature-media{
+        border-radius: 18px;
+        border: 4px solid var(--hl-accent); /* accent outline */
+        background: transparent;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;               /* rectangular ratio, never distorts */
+        display: grid;
+        /* On desktop, image width shrinks/grows within safe bounds */
+        width: 20vw;
+        justify-self: start;
+        width: 20vw;
+        max-width: 300px;
+    }
+    .section-{{ section.id }} .hlmc__feature-img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        border-radius: 12px;
+        display: block;
+        background: #fff;
+    }
+
+    /* Feature text stack */
+    .section-{{ section.id }} .hlmc__feature-text{
+        width: 40vw;
+        max-width: 220px;
+        display: grid;
+        gap: 8px;
+        color: var(--hl-accent);
+    }
+
+    .section-{{ section.id }} .hlmc__eyebrow{
+        font-family: 'Roboto Condensed', 'Roboto', sans-serif;
+        line-height: 1.2;
+        font-size: 36px;
+        letter-spacing: 0.06rem;
+        font-weight: 700;
+        color: var(--hl-accent);
+        margin: 0;
+    }
+    .section-{{ section.id }} .hlmc__h1{
+        color: var(--hl-accent);
+        font-family: 'Roboto', sans-serif;
+        font-size: clamp(28px, 5vw, 52px);
+        line-height: 1.3;
+        font-weight: 800;
+    }
+    .section-{{ section.id }} .hlmc__h2{
+        color: var(--hl-accent);
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.3;
+        font-weight: 400;
+        font-size: 16px;
+        margin: 0;
+        p {
+            margin: 0 0 8px;
+        }
+    }
+    .section-{{ section.id }} .hlmc__body{
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        line-height: 1.5;
+        font-weight: 400;
+        margin: 0;
+    }
+    .section-{{ section.id }} .hlmc__note{
+        font-family: 'Roboto', sans-serif;
+        font-style: italic;
+        font-size: 12px;
+        line-height: 1.5;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    /* Mobile rules for the feature:
+        - Text goes below the image
+        - Image is centered and does not span full width */
+    @media (max-width: 749.98px){
+        .section-{{ section.id }} .hlmc__feature{
+        grid-template-columns: 1fr;
+        justify-items: center;
+        }
+        .section-{{ section.id }} .hlmc__feature-media{
+        width: min(82%, 360px);          /* pleasant default size on mobile */
+        margin-inline: auto;
+        }
+        .section-{{ section.id }} .hlmc__feature-text{
+        text-align: center;              /* center all feature texts on mobile */
+        width: 100%;
+        }
+    }
+
+    /* ====== Aside mini-cards grid ====== */
+    .section-{{ section.id }} .hlmc__aside{
+        display: grid;
+        gap: 36px;
+        /* Desktop: try to fit three; they wrap under the feature if needed */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-content: start;
+    }
+    @media (min-width: 750px) and (max-width: 989.98px){
+        /* Medium view: often only 1–2 beside the feature */
+        .section-{{ section.id }} .hlmc__aside{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+    }
+    @media (min-width: 990px) and (max-width: 1189.98px){
+        /* Medium view: often only 1–2 beside the feature */
+        .section-{{ section.id }} .hlmc__aside{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+    @media (max-width: 749.98px){
+        /* Mobile: three across beneath the feature */
+        .section-{{ section.id }} .hlmc__aside{
+        margin-top: 40px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    /* ====== Mini card ====== */
+    .section-{{ section.id }} .hlmc-card{
+        max-width: 120px;
+        width: clamp(90px, 10vw, 161px);
+        color: var(--hl-main);
+        display: grid;
+        justify-items: center;  /* center content horizontally */
+        text-align: center;     /* center all texts */
+        gap: 8px;
+    }
+
+    @media (max-width: 749.98px){
+        /* Mobile: three across beneath the feature */
+        .section-{{ section.id }} .hlmc-card{
+        width: 100%;
+        }
+    }
+    .section-{{ section.id }} .hlmc-card__media{
+        width: 100%;
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;     /* consistent rectangular box */
+        display: grid;
+        place-items: center;
+    }
+    .section-{{ section.id }} .hlmc-card__img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+    }
+    .section-{{ section.id }} .hlmc-card__title{
+        color: var(--hl-main);
+        font-family: 'Roboto Condensed', 'Roboto', sans-serif;
+        font-size: 24px;
+        line-height: 1.2;
+        letter-spacing: 0.06rem;
+        font-weight: 700;
+        margin: 0;
+    }
+    .section-{{ section.id }} .hlmc-card__subtitle{
+        color: var(--hl-main);
+        font-family: 'Roboto', sans-serif;
+        font-style: italic;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 400;
+        margin: 0;
+    }
+    .section-{{ section.id }} .hlmc-card__meta{
+        color: var(--hl-main);
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 400;
+        margin: 0;
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Highlight with mini cards",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Background color", "default": "#2f2f2f" },
+    { "type": "color", "id": "accent", "label": "Accent color", "default": "#FFCB1F" },
+    { "type": "color", "id": "main", "label": "Main color", "default": "#FFFFFF" },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max content width (px)",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "feature_position",
+      "label": "Feature position on desktop",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "image_picker", "id": "feature_image", "label": "Feature image" },
+    { "type": "text", "id": "feature_alt", "label": "Feature image alt text" },
+    { "type": "text", "id": "title", "label": "Internal label (optional)", "default": "Title" }
+  ],
+  "blocks": [
+    {
+      "type": "feature_text",
+      "name": "Feature text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "kind",
+          "label": "Text style",
+          "default": "h1",
+          "options": [
+            { "value": "eyebrow", "label": "Eyebrow (small uppercase in accent)" },
+            { "value": "h1", "label": "Title (large, accent)" },
+            { "value": "h2", "label": "Subtitle" },
+            { "value": "body", "label": "Body rich text" },
+            { "value": "note", "label": "Footnote (small, italic)" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text (for eyebrow, title, note)",
+          "default": "Sample text"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Body (for subtitle and body style)",
+          "default": "<p>Vitamin A <strong>+3367 %</strong><br>Riboflavin <strong>+291 %</strong><br>Beta carotene <strong>+290 %</strong><br>Lutein <strong>+250 %</strong><br><strong>+Lower antigen levels</strong></p>"
+        }
+      ]
+    },
+    {
+      "type": "mini_card",
+      "name": "Mini card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Image alt text" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Emmer" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle (italic)", "default": "Triticum dicoccum" },
+        { "type": "text", "id": "meta", "label": "Meta (e.g. year)", "default": "8,000 BC" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Highlight with mini cards",
+      "blocks": [
+        { "type": "feature_text", "settings": { "kind": "eyebrow", "text": "Einkorn" } },
+        {
+          "type": "feature_text",
+          "settings": { "kind": "h2", "text": "<em>Triticum monococcum %</em><br>12,000 BC" }
+        },
+        { "type": "feature_text", "settings": { "kind": "body" } },
+        { "type": "feature_text", "settings": { "kind": "note", "text": "* vs. other wheats" } },
+        { "type": "mini_card" },
+        { "type": "mini_card", "settings": { "title": "Spelt", "subtitle": "Triticum spelta", "meta": "6,000 BC" } },
+        {
+          "type": "mini_card",
+          "settings": { "title": "Modern Wheat", "subtitle": "Triticum aestivum", "meta": "1940s" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

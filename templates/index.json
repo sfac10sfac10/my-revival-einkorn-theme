@@ -298,16 +298,109 @@
         "button_iczMw7"
       ],
       "custom_css": [
-        "p {color: white; max-width: 600px;}"
+        ".rich-text__heading {font-family: \"Roboto Condensed\", Roboto, sans-serif; font-size: 48px; font-weight: 700; line-height: 1.2; letter-spacing: 0.24px;}",
+        "p {font-family: Roboto, sans-serif; color: white; max-width: 750px; margin: 30px 0; line-height: 1.4; font-size: 20px;}",
+        ".rich-text__blocks {max-width: 1000px;}",
+        ".rich-text__wrapper {padding-top: 80px;}",
+        "@media (min-width: 750px) {.rich-text__wrapper {padding: 80px 128px 0; }}",
+        ".button {padding: 20px 40px;}",
+        ".button:after {border-radius: 12px;}"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "desktop_content_position": "center",
+        "desktop_content_position": "left",
         "content_alignment": "left",
         "color_scheme": "scheme-a706bb99-7d5c-4aef-ae8f-e8cd18d63006",
         "full_width": true,
         "padding_top": 40,
         "padding_bottom": 52
+      }
+    },
+    "highlight_with_mini_cards_QXxyYN": {
+      "type": "highlight-with-mini-cards",
+      "blocks": {
+        "feature_text_AWaMmi": {
+          "type": "feature_text",
+          "settings": {
+            "kind": "eyebrow",
+            "text": "Einkorn",
+            "richtext": "<p>Vitamin A <strong>+3367 %</strong><br>Riboflavin <strong>+291 %</strong><br>Beta carotene <strong>+290 %</strong><br>Lutein <strong>+250 %</strong><br><strong>+Lower antigen levels</strong></p>"
+          }
+        },
+        "feature_text_KdakQE": {
+          "type": "feature_text",
+          "settings": {
+            "kind": "h2",
+            "text": "Triticum monococcum",
+            "richtext": "<p><em>Triticum monococcum</em></p><p>12,000 BC</p>"
+          }
+        },
+        "feature_text_D3UkrW": {
+          "type": "feature_text",
+          "settings": {
+            "kind": "body",
+            "text": "Sample text",
+            "richtext": "<p>Vitamin A <strong>+3367 %</strong><br>Riboflavin <strong>+291 %</strong><br>Beta carotene <strong>+290 %</strong><br>Lutein <strong>+250 %</strong><br><strong>+Lower antigen levels</strong></p>"
+          }
+        },
+        "feature_text_WqrHiK": {
+          "type": "feature_text",
+          "settings": {
+            "kind": "note",
+            "text": "* vs. other wheats",
+            "richtext": "<p>Vitamin A <strong>+3367 %</strong><br>Riboflavin <strong>+291 %</strong><br>Beta carotene <strong>+290 %</strong><br>Lutein <strong>+250 %</strong><br><strong>+Lower antigen levels</strong></p>"
+          }
+        },
+        "mini_card_Cwh3Cm": {
+          "type": "mini_card",
+          "settings": {
+            "image": "shopify://shop_images/home-highlight-sub-1.webp",
+            "alt": "",
+            "title": "Emmer",
+            "subtitle": "Triticum dicoccum",
+            "meta": "8,000 BC"
+          }
+        },
+        "mini_card_daWdtU": {
+          "type": "mini_card",
+          "settings": {
+            "image": "shopify://shop_images/home-highlight-sub-2.webp",
+            "alt": "",
+            "title": "Spelt",
+            "subtitle": "Triticum spelta",
+            "meta": "6,000 BC"
+          }
+        },
+        "mini_card_EYfLwL": {
+          "type": "mini_card",
+          "settings": {
+            "image": "shopify://shop_images/home-highlight-sub-3.webp",
+            "alt": "",
+            "title": "Modern Wheat",
+            "subtitle": "Triticum aestivum",
+            "meta": "1940s"
+          }
+        }
+      },
+      "block_order": [
+        "feature_text_AWaMmi",
+        "feature_text_KdakQE",
+        "feature_text_D3UkrW",
+        "feature_text_WqrHiK",
+        "mini_card_Cwh3Cm",
+        "mini_card_daWdtU",
+        "mini_card_EYfLwL"
+      ],
+      "name": "Highlight with mini cards",
+      "settings": {
+        "bg": "#2f2f2f",
+        "accent": "#ffcb1f",
+        "main": "#ffffff",
+        "max_width": 1200,
+        "feature_position": "left",
+        "feature_image": "shopify://shop_images/home-highlight-main.webp",
+        "feature_alt": "",
+        "title": "Title"
       }
     },
     "media_text_with_products_WM7Mba": {
@@ -416,7 +509,7 @@
         "judge_me_reviews_featured_carousel_7Acqze"
       ],
       "custom_css": [
-        ".page-width {background: #2b2b2b;}",
+        ".page-width {background: #2b2b2b; max-width: none;}"
       ],
       "settings": {
         "include_margins": true
@@ -497,6 +590,7 @@
     "image_banner_gLqwqB",
     "175747319703cff1c8",
     "rich_text_4D6LYw",
+    "highlight_with_mini_cards_QXxyYN",
     "media_text_with_products_WM7Mba",
     "media_text_with_products_twGjMQ",
     "featured_blog_bVJWbN",
