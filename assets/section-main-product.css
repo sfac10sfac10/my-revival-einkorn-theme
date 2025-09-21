@@ -23,7 +23,7 @@ product-info {
   .product__column-sticky {
     display: block;
     position: sticky;
-    top: 3rem;
+    top: 100px;
     z-index: 2;
   }
 
@@ -1538,4 +1538,38 @@ a.product__text {
     margin: 0 !important;
     width: 100% !important;
   }
+}
+
+.product__title h1{
+  font-family: "Roboto Condensed", Roboto, sans-serif;
+  color: rgba(0, 0, 0, 1);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.18px;
+}
+.product__description {
+  line-height: 1.5;
+  font-size: 16px;
+  letter-spacing: 0.08px;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(55,55,55,1);
+  margin-bottom: 0 !important;
+}
+
+.icon-with-text {
+  margin-top: 15px !important;
+}
+
+.icon-with-text__item .inline-richtext {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.bundle-options-title {
+  font-size: 16px;
+  opacity: 1;
+  color: rgba(0, 0, 0, 1);
+  margin: 0 0 20px;
 }

@@ -1,0 +1,369 @@
+{%- comment -%}
+  Bundle cards option renderer (robust)
+  - Extracts quantity by scanning tokens and stripping common suffixes (pack, case, x, commas, parens, dashes).
+  - Baseline single price = price of the variant whose derived qty == 1 (fallback: product.price_min).
+  - Save% = floor(100 - (variant_price*100) / (qty*single_price)).
+  - Uses the same input id/name/data-* that Dawn expects so variant-selects JS keeps working.
+{%- endcomment -%}
+
+{%- assign position = option.position -%}
+{%- assign single_variant = null -%}
+{%- for v in product.variants -%}
+  {%- assign ov = '' -%}
+  {%- case position -%}
+    {%- when 1 -%}
+      {%- assign ov = v.option1 -%}
+    {%- when 2 -%}
+      {%- assign ov = v.option2 -%}
+    {%- when 3 -%}
+      {%- assign ov = v.option3 -%}
+  {%- endcase -%}
+
+  {%- assign lc = ov | downcase -%}
+  {%- assign words = lc | replace: '-', ' ' | split: ' ' -%}
+  {%- assign q = 0 -%}
+  {%- for w in words -%}
+    {%- assign t = w
+      | remove: ','
+      | remove: '.'
+      | remove: '('
+      | remove: ')'
+      | remove: 'x'
+      | remove: 'pack'
+      | remove: 'case'
+      | strip
+    -%}
+    {%- assign n = t | plus: 0 -%}
+    {%- if n > q -%}{%- assign q = n -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if q == 0 -%}{%- assign q = 1 -%}{%- endif -%}
+
+  {%- if q == 1 -%}
+    {%- assign single_variant = v -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign single_price = single_variant.price | default: product.price_min -%}
+
+<div class="bundle-cards" data-single-price="{{ single_price }}">
+  <div class="bundle-cards__grid">
+    {%- for value in option.values -%}
+      {%- assign value_text = value -%}
+      {%- if value.value -%}{%- assign value_text = value.value -%}{%- endif -%}
+
+      {%- assign input_id = section_id
+        | append: '-'
+        | append: option.position
+        | append: '-'
+        | append: forloop.index0
+      -%}
+      {%- assign input_name = option.name | append: '-' | append: option.position -%}
+
+      {%- assign option_disabled = true -%}
+      {%- if value.available -%}{%- assign option_disabled = false -%}{%- endif -%}
+
+      {%- assign match_variant = null -%}
+      {%- for v in product.variants -%}
+        {%- assign ov = '' -%}
+        {%- case position -%}
+          {%- when 1 -%}
+            {%- assign ov = v.option1 -%}
+          {%- when 2 -%}
+            {%- assign ov = v.option2 -%}
+          {%- when 3 -%}
+            {%- assign ov = v.option3 -%}
+        {%- endcase -%}
+        {%- if ov == value_text -%}
+          {%- assign match_variant = v -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- assign lc = value_text | downcase -%}
+      {%- assign words = lc | replace: '-', ' ' | split: ' ' -%}
+      {%- assign qty = 0 -%}
+      {%- for w in words -%}
+        {%- assign t = w
+          | remove: ','
+          | remove: '.'
+          | remove: '('
+          | remove: ')'
+          | remove: 'x'
+          | remove: 'pack'
+          | remove: 'case'
+          | strip
+        -%}
+        {%- assign n = t | plus: 0 -%}
+        {%- if n > qty -%}{%- assign qty = n -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if qty == 0 -%}{%- assign qty = 1 -%}{%- endif -%}
+
+      {%- assign v_price = match_variant.price -%}
+      {%- assign is_checked = false -%}
+      {%- if value.selected -%}{%- assign is_checked = true -%}{%- endif -%}
+
+      {%- assign denom = qty | times: single_price -%}
+      {%- if qty > 1 and denom > 0 and v_price < denom -%}
+        {%- assign diff = denom | minus: v_price -%}
+        {%- assign save_pct = diff | times: 100 | divided_by: denom -%}
+        {%- assign save_pct = save_pct | at_least: 0 -%}
+      {%- else -%}
+        {%- assign save_pct = 0 -%}
+      {%- endif -%}
+
+      <input
+        class="bundle-card__input visually-hidden"
+        type="radio"
+        id="{{ input_id }}"
+        name="{{ input_name | escape }}"
+        value="{{ value_text | escape }}"
+        form="{{ product_form_id }}"
+        data-product-url="{{ value.product_url }}"
+        data-option-value-id="{{ value.id }}"
+        {% if is_checked %}
+          checked
+        {% endif %}
+        {% if option_disabled %}
+          class="disabled"
+        {% endif %}
+        data-qty="{{ qty }}"
+        data-variant-price="{{ v_price }}"
+      >
+
+      <label
+        class="bundle-card{% if is_checked %} is-active{% endif %}{% if option_disabled %} is-disabled{% endif %}"
+        for="{{ input_id }}"
+      >
+        {%- if qty > 1 and save_pct > 0 -%}
+          <span class="bundle-card__badge">Save {{ save_pct }}%</span>
+        {%- endif -%}
+        <span class="bundle-card__title">{{ value_text }}</span>
+        <span class="bundle-card__price">{{ v_price | money }}</span>
+        <span class="visually-hidden label-unavailable">
+          {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
+        </span>
+      </label>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  /* --- grid --- */
+  .product-form__input--bundle-cards .bundle-cards__grid{
+    display:grid; gap:14px;
+    grid-template-columns: repeat(3, minmax(0,128px));
+  }
+  @media (max-width: 990px){ .product-form__input--bundle-cards .bundle-cards__grid{ grid-template-columns: repeat(2,128px); } }
+  @media (max-width: 540px){ .product-form__input--bundle-cards .bundle-cards__grid{ grid-template-columns: 128px; } }
+
+  /* --- card --- */
+  .product-form__input--bundle-cards .bundle-card{
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    width:128px
+    height:128px;
+    position:relative;
+    display:grid; gap:.35rem;
+    padding:30px 10px;
+    border-radius:14px;
+    border:2px solid #e5e7eb;
+    background:#fff;
+    cursor:pointer;
+    text-align: center;
+  }
+  .product-form__input--bundle-cards .bundle-card.is-active{
+    background:#2f2f2f; color:#fff; border-color:#2f2f2f;
+  }
+  .product-form__input--bundle-cards .bundle-card.is-disabled{ opacity:.5; cursor:not-allowed; }
+  .product-form__input--bundle-cards .bundle-card__title{ font-weight:600; }
+  .product-form__input--bundle-cards .bundle-card__price{ font-weight:400; }
+  .product-form__input--bundle-cards .bundle-card__badge{
+    position:absolute;
+    top:-10px;
+    left:50%;
+    background:#4d7c0f;
+    color:#fff;
+    font-weight:500;
+    font-size:14px;
+    line-height:1;
+    padding:6px 10px;
+    border-radius:999px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  /* strike inside main price */
+  #price-{{ section_id }} .bundle-unit-strike{
+    text-decoration: line-through;
+    opacity:.6;
+    margin-right:.5rem;
+    display:inline-block;
+  }
+</style>
+
+<script>
+  (function () {
+    const fieldset = document.currentScript.closest('[data-bundle-cards]');
+    if (!fieldset || fieldset.dataset.bundleInit === '1') return;
+    fieldset.dataset.bundleInit = '1';
+
+    const container = fieldset.querySelector('.bundle-cards');
+    const singlePrice = parseInt(container?.dataset.singlePrice || '0', 10);
+    const priceRoot = document.getElementById('price-{{ section_id }}');
+    if (!priceRoot) return;
+
+    // --- helpers ---
+    function isVisible(el) {
+      return !!(el && el.offsetParent !== null);
+    }
+    function getVisiblePriceNode() {
+      const sale = priceRoot.querySelector('.price__sale .price-item--last');
+      if (sale && isVisible(sale)) return sale;
+      const regular = priceRoot.querySelector('.price__regular .price-item--regular');
+      if (regular && isVisible(regular)) return regular;
+      return sale || regular || null;
+    }
+    function getOrCreateStrike() {
+      let s = priceRoot.querySelector('.bundle-unit-strike[data-bundle-strike="1"]');
+      if (!s) {
+        s = document.createElement('span');
+        s.className = 'bundle-unit-strike';
+        s.setAttribute('data-bundle-strike', '1');
+        s.style.display = 'none';
+      }
+      return s;
+    }
+    function placeStrikeBefore(target, strike) {
+      if (!target || !strike) return;
+      const parent = target.parentNode;
+      if (strike.parentNode !== parent || strike.nextSibling !== target) {
+        parent.insertBefore(strike, target);
+      }
+    }
+    function activeInput() {
+      return fieldset.querySelector('input.bundle-card__input:checked');
+    }
+    function updateSelectedLegend() {
+      const sel = fieldset.querySelector('[data-selected-value]');
+      const inp = activeInput();
+      if (sel && inp) sel.textContent = inp.value;
+    }
+
+    // Qty robusto desde el texto visible (no confíes en data-qty)
+    function deriveQtyFromString(txt) {
+      if (!txt) return 1;
+      const s = String(txt).toLowerCase();
+      const nums = s.match(/\d+/g);
+      if (nums && nums.length)
+        return Math.max.apply(
+          null,
+          nums.map((n) => parseInt(n, 10))
+        );
+      if (s.includes('single')) return 1;
+      return 1;
+    }
+
+    // Formato siguiendo el precio visible actual
+    function moneyLike(cents) {
+      const target = getVisiblePriceNode();
+      const sample = (target?.textContent || '').trim();
+      const match = sample.match(/[\d]+(?:[.,]\d{3})*(?:[.,]\d{2})?/);
+      let prefix = '',
+        suffix = '';
+      if (match) {
+        const i = sample.indexOf(match[0]);
+        prefix = sample.slice(0, i);
+        suffix = sample.slice(i + match[0].length);
+      }
+      const n = (cents / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return `${prefix}${n}${suffix}`.trim();
+    }
+
+    // --- actualización con guardas para evitar bucles ---
+    let rafId = 0;
+    let isUpdating = false;
+
+    function scheduleUpdate() {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateStrike);
+    }
+
+    function updateStrike() {
+      if (isUpdating) return;
+      isUpdating = true;
+
+      try {
+        const inp = activeInput();
+        const target = getVisiblePriceNode();
+        const strike = getOrCreateStrike();
+
+        // Colocar el strike justo antes del precio visible que Dawn muestre
+        if (target) placeStrikeBefore(target, strike);
+
+        if (!inp || !target) {
+          strike.style.display = 'none';
+          return;
+        }
+
+        const qty = deriveQtyFromString(inp.value);
+        const strikeTotal = qty > 1 ? qty * singlePrice : 0;
+
+        if (strikeTotal > 0) {
+          strike.textContent = moneyLike(strikeTotal);
+          strike.style.display = 'inline-block';
+        } else {
+          strike.style.display = 'none';
+        }
+
+        // Limpia duplicados accidentales
+        priceRoot
+          .querySelectorAll('.bundle-unit-strike:not([data-bundle-strike="1"])')
+          .forEach((n) => n.parentNode?.removeChild(n));
+      } finally {
+        // Libera en el próximo frame para absorber mutaciones pendientes sin reentrar
+        requestAnimationFrame(() => {
+          isUpdating = false;
+        });
+      }
+    }
+
+    // Eventos de interacción
+    fieldset.addEventListener('change', (e) => {
+      if (e.target.matches('input.bundle-card__input')) {
+        fieldset.querySelectorAll('.bundle-card').forEach((l) => l.classList.remove('is-active'));
+        const lbl = e.target.nextElementSibling;
+        if (lbl) lbl.classList.add('is-active');
+        updateSelectedLegend();
+        scheduleUpdate();
+      }
+    });
+
+    const variantRoot = fieldset.closest('variant-selects');
+    variantRoot?.addEventListener('change', scheduleUpdate);
+    variantRoot?.addEventListener('variant:change', scheduleUpdate);
+
+    // Observer con filtro para ignorar nuestras propias mutaciones
+    const mo = new MutationObserver((records) => {
+      // Si todas las mutaciones afectan solo a nuestro strike, ignora
+      const onlyStrike = records.every((rec) => {
+        const isStrikeTarget = rec.target?.nodeType === 1 && rec.target.getAttribute?.('data-bundle-strike') === '1';
+        const addedOnlyStrike = Array.from(rec.addedNodes || []).every(
+          (n) => n.nodeType === 1 && n.getAttribute?.('data-bundle-strike') === '1'
+        );
+        const removedOnlyStrike = Array.from(rec.removedNodes || []).every(
+          (n) => n.nodeType === 1 && n.getAttribute?.('data-bundle-strike') === '1'
+        );
+        return isStrikeTarget || (addedOnlyStrike && removedOnlyStrike);
+      });
+      if (onlyStrike) return;
+
+      // Si Dawn tocó el precio, reubica/actualiza en el siguiente frame
+      scheduleUpdate();
+    });
+    mo.observe(priceRoot, { childList: true, subtree: true, characterData: true });
+
+    // Primer pintado
+    updateSelectedLegend();
+    scheduleUpdate();
+  })();
+</script>

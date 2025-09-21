@@ -19,11 +19,13 @@
         assign swatch_count = option.values | map: 'swatch' | compact | size
         assign picker_type = block.settings.picker_type
 
-        if swatch_count > 0 and block.settings.swatch_shape != 'none'
-          if block.settings.picker_type == 'dropdown'
-            assign picker_type = 'swatch_dropdown'
-          else
-            assign picker_type = 'swatch'
+        if picker_type != 'bundle_cards'
+          if swatch_count > 0 and block.settings.swatch_shape != 'none'
+            if block.settings.picker_type == 'dropdown'
+              assign picker_type = 'swatch_dropdown'
+            else
+              assign picker_type = 'swatch'
+            endif
           endif
         endif
       -%}
@@ -51,6 +53,24 @@
             block: block,
             picker_type: picker_type
           %}
+        </fieldset>
+      {%- elsif picker_type == 'bundle_cards' -%}
+        <fieldset
+          class="js product-form__input product-form__input--bundle-cards"
+          data-bundle-cards
+          {{ block.shopify_attributes }}
+        >
+          <div class="form__label bundle-options-title">
+            {{ option.name | upcase }}
+          </div>
+
+          {%- render 'product-variant-bundle-cards',
+            product: product,
+            option: option,
+            block: block,
+            product_form_id: product_form_id,
+            section_id: section.id
+          -%}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

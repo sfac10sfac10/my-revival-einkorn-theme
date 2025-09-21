@@ -63,17 +63,19 @@
       --cert-gap: {{ badge_gap }}px;
       --cert-max-h: {{ badge_max_h }}px;
       --cert-radius: {% if rounded_flag %}10{% else %}0{% endif %}px;
+      padding: 20px 10px;
     }
     .certs-{{ css_scope }} .certs__heading { margin: 0 0 10px; font-weight: 700; }
     .certs-{{ css_scope }} .certs-row {
       display: flex;
       align-items: center;
-      flex-wrap: wrap; /* wrap gracefully in narrow sidebars */
+      flex-wrap: nowrap; /* wrap gracefully in narrow sidebars */
       gap: var(--cert-gap);
+      justify-content: center;
     }
     .certs-{{ css_scope }} .certs-row__item { line-height: 0; }
     .certs-{{ css_scope }} .certs-row__img {
-      height: var(--cert-max-h);
+      max-height: var(--cert-max-h);
       width: auto;
       max-width: 100%;
       object-fit: contain;

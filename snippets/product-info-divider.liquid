@@ -1,0 +1,37 @@
+{%- comment -%}
+  Product Info Divider
+  - Simple horizontal rule you can drop as a block inside Product information.
+  - Props:
+    - block (Shopify block, provides settings)
+    - section_id (string)
+  - Customizable: color, opacity, thickness, margin top/bottom.
+{%- endcomment -%}
+
+{%- assign hex = block.settings.color | default: '#373737' -%}
+{%- assign mt = block.settings.margin_top | default: 20 -%}
+{%- assign mb = block.settings.margin_bottom | default: 20 -%}
+{%- assign th = block.settings.thickness | default: 1 -%}
+{%- assign op = block.settings.opacity | default: 25 -%}
+
+<div
+  class="pi-divider"
+  style="
+    --pi-divider-color: {{ hex }};
+    --pi-divider-opacity: {{ op | divided_by: 100.0 }};
+    --pi-divider-mt: {{ mt }}px;
+    --pi-divider-mb: {{ mb }}px;
+    --pi-divider-thickness: {{ th }}px;
+  "
+>
+  <hr class="pi-divider__rule" aria-hidden="true">
+</div>
+
+<style>
+  /* Scoped, minimal styles (English comments) */
+  .pi-divider__rule {
+    border: 0;
+    border-top: var(--pi-divider-thickness) solid var(--pi-divider-color);
+    margin: var(--pi-divider-mt) 0 var(--pi-divider-mb);
+    opacity: var(--pi-divider-opacity);
+  }
+</style>
