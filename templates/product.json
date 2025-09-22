@@ -321,7 +321,9 @@
     "related-products": {
       "type": "related-products",
       "custom_css": [
-        "h2 {text-align: center;}"
+        "h2 {font-size: 28px; line-height: 1.1; text-align: center;}",
+        "@media (min-width: 990px) {h2 {font-size: 48px; line-height: 1; }}",
+        ".pcard__title a {font-family: \"Roboto Condensed\", Roboto, sans-serif; letter-spacing: 0.08px; font-weight: 700; font-size: 16px;}"
       ],
       "settings": {
         "heading": "<strong>You may also like</strong>",
@@ -338,6 +340,167 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "image_with_text_3wKUYP": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_nmnkiF": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Recipes</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_h4dj7a": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover simple and tasty einkorn recipes for versatile and delicious meals. Unlock the culinary potential of this ancient grain with our favorite recipes.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_V7E3mn": {
+          "type": "button",
+          "settings": {
+            "button_label": "Check out recipes",
+            "button_link": "shopify://blogs/recipes",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_nmnkiF",
+        "text_h4dj7a",
+        "button_V7E3mn"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/product-page-image.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "media_carousel_QwprU6": {
+      "type": "media-carousel",
+      "blocks": {
+        "image_4tNKF3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-1.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_qeqxQr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-2.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_4EgxAY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-3.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_7frEyM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-4.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_WMLKgr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-5.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_Cd3EnG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-6.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_j6iWfp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-7.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_e3Xd3p": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-8.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_aTmpcQ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-9.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_McXeAj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-10.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_KXRH8G": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-11.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_yzXfRT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-12.webp",
+            "alt": "Carousel image"
+          }
+        }
+      },
+      "block_order": [
+        "image_4tNKF3",
+        "image_qeqxQr",
+        "image_4EgxAY",
+        "image_7frEyM",
+        "image_WMLKgr",
+        "image_Cd3EnG",
+        "image_j6iWfp",
+        "image_e3Xd3p",
+        "image_aTmpcQ",
+        "image_McXeAj",
+        "image_KXRH8G",
+        "image_yzXfRT"
+      ],
+      "name": "Media carousel",
+      "settings": {
+        "bg": "rgba(0,0,0,0)",
+        "speed": 10,
+        "direction": "left",
+        "gap": 16,
+        "radius": 12,
+        "ratio": "1 / 1",
+        "pause_on_hover": false
+      }
     }
   },
   "order": [
@@ -345,6 +508,8 @@
     "feature_icon_list_mbdYhV",
     "175754283730fbe1cb",
     "175818440122135e79",
-    "related-products"
+    "related-products",
+    "image_with_text_3wKUYP",
+    "media_carousel_QwprU6"
   ]
 }

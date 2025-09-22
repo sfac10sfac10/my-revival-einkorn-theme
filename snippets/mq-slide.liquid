@@ -1,0 +1,25 @@
+{%- comment -%}
+  Single slide for the Marquee Carousel
+  - Expects: block (image, alt), section_id
+{%- endcomment -%}
+{%- assign img = block.settings.image -%}
+{%- assign alt = block.settings.alt | default: img.alt | default: 'Gallery image' -%}
+
+<div class="mq-slide" {{ block.shopify_attributes }}>
+  {%- if img != blank -%}
+    {{
+      img
+      | image_url: width: 1500
+      | image_tag:
+        widths: '400, 600, 800, 1000, 1200, 1500',
+        sizes: '(min-width: 1024px) calc(100vw / 6), (min-width: 768px) calc(100vw / 4.2), calc(100vw / 2.2)',
+        class: 'mq-slide__img',
+        alt: alt,
+        loading: 'lazy'
+    }}
+  {%- else -%}
+    <div class="mq-slide__img" style="background:#eee; display:grid; place-items:center; color:#999; font-size:14px;">
+      No image
+    </div>
+  {%- endif -%}
+</div>

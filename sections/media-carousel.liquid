@@ -1,0 +1,211 @@
+{%- comment -%}
+  Media Carousel (infinite loop)
+  --------------------------------
+  - Displays a horizontal, continuously scrolling strip of images that loops infinitely.
+  - Responsive slide widths mimic the reference:
+      mobile:  100vw / 2.2
+      >=768px: 100vw / 4.2
+      >=1024px:100vw / 6
+  - Uses CSS keyframes for smooth GPU-accelerated scrolling.
+  - Duplicates the slides once to create a seamless loop.
+  - Honors reduced motion preferences.
+
+  Settings you can tune in the schema:
+  - Background color
+  - Speed (seconds per loop)
+  - Direction (left/right)
+  - Gap between slides
+  - Corner radius
+  - Aspect ratio (square by default)
+  - Pause on hover
+{%- endcomment -%}
+
+{%- assign bg = section.settings.bg | default: 'transparent' -%}
+{%- assign speed = section.settings.speed | default: 30 -%}
+{%- assign dir = section.settings.direction | default: 'left' -%}
+{%- assign gap = section.settings.gap | default: 16 -%}
+{%- assign radius = section.settings.radius | default: 12 -%}
+{%- assign ratio = section.settings.ratio | default: '1 / 1' -%}
+{%- assign pause_on_hover = section.settings.pause_on_hover -%}
+
+<section class="marquee-{{ section.id }}" style="--mq-bg: {{ bg }};">
+  <div class="mq">
+    <div class="mq__viewport{% if pause_on_hover %} mq__viewport--hover-pause{% endif %}">
+      {%- comment -%} Track: we render slides twice for a seamless loop {%- endcomment -%}
+      <div
+        class="mq__track mq__track--{{ dir }}"
+        aria-hidden="false"
+        style="--mq-speed: {{ speed }}s; --mq-gap: {{ gap }}px; --mq-radius: {{ radius }}px; --mq-ratio: {{ ratio }};"
+      >
+        {%- for block in section.blocks -%}
+          {%- render 'mq-slide', block: block, section_id: section.id -%}
+        {%- endfor -%}
+        {%- comment -%} duplicate {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- render 'mq-slide', block: block, section_id: section.id -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* === Shell === */
+    .marquee-{{ section.id }}{ background: var(--mq-bg); }
+    .marquee-{{ section.id }} .mq{
+      width: 100%;
+      overflow: hidden;
+      padding: 16px 0;
+    }
+
+    /* === Viewport === */
+    .marquee-{{ section.id }} .mq__viewport{
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 5%, rgba(0,0,0,1) 95%, rgba(0,0,0,0));
+    }
+    /* Pause animation on hover if enabled */
+    .marquee-{{ section.id }} .mq__viewport--hover-pause:hover .mq__track{
+      animation-play-state: paused;
+    }
+
+    /* === Track (infinite scroll) === */
+    .marquee-{{ section.id }} .mq__track{
+      display: flex;
+      gap: var(--mq-gap);
+      will-change: transform;
+      animation: mq-scroll-left var(--mq-speed) linear infinite;
+    }
+    .marquee-{{ section.id }} .mq__track--right{
+      animation-name: mq-scroll-right;
+    }
+
+    /* Keyframes (two directions) */
+    @keyframes mq-scroll-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); } /* -50% because we duplicated the slides */
+    }
+    @keyframes mq-scroll-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    /* === Slide === */
+    .marquee-{{ section.id }} .mq-slide{
+      flex: 0 0 auto;
+      border-radius: var(--mq-radius);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: var(--mq-ratio);
+      width: calc(100vw / 2.2); /* mobile baseline */
+    }
+    @media (min-width: 768px){
+      .marquee-{{ section.id }} .mq-slide{
+        width: calc(100vw / 4.2);
+      }
+    }
+    @media (min-width: 1024px){
+      .marquee-{{ section.id }} .mq-slide{
+        width: calc(100vw / 6);
+      }
+    }
+
+    .marquee-{{ section.id }} .mq-slide__img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Respect reduced motion users */
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-{{ section.id }} .mq__track{
+        animation-duration: calc(var(--mq-speed) * 2);
+      }
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee carousel",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "color", "id": "bg", "label": "Background color", "default": "transparent" },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Loop duration (seconds)",
+      "min": 8,
+      "max": 120,
+      "step": 2,
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between slides (px)",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "Corner radius (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Aspect ratio",
+      "default": "1 / 1",
+      "options": [
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "3 / 2", "label": "Landscape (3:2)" },
+        { "value": "16 / 9", "label": "Landscape (16:9)" },
+        { "value": "3 / 4", "label": "Portrait (3:4)" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text", "default": "Carousel image" }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Media carousel",
+      "blocks": [{ "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }]
+    }
+  ]
+}
+{% endschema %}

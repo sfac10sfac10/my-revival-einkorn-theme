@@ -581,6 +581,119 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "media_carousel_MjUPyQ": {
+      "type": "media-carousel",
+      "blocks": {
+        "image_ewbQej": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-1.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_kL4yKr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-2.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_ejKbYD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-3.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_z8n3wt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-4.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_wmde6w": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-5.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_WmqF9N": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-6.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_bGgkF7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-7.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_RTjNqg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-8.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_PT7Vx7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-9.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_Ldrby7": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-10.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_G4jMyD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-11.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_brVHLX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-12.webp",
+            "alt": "Carousel image"
+          }
+        }
+      },
+      "block_order": [
+        "image_ewbQej",
+        "image_kL4yKr",
+        "image_ejKbYD",
+        "image_z8n3wt",
+        "image_wmde6w",
+        "image_WmqF9N",
+        "image_bGgkF7",
+        "image_RTjNqg",
+        "image_PT7Vx7",
+        "image_Ldrby7",
+        "image_G4jMyD",
+        "image_brVHLX"
+      ],
+      "name": "Media carousel",
+      "settings": {
+        "bg": "rgba(0,0,0,0)",
+        "speed": 10,
+        "direction": "left",
+        "gap": 16,
+        "radius": 12,
+        "ratio": "1 / 1",
+        "pause_on_hover": false
+      }
     }
   },
   "order": [
@@ -596,6 +709,7 @@
     "featured_blog_bVJWbN",
     "17581591279888f93a",
     "image_banner_TyRdX7",
-    "featured_blog_DfdKrV"
+    "featured_blog_DfdKrV",
+    "media_carousel_MjUPyQ"
   ]
 }
