@@ -233,6 +233,39 @@
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
+      },
+      "scheme-f3004dd8-e7b9-4f78-b498-3fd49ccca164": {
+        "settings": {
+          "background": "#2f2f2f",
+          "background_gradient": "",
+          "text": "#ffffff",
+          "button": "#ffffff",
+          "button_label": "#2f2f2f",
+          "secondary_button_label": "#ffffff",
+          "shadow": "#2f2f2f"
+        }
+      },
+      "scheme-1b8e8cb8-00c9-47c2-91d0-1b39b8f55d58": {
+        "settings": {
+          "background": "#fff8f2",
+          "background_gradient": "",
+          "text": "#373737",
+          "button": "#373737",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#373737",
+          "shadow": "#373737"
+        }
+      },
+      "scheme-33372786-c677-4092-aee0-220e7c16c204": {
+        "settings": {
+          "background": "#ffd667",
+          "background_gradient": "",
+          "text": "#373737",
+          "button": "#373737",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#373737",
+          "shadow": "#373737"
+        }
       }
     }
   },

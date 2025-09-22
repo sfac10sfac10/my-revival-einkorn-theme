@@ -76,7 +76,7 @@
         "p {font-size: 16px; line-height: 1.4; letter-spacing: normal; color: rgba(var(--color-foreground));}",
         "p:last-child {margin-top: 12px;}",
         "a:hover {border-bottom-width: 2px;}",
-        "@media (min-width: 990px) {.multicolumn .page-width {padding-inline: calc(5% + 50px);}}"
+        "@media (min-width: 990px) {.multicolumn .page-width {padding-inline: calc(5% + 50px); }}"
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {

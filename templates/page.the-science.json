@@ -11,13 +11,416 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "custom_css": [
+        ".page-width {display: none;}"
+      ],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "multicolumn_Tj3Ag9": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_xzMkB7": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/the-science-1.webp",
+            "title": "",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_xzMkB7"
+      ],
+      "custom_css": [
+        ".multicolumn-card {background: white;}",
+        ".multicolumn-card__image-wrapper {width: 100px; margin: 5px auto 50px;}",
+        "@media (min-width: 990px) {.multicolumn-card__image-wrapper {margin: 30px auto 100px; }}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_6H4KYb": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_6dWnzW": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Earth's First Wheat</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_ncniH3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn, the first wheat ever cultivated, fueled early humans and served as a catalyst to civilization as we know it today. As our world raced towards modernization, we traded the nutritional treasures of einkorn for the convenience of hybridized wheat, sacrificing richness for yield. We’re on a mission to right that wrong.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6dWnzW",
+        "text_ncniH3"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "image_with_text_HU44im": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_UkRXHM": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Science BehindRevival Einkorn",
+            "heading_size": "h1"
+          }
+        },
+        "text_yYQzPg": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn, also known as<em>Triticum monococcum</em>, was first cultivated over 14,000 years ago. Despite being the first cultivated wheat, it was overshadowed by hybridized varieties seeking higher yields, relegating Einkorn to artisanal operations due to its more arduous processing. However, amidst rising concerns over gluten-related disorders and environmental challenges, Revival Einkorn reevaluates its potential. With lower antigen levels and easier digestion, Einkorn proves suitable for individuals with non-celiac gluten sensitivity and inflammatory digestive conditions. Its rich nutrient profile and environmental resilience make it a compelling choice for sustainable farming practices in the face of a changing climate.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_7y4PEr": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_UkRXHM",
+        "text_yYQzPg",
+        "button_7y4PEr"
+      ],
+      "custom_css": [
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/the-science-2.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_agDtJd": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_nTEFei": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Grain ThatStarted it All",
+            "heading_size": "h1"
+          }
+        },
+        "text_8G9jre": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn, humanity’s original wheat, fueled early civilizations. Yet, in pursuit of modernization, we traded its nutrition for hybridized varieties. Our mission: restore einkorn’s rightful place.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_nTEFei",
+        "text_8G9jre"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "multicolumn_U8eYQK": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_NfFqPn": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/the-science-3.webp",
+            "title": "12,000 | BC",
+            "text": "<h3>EINKORN</h3><p><br/><em>Triticum monococcum</em></p><p>• Earth’s First Wheat<br/>• Simple diploid gluten AA<br/>• Easy to digest<br/>• Low inflammatory properties<br/>• Rich in vitamins A & B6<br/>• Rich in beta carotene & lutein<br/>• The most protein of any grain<br/>• High in fiber, low in starch<br/>• Does not require irrigation<br/></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_DMCWUi": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/the-science-4.webp",
+            "title": "8,000 | BC",
+            "text": "<h3>EMMER</h3><p><br/><em>Triticum dicoccum</em><br/></p><p>• Early hybrid wheat<br/>• More complex tetraploid gluten<br/>• Harder to digest<br/>• Used to make beer in ancient Egypt<br/>• Medium starch content<br/>• Also known as “farro”</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_iEzyVg": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/the-science-5.webp",
+            "title": "6,000 | BC",
+            "text": "<h3>SPELT</h3><p><br/><em>Triticum spelta</em><br/></p><p>• Hybrid of emmer and goat-grass<br/>• Complex hexaploid gluten<br/>• Hardest to digest<br/>• Popular in bronze age<br/>• High starch content<br/>• Dietetically similar to modern wheat</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_rt436Q": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/the-science-6.webp",
+            "title": "1940s",
+            "text": "<h3>MODERN WHEAT</h3><p><br/><em>Triticum aestivum</em><br/></p><p>• Hybridized for larger yields<br/>• Complex hexaploid gluten<br/>• Hardest to digest<br/>• Often bleached<br/>• Low nutritional value<br/>• Highest starch content<br/>• Highly inflammatory<br/>• Highly allergenic<br/>• Requires irrigation</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_NfFqPn",
+        "column_DMCWUi",
+        "column_iEzyVg",
+        "column_rt436Q"
+      ],
+      "custom_css": [
+        ".multicolumn-card {background: white;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_JqbwFK": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_rHD3rQ": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>The De-Evolution of Wheat</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_b6mjc8": {
+          "type": "text",
+          "settings": {
+            "text": "Einkorn, once a nourishing staple rich in protein, fiber, vitamins, and minerals, provided early humans with a reliable and delicious food source. However, wheat hybridization led to increased gluten levels and decreased nutritional value. Returning to nature’s original grain allows us to rediscover its true wealth and nourish ourselves with a healthier option, just as our ancestors did.",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_rHD3rQ",
+        "text_b6mjc8"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/the-science-7.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-4",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_KD3C9C": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_CYgLyh": {
+          "type": "heading",
+          "settings": {
+            "heading": "Before gluten was a problem",
+            "heading_size": "h1"
+          }
+        },
+        "text_VA7JrL": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn’s gluten is simple and truly unique, containing only the single ‘AA’ pair of chromosomes, making it far easier to digest than other wheats. In addition, it’s high fiber and low starch content aid in gut health and support healthy inflammation balance. Revival Einkorn is ideal for people with gluten sensitivity or those who just like to avoid the bloated feeling associated with modern wheat products. Although not recommended for those already diagnosed with celiac disease, recent studies show that einkorn contains very few inflammatory properties.</p><p>After years of research, testing, and consultation with dietitians, food scientists, and consumers—we established a consistent and meaningful way to label our products highlighting einkorn’s ‘AA’ good gluten. Our Certified Gluten AA seal clearly calls to attention what makes Revival Einkorn’s gluten uniquely suited to human digestion and health. If you would like to learn more, please visit the complete Einkorn White Paper.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_jzBDqy": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop now",
+            "button_link": "shopify://collections/our-products",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_CYgLyh",
+        "text_VA7JrL",
+        "button_jzBDqy"
+      ],
+      "custom_css": [
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/the-science-8.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_xgEnRX": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_a6Mnyd": {
+          "type": "heading",
+          "settings": {
+            "heading": "EinkornExplained",
+            "heading_size": "h1"
+          }
+        },
+        "text_kiytQx": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>The Healthy Alternative to Hybridized Wheat</strong></p><p>Despite being Earth’s first wheat, einkorn’s scientific exploration is recent. Dr. Susana Domínguez Rovira and Albert Bruno Llach’s white paper, ‘Einkorn Explained: The Healthy Alternative to Hybridized Wheat,’ delves into its history, nutrition, and significance for today’s diet.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_RWzJgz": {
+          "type": "button",
+          "settings": {
+            "button_label": "Download the guide",
+            "button_link": "https://cdn.shopify.com/s/files/1/0724/0273/1146/files/RE_EinkornExplained_2024_share_213e4d45-927b-439b-b68c-6744d441ebf6.pdf?v=1758578724",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_a6Mnyd",
+        "text_kiytQx",
+        "button_RWzJgz"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/the-science-9.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_bQ7B7A": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_MNxpHK": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h2"
+          }
+        },
+        "text_43WqKP": {
+          "type": "text",
+          "settings": {
+            "text": "<h4>More information</h4><p>German documentary on regenerative agriculture and soil health. <a href=\"https://www.youtube.com/watch?v=i61OHaVRhiw\" target=\"_blank\" title=\"Check Out Video\">Check out video</a></p><p>Einkorn genomics sheds light on history of the oldest domesticated wheat. <a href=\"https://www.nature.com/articles/s41586-023-06389-7\" target=\"_blank\" title=\"Check out document\">Check out document</a></p><p>Study shows nutritional benefits in regenerative agriculture crops. <a href=\"https://www.world-grain.com/articles/16547-study-shows-nutritional-benefits-in-regenerative-agriculture-crops\" target=\"_blank\" title=\"Check out document\">Check out document</a></p><p>Archaeobotanical evidence reveals the origins of bread 14 400 years ago in northeastern Jordan. <a href=\"https://www.researchgate.net/publication/326434897_Archaeobotanical_evidence_reveals_the_origins_of_bread_14400_years_ago_in_northeastern_Jordan\" target=\"_blank\" title=\" Check out document\">Check out document</a></p><p>In Vivo Effects of Einkorn Wheat (<em>Triticum monococcum</em>) Bread on the Intestinal Microbiota, Metabolome, and on the Glycemic and Insulinemic Response in the Pig Model. <a href=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/In_vicvo_effectes_of_monococcum_in_pIGS.pdf?v=1717347948\" target=\"_blank\" title=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/In_vicvo_effectes_of_monococcum_in_pIGS.pdf?v=1717347948\">Check out document</a></p><p>A Khorasan wheat-based diet improves systemic inflammatory profile in semi-professional basketball players: a randomized crossover pilot study. <a href=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/Khorasan_antiinflammation.pdf?v=1717347944\" target=\"_blank\" title=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/Khorasan_antiinflammation.pdf?v=1717347944\">Check out document</a></p><p>In Defense of Food: A Reader’s Manifesto. <a href=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/In_Defense_of_Food__An_Eater_s_Manifesto_PDFDrive.pdf?v=1717347948\" target=\"_blank\" title=\"https://cdn.shopify.com/s/files/1/0642/1482/7245/files/In_Defense_of_Food__An_Eater_s_Manifesto_PDFDrive.pdf?v=1717347948\">Check out document</a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MNxpHK",
+        "text_43WqKP"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "scheme-f3004dd8-e7b9-4f78-b498-3fd49ccca164",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multicolumn_Tj3Ag9",
+    "rich_text_6H4KYb",
+    "image_with_text_HU44im",
+    "rich_text_agDtJd",
+    "multicolumn_U8eYQK",
+    "image_banner_JqbwFK",
+    "image_with_text_KD3C9C",
+    "image_with_text_xgEnRX",
+    "rich_text_bQ7B7A"
   ]
 }

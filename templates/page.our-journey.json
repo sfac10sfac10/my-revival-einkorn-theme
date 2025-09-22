@@ -11,13 +11,342 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "custom_css": [
+        ".page-width {display: none;}"
+      ],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "image_banner_Vx4mCT": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_MG6YTQ": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Changing theway we eat</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_6MQHjy": {
+          "type": "text",
+          "settings": {
+            "text": "The story of Revival Einkorn stretches back over twenty years and it’s a story that combines both a single-minded pursuit to bring nutritious, whole and regenerative foods to market, as well as a partnership spanning half the globe.",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_MG6YTQ",
+        "text_6MQHjy"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/our-journey-1.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-4",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_43W9XC": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_F9DwFN": {
+          "type": "heading",
+          "settings": {
+            "heading": "Honoring the past, looking to the future",
+            "heading_size": "h1"
+          }
+        },
+        "text_LGR4qc": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Based in Southern California but rooted in Barcelona, Spain, Revival Einkorn is the result of years of dedicated effort to introduce wholesome, regenerative foods to the market. With a diverse team spanning nutritionists to financiers, they aim to reshape our eating habits by reviving ancient food wisdom.</p><p>Founder Werner Forster’s lifelong quest for a groundbreaking grain led to the development of Revival Einkorn, driven by a passion to counter the detrimental effects of processed foods. With a background in transforming organic fruit trade and promoting sustainable aquaculture, Forster and his team now offer meticulously crafted einkorn products. After years of dedication, they are excited to share these nutritious delights with you.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_aqp8Dc": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_F9DwFN",
+        "text_LGR4qc",
+        "button_aqp8Dc"
+      ],
+      "custom_css": [
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/our-journey-2.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_34Fa3h": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_DCjxiR": {
+          "type": "heading",
+          "settings": {
+            "heading": "Regenerative sustainable nutrition",
+            "heading_size": "h1"
+          }
+        },
+        "text_xpnhDk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn’s protective hull and deep root system allow for ecologically sound cultivation, thriving in areas where other species struggle. Unlike modern wheats, which rely on chemical fertilizers and pesticides, einkorn’s natural resilience contributes to soil health and reduces environmental impact. Moreover, its low water requirements make it a sustainable choice, particularly crucial in times of drought. At Revival Einkorn, we’re committed to sharing this environmentally friendly grain with a world in need.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_pLxhN3": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_DCjxiR",
+        "text_xpnhDk",
+        "button_pLxhN3"
+      ],
+      "custom_css": [
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/our-journey-3.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_6RynXL": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ezw3Gy": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Organically farmed</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_C4kVVg": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Revival Einkorn is grown with care on small family farms in Spain where slow-food and time with friends and family are cherished and celebrated. Wheat is grown here as it has been for centuries – naturally without any pesticides or fertilizers. Einkorn’s deep root system means it doesn’t require irrigation and thrives on seasonal rainfall and in the prevailing high winds that can be substantial here - which in turn keep the einkorn healthy and strong.</p><p>Minimally processed, einkorn is first de-hulled to remove its protective shell and to expose the wheat berry. Einkorn berries are delicious on their own cooked or toasted on soups, salads, and pasta. For our products, the berries are stone-milled to preserve their exceptional flavor and nutrition.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_GyeAwH": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_ezw3Gy",
+        "text_C4kVVg",
+        "button_GyeAwH"
+      ],
+      "custom_css": [
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/our-journey-4.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_VfKLpg": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_JL43w6": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-5.webp",
+            "title": "No toxic fertilizers",
+            "text": "<p>Rest assured, our einkorn is grown without the use of toxic fertilizers, ensuring a pure and natural grain that’s as good for the earth as it is for you.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bQJLqU": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-6.webp",
+            "title": "Conserves water",
+            "text": "<p>With its minimal water requirements, einkorn is a smart choice for conserving vital water resources.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_r4AphP": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-7.webp",
+            "title": "Healthy farm management",
+            "text": "<p>Practicing healthy farm management through regenerative farming techniques, fostering soil health, biodiversity, and sustainable agriculture for a better planet.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_JL43w6",
+        "column_bQJLqU",
+        "column_r4AphP"
+      ],
+      "custom_css": [
+        ".page-width {margin: 0; padding-top: 0; padding-bottom: 0;}",
+        ".multicolumn-list {width: 100%; padding: 50px 24px;}",
+        ".multicolumn-card__image-wrapper {max-width: 350px; margin-inline: auto; padding-inline: 20px;}",
+        "@media (min-width: 750px) {.multicolumn-list {padding: 50px 24px; }}",
+        "@media (min-width: 990px) {.multicolumn-list {padding: 105px 0px 110px 0vw; width: 85%; max-width: 1660px; margin-inline: auto; }}",
+        ".multicolumn-card {background: white;}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_pC6r8E": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_B4LPLN": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-8.webp",
+            "title": "The science",
+            "text": "<p>Einkorn’s ancient secrets unlocked through modern scientific exploration.</p><p><a href=\"/pages/the-science\" title=\"The Science\">Learn more</a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_fqUcwY": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-9.webp",
+            "title": "<strong>Join the revival</strong>",
+            "text": "<p>Join our community for exclusive offers, company news and more!</p><p><a href=\"https://revivaleinkorn.com/pages/join-the-revival\"><strong>Subscribe</strong></a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bpMjit": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/our-journey-10.jpg",
+            "title": "Shop the lineup",
+            "text": "<p>Explore our selection. Taste the difference.</p><p><a href=\"/collections/our-products\" title=\"Our Products\">Shop now</a></p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_B4LPLN",
+        "column_fqUcwY",
+        "column_bpMjit"
+      ],
+      "custom_css": [
+        ".multicolumn-card {background: white;}",
+        "img {border-radius: 12px;}",
+        "p {font-size: 16px; line-height: 1.4; letter-spacing: normal; color: rgba(var(--color-foreground));}",
+        "p:last-child {margin-top: 12px;}",
+        "a:hover {border-bottom-width: 2px;}",
+        "@media (min-width: 990px) {.multicolumn .page-width {padding-inline: calc(5% + 50px); }}"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "image_banner_Vx4mCT",
+    "image_with_text_43W9XC",
+    "image_with_text_34Fa3h",
+    "image_with_text_6RynXL",
+    "multicolumn_VfKLpg",
+    "multicolumn_pC6r8E"
   ]
 }

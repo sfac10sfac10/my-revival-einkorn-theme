@@ -11,13 +11,143 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "custom_css": [
+        ".page-width {display: none;}"
+      ],
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "image_banner_98fRKt": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_YYYek9": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>WHAT IS EINKORN?</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_Y9Mx7P": {
+          "type": "text",
+          "settings": {
+            "text": "And why nature intended it for us and our families to thrive on.",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YYYek9",
+        "text_Y9Mx7P"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-1.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-4",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_HybgW8": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_3m4bdh": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>The Grain That Stood the Test of Time</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_jDN88Q": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Einkorn is the purest form of wheat. It has <strong>never been hybridized</strong>, which gives it a number of benefits, including a simple gluten structure that makes it easier to digest.</p><p>It offers the same high level of purity, flavor, and nutrition today as it did when humans first discovered agriculture.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_3m4bdh",
+        "text_jDN88Q"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-2.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1b8e8cb8-00c9-47c2-91d0-1b39b8f55d58",
+        "color_scheme": "scheme-1b8e8cb8-00c9-47c2-91d0-1b39b8f55d58",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_m4DecW": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_Te7iad": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>It’s Different Now.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_JtJPb8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Like us, you likely thought wheat meant inflammation, bloating, and discomfort. We’re here to offer a different story.</p><p>Einkorn is nutrient-rich and has never been hybridized - giving it higher total protein, lower total gluten, and a simpler type of gluten that's much easer to digest. This is food you never have to wrestle with.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_RpnCcx": {
+          "type": "button",
+          "settings": {
+            "button_label": "See the Good Gluten",
+            "button_link": "",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_Te7iad",
+        "text_JtJPb8",
+        "button_RpnCcx"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-3.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "section_color_scheme": "scheme-33372786-c677-4092-aee0-220e7c16c204",
+        "color_scheme": "scheme-33372786-c677-4092-aee0-220e7c16c204",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "image_banner_98fRKt",
+    "image_with_text_HybgW8",
+    "image_with_text_m4DecW"
   ]
 }
