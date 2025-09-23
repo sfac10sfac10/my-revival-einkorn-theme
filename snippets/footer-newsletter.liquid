@@ -23,17 +23,13 @@
         class="footer-newsletter__input"
         value="{{ form.email }}"
         aria-label="{{ 'newsletter.label' | t | default: 'Email' }}"
-        placeholder="{{ block.settings.placeholder | default: 'Email' }}"
+        placeholder="{{ block.settings.placeholder | default: 'email@example.com' }}"
         autocorrect="off"
         autocapitalize="off"
         required
       >
       <button class="footer-newsletter__button" aria-label="{{ block.settings.button_label | default: 'Subscribe' }}">
         <span>{{ block.settings.button_label | default: 'Subscribe' }}</span>
-        <!-- Flechita -->
-        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 12h12m0 0-5-5m5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
       </button>
     </div>
     {%- if form.errors -%}

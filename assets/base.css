@@ -3603,54 +3603,84 @@ details-disclosure > details {
 
 /* Custom footer */
 
+/* ===== Footer newsletter (columna) — look Revival ===== */
 .footer-col__title{
   font-weight: 700;
-  font-size: 1.125rem;
-  margin: 0 0 .75rem 0;
+  line-height: 1.4;
+  font-size: 1.38em;
+  margin: 0 0 0.5em;
 }
 
 .footer-newsletter__text{
-  margin: 0 0 1rem 0;
-  opacity:.9;
-  line-height:1.5;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
   max-width: 36ch;
+  color: rgba(55, 55, 55, 1);
 }
 
-.footer-newsletter__form{ width:100%; }
-
+/* apilar input + botón (no en línea) */
 .footer-newsletter__field{
-  display:flex;
-  align-items:stretch;
-  gap:.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* input subrayado, sin caja */
 .footer-newsletter__input{
-  flex:1 1 auto;
-  border:1px solid #cfcfcf;
-  border-radius: .5rem;
-  padding:.9rem .9rem;
-  font-size:1rem;
+  width: 100%;
+  padding: 0 0 .75rem 0;
+  border: none;
+  border-bottom: 1px solid #D4D4D4;
+  border-radius: 0;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  font-size: 16px;
+  line-height: 1.4;
+  color: inherit;
+  -webkit-appearance: none;
+}
+.footer-newsletter__input::placeholder{
+  color: #6B6B6B;
+}
+.footer-newsletter__input:focus{
+  border-bottom-color: #A8A8A8;
 }
 
 .footer-newsletter__button{
-  flex:0 0 auto;
-  border:1px solid #2b2b2b;
-  background:#2b2b2b;
-  color:#fff;
-  border-radius:.5rem;
-  padding:.75rem 1rem;
-  display:inline-flex;
-  align-items:center;
-  gap:.5rem;
-  cursor:pointer;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 10px 35px;
+  border-radius: 12px; 
+  border: 1px solid #2B2B2B;
+  background: #2B2B2B;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.footer-newsletter__button:hover{
+  filter: brightness(0.95);
+}
+.footer-newsletter__button:focus{
+  outline: 2px solid #2B2B2B22;
+  outline-offset: 2px;
 }
 
-.footer-newsletter__button:hover{ filter:brightness(0.95); }
-
+/* mensajes */
 .footer-newsletter__msg{
-  margin:.5rem 0 0 0;
-  font-size:.9rem;
+  margin-top: .5rem;
+  font-size: .92rem;
 }
-.footer-newsletter__msg.is-error{ color:#b00020; }
+.footer-newsletter__msg.is-error{ color:#B00020; }
 .footer-newsletter__msg.is-success{ color:#147a00; }
 
+/* prevenir que estilos de Dawn se metan con los tuyos */
+.footer .newsletter-form__button,
+.footer .field__input,
+.footer .field__label{ all: unset; }  /* NO afecta fuera del bloque custom */
