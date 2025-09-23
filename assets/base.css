@@ -3600,3 +3600,57 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* Custom footer */
+
+.footer-col__title{
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin: 0 0 .75rem 0;
+}
+
+.footer-newsletter__text{
+  margin: 0 0 1rem 0;
+  opacity:.9;
+  line-height:1.5;
+  max-width: 36ch;
+}
+
+.footer-newsletter__form{ width:100%; }
+
+.footer-newsletter__field{
+  display:flex;
+  align-items:stretch;
+  gap:.5rem;
+}
+
+.footer-newsletter__input{
+  flex:1 1 auto;
+  border:1px solid #cfcfcf;
+  border-radius: .5rem;
+  padding:.9rem .9rem;
+  font-size:1rem;
+}
+
+.footer-newsletter__button{
+  flex:0 0 auto;
+  border:1px solid #2b2b2b;
+  background:#2b2b2b;
+  color:#fff;
+  border-radius:.5rem;
+  padding:.75rem 1rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  cursor:pointer;
+}
+
+.footer-newsletter__button:hover{ filter:brightness(0.95); }
+
+.footer-newsletter__msg{
+  margin:.5rem 0 0 0;
+  font-size:.9rem;
+}
+.footer-newsletter__msg.is-error{ color:#b00020; }
+.footer-newsletter__msg.is-success{ color:#147a00; }
+

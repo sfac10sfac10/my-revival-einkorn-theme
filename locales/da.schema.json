@@ -89,6 +89,10 @@
           "label": "Vimeo",
           "info": "https://vimeo.com/shopify"
         },
+        "social_linkedin_link": {
+          "label": "LinkedIn",
+          "info": "https://linkedin.com/shopify"
+        },
         "header": {
           "content": "SoMe-konti"
         }

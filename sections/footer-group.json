@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -8,35 +17,46 @@
         "footer-0": {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
+            "heading": "<strong>Browse</strong>",
+            "menu": "browse"
           }
         },
         "footer-1": {
           "type": "link_list",
           "settings": {
-            "heading": "Info",
-            "menu": "footer"
+            "heading": "Support",
+            "menu": "support"
           }
         },
-        "footer-2": {
-          "type": "text",
+        "brand_information_xtKQXq": {
+          "type": "brand_information",
           "settings": {
-            "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "heading": "Follow us",
+            "show_social": true
+          }
+        },
+        "newsletter_column_ajAbrT": {
+          "type": "newsletter_column",
+          "settings": {
+            "title": "Newsletter",
+            "text": "Be the first to know about our biggest and best sales.",
+            "placeholder": "Email",
+            "button_label": "Subscribe"
           }
         }
       },
       "block_order": [
         "footer-0",
         "footer-1",
-        "footer-2"
+        "brand_information_xtKQXq",
+        "newsletter_column_ajAbrT"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
+        "color_scheme": "scheme-2",
+        "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
-        "show_social": true,
+        "enable_follow_on_shop": true,
+        "show_social": false,
         "enable_country_selector": false,
         "enable_language_selector": false,
         "payment_enable": true,

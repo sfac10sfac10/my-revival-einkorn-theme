@@ -132,6 +132,8 @@
                         {%- render 'social-icons', class: 'footer__list-social' -%}
                       {%- endif -%}
                     </div>
+                  {%- when 'newsletter_column' -%}
+                    {%- render 'footer-newsletter', block: block, section: section -%}
                   {%- when 'image' -%}
                     <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
                       {%- if block.settings.image != blank -%}
@@ -351,6 +353,12 @@
       "name": "t:sections.footer.blocks.brand_information.name",
       "settings": [
         {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Follow us"
+        },
+        {
           "type": "paragraph",
           "content": "t:sections.footer.blocks.brand_information.settings.paragraph.content"
         },
@@ -361,6 +369,21 @@
           "label": "t:sections.footer.blocks.brand_information.settings.show_social.label",
           "info": "t:sections.footer.blocks.brand_information.settings.show_social.info"
         }
+      ]
+    },
+    {
+      "type": "newsletter_column",
+      "name": "Newsletter",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Newsletter" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto introductorio",
+          "default": "Be the first to know about our biggest and best sales."
+        },
+        { "type": "text", "id": "placeholder", "label": "Placeholder del email", "default": "Email" },
+        { "type": "text", "id": "button_label", "label": "Etiqueta del botón", "default": "Subscribe" }
       ]
     },
     {
