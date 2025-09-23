@@ -41,6 +41,9 @@
         "heading_YYYek9",
         "text_Y9Mx7P"
       ],
+      "custom_css": [
+        "p {color: rgba(255, 255, 255, 1);}"
+      ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/what-is-einkorn-1.webp",
@@ -53,7 +56,7 @@
         "color_scheme": "scheme-4",
         "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
-        "show_text_below": true
+        "show_text_below": false
       }
     },
     "image_with_text_HybgW8": {
@@ -77,6 +80,9 @@
       "block_order": [
         "heading_3m4bdh",
         "text_jDN88Q"
+      ],
+      "custom_css": [
+        "p {color: rgba(55, 55, 55, 1);}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -126,6 +132,9 @@
         "text_JtJPb8",
         "button_RpnCcx"
       ],
+      "custom_css": [
+        "p,a {color: rgba(55, 55, 55, 1); opacity: 1;}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/what-is-einkorn-3.webp",
@@ -142,12 +151,381 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "image_banner_d88qRr": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_mytzFH": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Up to 40% More Protein. Max Impact.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_Pba7KE": {
+          "type": "text",
+          "settings": {
+            "text": "Switch your carbs and make Einkorn your go-to for sustained energy—without the heaviness.Our Einkorn products are packed with up to 40% more protein than modern wheat, delivering clean, satisfying protein with no fillers or over-processing.",
+            "text_style": "body"
+          }
+        },
+        "buttons_DGTjwF": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Discover More Perks",
+            "button_link_1": "shopify://blogs/news/einkorn-contains-more-protein-than-any-other-wheat-variety-but-that-is-just-one-reason-it-s-earth-s-perfect-grain",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_mytzFH",
+        "text_Pba7KE",
+        "buttons_DGTjwF"
+      ],
+      "custom_css": [
+        "p,a {color: rgba(43, 43, 43, 1); opacity: 1;}",
+        ".banner__box {width: 40%;}"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-4.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-right",
+        "desktop_content_alignment": "left",
+        "show_text_box": false,
+        "color_scheme": "scheme-97dabd7d-8a12-4308-b6fe-9f6b472be1ac",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "left",
+        "show_text_below": true
+      }
+    },
+    "image_with_text_f9fGqA": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_w4d9ij": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>The Taste of Wheat, As Nature Intended.</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_VRqAKd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>With Einkorn, you no longer have to compromise. Enjoy the simply delicious taste of wheat, knowing it's genuinely good for you.</p><p>Experience how wheat tasted as nature intended with or 100% wholegrain Einkorn. Its flavor is similar to modern wheat, with a delightful, subtle nuttiness that enhances any dish.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_w4d9ij",
+        "text_VRqAKd"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-5.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_banner_hj33eE": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_MCWr3L": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Taste History</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_eE8kHT": {
+          "type": "text",
+          "settings": {
+            "text": "No more trade-offs. Start enjoying your comfort food like mother nature intended.",
+            "text_style": "body"
+          }
+        },
+        "buttons_9bDQxD": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Try our recipes",
+            "button_link_1": "shopify://blogs/recipes",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_MCWr3L",
+        "text_eE8kHT",
+        "buttons_9bDQxD"
+      ],
+      "custom_css": [
+        ".banner__media {background: #ffcb1f;}"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Orange_Rays_1.svg",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "top-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      }
+    },
+    "favorite_products_9tAYTL": {
+      "type": "favorite-products",
+      "blocks": {
+        "product_pXwRJV": {
+          "type": "product",
+          "settings": {
+            "product": "roasted-garlic-chili-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_XNU38f": {
+          "type": "product",
+          "settings": {
+            "product": "artisan-s-daily-crackers-copy",
+            "hover_media_index": 3
+          }
+        },
+        "product_jympra": {
+          "type": "product",
+          "settings": {
+            "product": "toasted-sesame-honey-crackers-copy",
+            "hover_media_index": 3
+          }
+        }
+      },
+      "block_order": [
+        "product_pXwRJV",
+        "product_XNU38f",
+        "product_jympra"
+      ],
+      "name": "Favorite products",
+      "settings": {
+        "heading": "Our Favorites",
+        "subheading": "Shop our favorites, from handcrafted pastas to wholesome snacks.",
+        "show_reviews": false,
+        "cta_label": "Explore einkorn products",
+        "cta_link": "shopify://collections/our-products"
+      }
+    },
+    "image_with_text_RBEYJc": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_GtFjiH": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Einkorn Explained</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_mMJ68V": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Despite being Earth’s first wheat, einkorn’s scientific exploration is recent.</p><p>Dr. Susana Domínguez Rovira and Albert Bruno Llach’s white paper, delves into its history, nutrition, and significance for today’s diet.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_MAFrLN": {
+          "type": "button",
+          "settings": {
+            "button_label": "Download the guide",
+            "button_link": "https://cdn.shopify.com/s/files/1/0724/0273/1146/files/RE_EinkornExplained_2024_share_213e4d45-927b-439b-b68c-6744d441ebf6.pdf?v=1758578724",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_GtFjiH",
+        "text_mMJ68V",
+        "button_MAFrLN"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/what-is-einkorn-6.webp",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-97e53688-6b1e-4338-98cd-0f98f17237e2",
+        "color_scheme": "scheme-97e53688-6b1e-4338-98cd-0f98f17237e2",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_blog_RQzP3c": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Community Table",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": false,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "media_carousel_HcmrgY": {
+      "type": "media-carousel",
+      "blocks": {
+        "image_wabtBR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-1.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_zJarbE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-2.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_VHqPYD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-3.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_eJx4QJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-4.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_wncN4f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-5.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_xraijX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-6.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_94n7zr": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-7.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_eY6iBm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-8.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_PfH6Gw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-9.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_wp89wi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-10.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_4zhx7i": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-11.webp",
+            "alt": "Carousel image"
+          }
+        },
+        "image_hAwGLJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/carousel-12.webp",
+            "alt": "Carousel image"
+          }
+        }
+      },
+      "block_order": [
+        "image_wabtBR",
+        "image_zJarbE",
+        "image_VHqPYD",
+        "image_eJx4QJ",
+        "image_wncN4f",
+        "image_xraijX",
+        "image_94n7zr",
+        "image_eY6iBm",
+        "image_PfH6Gw",
+        "image_wp89wi",
+        "image_4zhx7i",
+        "image_hAwGLJ"
+      ],
+      "name": "Media carousel",
+      "settings": {
+        "bg": "rgba(0,0,0,0)",
+        "speed": 10,
+        "direction": "left",
+        "gap": 16,
+        "radius": 12,
+        "ratio": "1 / 1",
+        "pause_on_hover": false
+      }
     }
   },
   "order": [
     "main",
     "image_banner_98fRKt",
     "image_with_text_HybgW8",
-    "image_with_text_m4DecW"
+    "image_with_text_m4DecW",
+    "image_banner_d88qRr",
+    "image_with_text_f9fGqA",
+    "image_banner_hj33eE",
+    "favorite_products_9tAYTL",
+    "image_with_text_RBEYJc",
+    "featured_blog_RQzP3c",
+    "media_carousel_HcmrgY"
   ]
 }

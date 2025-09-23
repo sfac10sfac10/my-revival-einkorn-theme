@@ -266,6 +266,28 @@
           "secondary_button_label": "#373737",
           "shadow": "#373737"
         }
+      },
+      "scheme-97dabd7d-8a12-4308-b6fe-9f6b472be1ac": {
+        "settings": {
+          "background": "#e9ddd2",
+          "background_gradient": "",
+          "text": "#373737",
+          "button": "#373737",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#373737",
+          "shadow": "#373737"
+        }
+      },
+      "scheme-97e53688-6b1e-4338-98cd-0f98f17237e2": {
+        "settings": {
+          "background": "#fffbeb",
+          "background_gradient": "",
+          "text": "#373737",
+          "button": "#373737",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#373737",
+          "shadow": "#373737"
+        }
       }
     }
   },

@@ -3,12 +3,6 @@
   - Left/Right image on desktop (stacked on mobile)
   - Heading, rich text, CTA button
   - 1–2 products rendered with 'product-card-fancy' snippet (square images)
-
-  Requirements:
-  - snippets/product-card-fancy.liquid must exist.
-  - Dawn’s quick-add assets loaded for AJAX add-to-cart.
-
-  All styles are scoped to this section id.
 {%- endcomment -%}
 
 {%- assign cols = section.blocks.size | at_least: 1 | at_most: 2 -%}
@@ -65,6 +59,19 @@
 
   <style>
     /* ---------- Scoped styles ---------- */
+    .section-{{ section.id }}{
+      /* Customizable section background */
+      background: {{ section.settings.bg_color | default: '#F6F8F8' }};
+      padding-top: {{ section.settings.pad_top | default: 36 | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.pad_bottom | default: 36 | times: 0.75 | round: 0 }}px;
+    }
+    @media (min-width: 750px){
+      .section-{{ section.id }}{
+        padding-top: {{ section.settings.pad_top | default: 36 }}px;
+        padding-bottom: {{ section.settings.pad_bottom | default: 36 }}px;
+      }
+    }
+
     .section-{{ section.id }} .mtp__inner{
       display:grid; gap: clamp(24px, 4vw, 48px);
       grid-template-columns: 1fr 1fr;
@@ -110,7 +117,7 @@
       grid-template-columns: repeat(var(--cols), minmax(0,1fr));
     }
 
-    /* Mobile layout: stack, image first; products 1 per row */
+    /* Mobile layout */
     @media (max-width: 989px){
       .section-{{ section.id }} .mtp__inner{
         grid-template-columns: 1fr;
@@ -118,18 +125,6 @@
       .section-{{ section.id }} .mtp__media{ order: 1; }
       .section-{{ section.id }} .mtp__content{ order: 2; }
       .section-{{ section.id }} .mtp__grid{ grid-template-columns: 1fr; }
-    }
-
-    /* Section paddings */
-    .section-{{ section.id }}{
-      padding-top: {{ section.settings.pad_top | default: 36 | times: 0.75 | round: 0 }}px;
-      padding-bottom: {{ section.settings.pad_bottom | default: 36 | times: 0.75 | round: 0 }}px;
-    }
-    @media (min-width: 750px){
-      .section-{{ section.id }}{
-        padding-top: {{ section.settings.pad_top | default: 36 }}px;
-        padding-bottom: {{ section.settings.pad_bottom | default: 36 }}px;
-      }
     }
   </style>
 </section>
@@ -163,7 +158,9 @@
     { "type": "url", "id": "cta_link", "label": "Button link" },
     { "type": "checkbox", "id": "show_reviews", "label": "Show reviews on cards", "default": true },
 
-    { "type": "header", "content": "Padding" },
+    { "type": "header", "content": "Background & padding" },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#F6F8F8" },
+
     {
       "type": "range",
       "id": "pad_top",

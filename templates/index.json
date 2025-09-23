@@ -425,6 +425,7 @@
         "product_iEhKNJ",
         "product_8Afdhc"
       ],
+      "custom_css": [],
       "name": "Media + text with products",
       "settings": {
         "image": "shopify://shop_images/home-main-products-1.webp",
@@ -433,7 +434,8 @@
         "subheading": "<p>Indulge in ancient goodness for a flavorful snacking experience with our artisanal, sourdough flatbread crackers. Crunchy and satisfying, they're a delightful treat for any occasion.<br/></p>",
         "cta_label": "Shop all crackers",
         "cta_link": "shopify://collections/crackers",
-        "show_reviews": true,
+        "show_reviews": false,
+        "bg_color": "#f6f8f8",
         "pad_top": 36,
         "pad_bottom": 36
       }
@@ -468,28 +470,85 @@
         "subheading": "<p>Elevate your meals with the authentic taste of handcrafted pasta. Made from 100% organic einkorn, our pasta is not only flavorful but also packed with protein for a nourishing dining experience.</p>",
         "cta_label": "Shop all pasta",
         "cta_link": "shopify://collections/einkorn",
-        "show_reviews": true,
+        "show_reviews": false,
+        "bg_color": "#f6f8f8",
         "pad_top": 36,
         "pad_bottom": 36
       }
     },
     "featured_blog_bVJWbN": {
       "type": "featured-blog",
-      "custom_css": [
-        "h2 {text-align: center; margin-inline: auto;}",
-        "p {display: none;}"
-      ],
+      "custom_css": [],
       "name": "t:sections.featured-blog.presets.name",
       "settings": {
         "blog": "recipes",
         "post_limit": 3,
         "heading": "<strong>Recipes</strong>",
         "heading_size": "h1",
+        "subheading": "<p>Discover simple and tasty einkorn recipes for versatile and delicious meals.<br/>Unlock the culinary potential of this ancient grain with our favorite recipes.</p>",
+        "center_intro": true,
         "columns_desktop": 3,
         "show_view_all": true,
+        "view_all_label": "Try our recipes",
+        "view_all_style": "secondary",
         "show_image": true,
         "show_date": false,
         "show_author": false,
+        "show_excerpt": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_w8Ppai": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_kkgXLc": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>From Soil to Plate: Rediscovering Pure Ingredients</strong>",
+            "heading_size": "h1"
+          }
+        },
+        "text_BWCxy8": {
+          "type": "text",
+          "settings": {
+            "text": "<p>“For me, healthy food is simple: minimal processing, no modifications, and definitely no harmful chemicals like glyphosate or synthetic fertilizers. <strong>Revival Einkorn checks all those boxes.</strong>”</p><p></p><p><em><strong>Chef Curtis Cooke</strong></em><em><br/>Director Of Dining Services at Casa De Manana</em></p>",
+            "text_style": "body"
+          }
+        },
+        "button_XrAahD": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read more",
+            "button_link": "shopify://blogs/news/from-soil-to-plate-rediscovering-pure-ingredients",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_kkgXLc",
+        "text_BWCxy8",
+        "button_XrAahD"
+      ],
+      "custom_css": [
+        ".image-with-text__media-item,.image-with-text__media {height: 200px; width: 200px; margin: auto 40px;}",
+        "p,a {color: rgba(55, 55, 55, 1);}",
+        "p:last-child {text-align: right;}",
+        "@media (max-width: 749px) {.image-with-text__media-item, .image-with-text__media {aspect-ratio: 1; height: 100%; width: 100%; margin: auto; }}"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/home-from-soil.webp",
+        "height": "small",
+        "desktop_image_width": "small",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
         "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
@@ -572,14 +631,19 @@
         "post_limit": 3,
         "heading": "Community Table",
         "heading_size": "h1",
+        "subheading": "<p>Join us in celebrating healthy eating, laughter, and love. We’re eager to share our products and become a cherished part of your family meals.</p>",
+        "center_intro": true,
         "columns_desktop": 3,
         "show_view_all": true,
+        "view_all_label": "Join the table",
+        "view_all_style": "secondary",
         "show_image": true,
         "show_date": false,
         "show_author": false,
+        "show_excerpt": true,
         "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 100,
+        "padding_bottom": 60
       }
     },
     "media_carousel_MjUPyQ": {
@@ -707,6 +771,7 @@
     "media_text_with_products_WM7Mba",
     "media_text_with_products_twGjMQ",
     "featured_blog_bVJWbN",
+    "image_with_text_w8Ppai",
     "17581591279888f93a",
     "image_banner_TyRdX7",
     "featured_blog_DfdKrV",

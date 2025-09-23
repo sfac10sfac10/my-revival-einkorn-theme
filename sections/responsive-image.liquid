@@ -1,0 +1,191 @@
+{%- comment -%}
+  Responsive Image Section
+  - 4 inputs (base, >=750, >=990, >=1200). Missing ones fall back to the nearest lower image.
+  - Two display modes: "contained" (centered) and "banner" (full-bleed).
+  - Optional fixed aspect ratio (original, 1:1, 4:3, 16:9).
+{%- endcomment -%}
+
+{%- assign img_base = section.settings.img_base -%}
+{%- assign img_750 = section.settings.img_750 | default: img_base -%}
+{%- assign img_990 = section.settings.img_990 | default: img_750 -%}
+{%- assign img_1200 = section.settings.img_1200 | default: img_990 -%}
+
+{%- assign layout_mode = section.settings.layout_mode | default: 'contained' -%}
+{%- assign ratio = section.settings.ratio | default: 'auto' -%}
+{%- assign radius = section.settings.radius | default: 12 -%}
+{%- assign pad = section.settings.pad | default: 16 -%}
+{%- assign mt = section.settings.mt | default: 20 -%}
+{%- assign mb = section.settings.mb | default: 20 -%}
+{%- assign bg = section.settings.bg | default: 'transparent' -%}
+
+{%- capture wrapper_class -%}
+  ri-{{ section.id }}{% if layout_mode == 'banner' %} ri--banner{% else %} ri--contained{% endif %}
+{%- endcapture -%}
+
+{%- comment -%} Compute sizes string without ternary {%- endcomment -%}
+{%- assign sizes_value = 'calc(100vw - 32px)' -%}
+{%- if layout_mode == 'banner' -%}
+  {%- assign sizes_value = '100vw' -%}
+{%- endif -%}
+
+<section class="{{ wrapper_class | strip }}">
+  <div class="ri__inner">
+    <div class="ri__media{% if ratio != 'auto' %} ri__media--ratio{% endif %}">
+      <picture>
+        {%- if img_1200 != blank -%}
+          <source
+            media="(min-width: 1200px)"
+            srcset="
+              {{ img_1200 | image_url: width: 800 }} 800w,
+              {{ img_1200 | image_url: width: 1200 }} 1200w,
+              {{ img_1200 | image_url: width: 1600 }} 1600w,
+              {{ img_1200 | image_url: width: 2000 }} 2000w
+            "
+            sizes="{% if layout_mode == 'banner' %}100vw{% else %}(min-width:1200px) min(1000px, 90vw){% endif %}"
+          >
+        {%- endif -%}
+
+        {%- if img_990 != blank -%}
+          <source
+            media="(min-width: 990px)"
+            srcset="
+              {{ img_990 | image_url: width: 700 }} 700w,
+              {{ img_990 | image_url: width: 1000 }} 1000w,
+              {{ img_990 | image_url: width: 1400 }} 1400w
+            "
+            sizes="{% if layout_mode == 'banner' %}100vw{% else %}(min-width:990px) min(900px, 92vw){% endif %}"
+          >
+        {%- endif -%}
+
+        {%- if img_750 != blank -%}
+          <source
+            media="(min-width: 750px)"
+            srcset="
+              {{ img_750 | image_url: width: 600 }} 600w,
+              {{ img_750 | image_url: width: 900 }} 900w,
+              {{ img_750 | image_url: width: 1200 }} 1200w
+            "
+            sizes="{% if layout_mode == 'banner' %}100vw{% else %}(min-width:750px) min(700px, 95vw){% endif %}"
+          >
+        {%- endif -%}
+
+        {%- if img_base != blank -%}
+          {{
+            img_base
+            | image_url: width: 1400
+            | image_tag:
+              widths: '400, 600, 800, 1000, 1200, 1400',
+              sizes: sizes_value,
+              class: 'ri__img',
+              alt: section.settings.alt
+            | default: img_base.alt
+            | default: 'Image', loading: 'lazy'
+          }}
+        {%- else -%}
+          <div class="ri__placeholder">No image selected</div>
+        {%- endif -%}
+      </picture>
+    </div>
+  </div>
+
+  <style>
+    /* --- scoped styles --- */
+    .ri-{{ section.id }}{
+      --ri-radius: {{ radius }}px;
+      --ri-pad: {{ pad }}px;
+      --ri-mt: {{ mt }}px;
+      --ri-mb: {{ mb }}px;
+      --ri-bg: {{ bg }};
+      {% if ratio == '1 / 1' %}--ri-ratio: 1 / 1;
+      {% elsif ratio == '4 / 3' %}--ri-ratio: 4 / 3;
+      {% elsif ratio == '16 / 9' %}--ri-ratio: 16 / 9;
+      {% else %}--ri-ratio: auto;{% endif %}
+      margin-top: var(--ri-mt);
+      margin-bottom: var(--ri-mb);
+      background: var(--ri-bg);
+    }
+    .ri-{{ section.id }} .ri__inner{
+      padding: var(--ri-pad);
+      {% if layout_mode == 'contained' %}
+      max-width: var(--page-width, 1200px);
+      margin-inline: auto;
+      {% endif %}
+    }
+    .ri-{{ section.id }}.ri--banner .ri__inner{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .ri-{{ section.id }} .ri__media{
+      border-radius: var(--ri-radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .ri-{{ section.id }} .ri__media--ratio{
+      aspect-ratio: var(--ri-ratio);
+    }
+    .ri-{{ section.id }} .ri__img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      {% if ratio == 'auto' %}
+        height: auto;
+        object-fit: contain;
+      {% else %}
+        object-fit: cover;
+      {% endif %}
+    }
+    .ri-{{ section.id }} .ri__placeholder{
+      display: grid;
+      place-items: center;
+      color: #777;
+      background: #eee;
+      min-height: 200px;
+      border-radius: var(--ri-radius);
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Responsive image",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "img_base", "label": "Base image (default)" },
+    { "type": "image_picker", "id": "img_750", "label": "Image for ≥ 750px (optional)" },
+    { "type": "image_picker", "id": "img_990", "label": "Image for ≥ 990px (optional)" },
+    { "type": "image_picker", "id": "img_1200", "label": "Image for ≥ 1200px (optional)" },
+    { "type": "text", "id": "alt", "label": "Alt text" },
+
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Display mode",
+      "default": "contained",
+      "options": [
+        { "value": "contained", "label": "Contained (centered)" },
+        { "value": "banner", "label": "Banner (full-bleed)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Aspect ratio",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Original (auto)" },
+        { "value": "1 / 1", "label": "Square (1:1)" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
+        { "value": "16 / 9", "label": "Landscape (16:9)" }
+      ]
+    },
+
+    { "type": "range", "id": "radius", "label": "Border radius (px)", "min": 0, "max": 40, "step": 1, "default": 12 },
+    { "type": "range", "id": "pad", "label": "Inner padding (px)", "min": 0, "max": 40, "step": 1, "default": 16 },
+    { "type": "range", "id": "mt", "label": "Margin top (px)", "min": 0, "max": 120, "step": 2, "default": 20 },
+    { "type": "range", "id": "mb", "label": "Margin bottom (px)", "min": 0, "max": 120, "step": 2, "default": 20 },
+    { "type": "color", "id": "bg", "label": "Background color", "default": "transparent" }
+  ],
+  "presets": [{ "name": "Responsive image" }]
+}
+{% endschema %}

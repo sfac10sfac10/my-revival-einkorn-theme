@@ -12,8 +12,12 @@
     "banner": {
       "type": "main-collection-banner",
       "custom_css": [
-        "h1 {text-align: center;}",
-        ".collection-hero__description {width: 100%; max-width: none; margin-inline: auto; text-align: center;}"
+        "h1 {text-align: center; font-size: 32px; margin-bottom: 0; padding-bottom: 0;}",
+        "p {color: rgba(55, 55, 55, 1); font-size: 16px; max-width: 800px; margin-inline: auto;}",
+        ".collection-hero__description {width: 100%; max-width: none; margin-inline: auto; text-align: center;}",
+        ".collection-hero__text-wrapper {border-bottom: solid 1px #37373755; margin-inline: auto;}",
+        "@media (min-width: 750px) {h1 {font-size: 48px; }}",
+        "@media (min-width: 990px) {.collection-hero__text-wrapper {max-width: 90%; }}"
       ],
       "settings": {
         "show_collection_description": true,
@@ -48,7 +52,7 @@
       "name": "Certifications (auto)",
       "settings": {
         "heading": "",
-        "max_height": 70,
+        "max_height": 100,
         "gap": 28,
         "rounded": false,
         "full_width": true,

@@ -80,6 +80,11 @@
         "heading_6dWnzW",
         "text_ncniH3"
       ],
+      "custom_css": [
+        "h2 {font-size: 28px; line-height: 1.1;}",
+        "p {font-size: 16px; line-height: 1.5; color: rgba(55, 55, 55, 1);}",
+        "@media (min-width: 990px) {.rich-text__wrapper {margin-bottom: 0px; } h2 {font-size: 48px; line-height: 1; }}"
+      ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -122,7 +127,8 @@
         "button_7y4PEr"
       ],
       "custom_css": [
-        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}",
+        "p {color: rgba(55, 55, 55, 1);}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -147,7 +153,7 @@
         "heading_nTEFei": {
           "type": "heading",
           "settings": {
-            "heading": "The Grain ThatStarted it All",
+            "heading": "The Grain That Started it All",
             "heading_size": "h1"
           }
         },
@@ -161,6 +167,12 @@
       "block_order": [
         "heading_nTEFei",
         "text_8G9jre"
+      ],
+      "custom_css": [
+        ".rich-text__wrapper {margin-top: 10px; margin-bottom: -60px;}",
+        "h2 {font-size: 28px; line-height: 1.1;}",
+        "p {font-size: 16px; line-height: 1.5; color: rgba(55, 55, 55, 1);}",
+        "@media (min-width: 990px) {.rich-text__wrapper {margin-top: 50px; margin-bottom: -40px; } h2 {font-size: 48px; line-height: 1; }}"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
@@ -223,7 +235,9 @@
         "column_rt436Q"
       ],
       "custom_css": [
-        ".multicolumn-card {background: white;}"
+        ".multicolumn-card {background: white;}",
+        "p {color: rgba(55, 55, 55, 1);}",
+        "img {border-radius: 12px;}"
       ],
       "name": "t:sections.multicolumn.presets.name",
       "settings": {
@@ -265,6 +279,9 @@
         "heading_rHD3rQ",
         "text_b6mjc8"
       ],
+      "custom_css": [
+        "p {color: rgba(255, 255, 255, 1);}"
+      ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/the-science-7.webp",
@@ -278,6 +295,59 @@
         "stack_images_on_mobile": true,
         "mobile_content_alignment": "center",
         "show_text_below": true
+      }
+    },
+    "rich_text_ghAQGM": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_DaLqpV": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Einkorn vs. other wheats</strong>",
+            "heading_size": "h0"
+          }
+        },
+        "text_8NQgFm": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Ancient superiority meets modern alternatives</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_DaLqpV",
+        "text_8NQgFm"
+      ],
+      "custom_css": [
+        ".rich-text__wrapper {margin-bottom: -30px;}",
+        "h2 {font-size: 28px; line-height: 1.1;}",
+        "p {font-size: 16px; line-height: 1.5; color: rgba(55, 55, 55, 1);}",
+        "@media (min-width: 990px) {.rich-text__wrapper {margin-top: 50px; margin-bottom: 0px; } h2 {font-size: 48px; line-height: 1; }}"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "responsive_image_bk6Q4b": {
+      "type": "responsive-image",
+      "name": "Responsive image",
+      "settings": {
+        "img_base": "shopify://shop_images/the-science-10.webp",
+        "img_750": "shopify://shop_images/the-science-11.webp",
+        "alt": "",
+        "layout_mode": "banner",
+        "ratio": "auto",
+        "radius": 0,
+        "pad": 16,
+        "mt": 20,
+        "mb": 20,
+        "bg": "transparent"
       }
     },
     "image_with_text_KD3C9C": {
@@ -312,7 +382,8 @@
         "button_jzBDqy"
       ],
       "custom_css": [
-        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}"
+        ".image-with-text__media {position: relative; top: 50%; transform: translateY(-50%); min-height: auto !important;}",
+        "p {color: rgba(55, 55, 55, 1);}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -362,6 +433,9 @@
         "text_kiytQx",
         "button_RWzJgz"
       ],
+      "custom_css": [
+        "p {color: rgba(55, 55, 55, 1);}"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/the-science-9.webp",
@@ -400,6 +474,9 @@
         "heading_MNxpHK",
         "text_43WqKP"
       ],
+      "custom_css": [
+        "p {font-size: 14px; color: rgba(255, 255, 255, 1);}"
+      ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
@@ -419,6 +496,8 @@
     "rich_text_agDtJd",
     "multicolumn_U8eYQK",
     "image_banner_JqbwFK",
+    "rich_text_ghAQGM",
+    "responsive_image_bk6Q4b",
     "image_with_text_KD3C9C",
     "image_with_text_xgEnRX",
     "rich_text_bQ7B7A"
