@@ -59,16 +59,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "divider_r6END6": {
-          "type": "divider",
-          "settings": {
-            "color": "#373737",
-            "opacity": 25,
-            "thickness": 1,
-            "margin_top": 20,
-            "margin_bottom": 20
-          }
-        },
         "description": {
           "type": "description",
           "settings": {}
@@ -125,7 +115,6 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "divider_r6END6",
         "description",
         "icon_with_text_BFdAKq",
         "divider_aLpdkJ",
@@ -133,7 +122,8 @@
         "divider_bzKhxM"
       ],
       "custom_css": [
-        ".page-width {padding-inline: 30px;}"
+        ".page-width {padding-inline: 30px;}",
+        ".mbc-bundle {display: none;}"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -163,13 +153,13 @@
             "side_bar_title_color": "#ffffff",
             "side_bar_sale_color": "#ffffff",
             "side_bar_price_color": "#ffffff",
-            "side_bar_compare_price_color": "#C8C8C8",
+            "side_bar_compare_price_color": "#c8c8c8",
             "side_bar_button_color": "#313131",
             "side_bar_button_bg_color": "#ffffff",
-            "item_border_color": "#DDDDDD",
+            "item_border_color": "#dddddd",
             "item_title_color": "#313131",
             "item_price_color": "#313131",
-            "item_compare_price_color": "#C8C8C8",
+            "item_compare_price_color": "#c8c8c8",
             "item_separator_color": "#313131"
           }
         }
