@@ -151,6 +151,23 @@
         "padding_bottom": 12
       }
     },
+    "1758753045b7cb7204": {
+      "type": "apps",
+      "blocks": {
+        "mbc_bundles_mbc_bundles_shortcode_widget_for_product_page_N3arVD": {
+          "type": "shopify://apps/mbc-bundles/blocks/mbc-bundles-shortcode-widget-for-product-page/57c94b78-e464-47f4-9403-7ffcfcddb33f",
+          "settings": {
+            "widget_type": "default"
+          }
+        }
+      },
+      "block_order": [
+        "mbc_bundles_mbc_bundles_shortcode_widget_for_product_page_N3arVD"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "feature_icon_list_mbdYhV": {
       "type": "feature-icon-list",
       "blocks": {
@@ -505,6 +522,7 @@
   },
   "order": [
     "main",
+    "1758753045b7cb7204",
     "feature_icon_list_mbdYhV",
     "175754283730fbe1cb",
     "175818440122135e79",
