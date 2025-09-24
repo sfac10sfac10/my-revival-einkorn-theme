@@ -123,7 +123,7 @@
       ],
       "custom_css": [
         ".page-width {padding-inline: 30px;}",
-        ".mbc-bundle {display: none;}"
+        ".mbc-bundle, .mbcBundleItemsWidget {display: none;}"
       ],
       "settings": {
         "enable_sticky_info": true,
