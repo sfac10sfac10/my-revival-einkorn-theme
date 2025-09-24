@@ -15,14 +15,44 @@
   .drawer {
     visibility: hidden;
   }
+  .drawer__inner {
+    border: none;
+    width: 50rem;
+  }
+  .cart-drawer__empty-content {
+    height: 100%;
+  }
+  .empty-cart-header,
+  .drawer__header {
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+  }
+  .empty-cart-container {
+    height: 100%;
+    align-content: center;
+    padding-bottom: 100px;
+  }
+  .cart__empty-text,
+  .drawer__heading {
+    margin: 0;
+    font-size: 2.5rem;
+    line-height: 1.175;
+  }
+  .drawer__close {
+    margin-left: auto;
+    position: fixed;
+    top: 15px;
+    right: 5px;
+  }
   /* ===== Free Shipping Banner (cart drawer) ===== */
   .free-ship-banner {
     background: #2b2b2b;
     color: #fff;
-    border-radius: 4px;
     padding: 12px 16px;
     width: 110%;
     margin-left: -15px;
+    margin-bottom: 10px;
   }
   .free-ship-banner__text {
     font-weight: 600;
@@ -57,11 +87,23 @@
     margin: 0 0 4px;
     font-size: 16px;
   }
+  .totals__total {
+    font-size: 18px !important;
+    line-height: 1;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+  }
+  .cart-shipping-line__title {
+    font-size: 18px;
+    padding-right: 20px;
+    color: rgba(55, 55, 55, 1);
+  }
+  .cart-shipping-line__value {
+    text-align: end;
+  }
   .cart-shipping-line__value.is-free {
     font-weight: 700;
   }
-
-  /* ===== Checkout button pill look (como tus capturas) ===== */
   .cart__checkout-button.button {
     border-radius: 12px;
     font-weight: 700;
@@ -79,38 +121,76 @@
       aria-label="{{ 'sections.cart.title' | t }}"
       tabindex="-1"
     >
+      {%- liquid
+        assign threshold_dollars = settings.free_shipping_threshold | default: 55
+        assign threshold_cents = threshold_dollars | times: 100
+        assign subtotal_cents = cart.items_subtotal_price
+        assign remaining_cents = threshold_cents | minus: subtotal_cents
+
+        if remaining_cents <= 0
+          assign reached = true
+        else
+          assign reached = false
+        endif
+        assign progress_pct = subtotal_cents | times: 100 | divided_by: threshold_cents
+        if progress_pct > 100
+          assign progress_pct = 100
+        endif
+      -%}
       {%- if cart == empty -%}
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
             <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
-              <button
-                class="drawer__close"
-                type="button"
-                onclick="this.closest('cart-drawer').close()"
-                aria-label="{{ 'accessibility.close' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </button>
-              <a href="{{ routes.all_products_collection_url }}" class="button">
-                {{ 'general.continue_shopping' | t }}
-              </a>
+              <div class="empty-cart-header">
+                <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+                <button
+                  class="drawer__close"
+                  type="button"
+                  onclick="this.closest('cart-drawer').close()"
+                  aria-label="{{ 'accessibility.close' | t }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-close.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
 
-              {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
-                <p class="cart__login-paragraph">
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
+              {%- if threshold_cents > 0 -%}
+                <div class="free-ship-banner{% if reached %} is-eligible{% endif %}">
+                  <div class="free-ship-banner__text">
+                    {%- if reached -%}
+                      Eligible for free shipping
+                    {%- else -%}
+                      {{ remaining_cents | money }} away from free shipping
+                    {%- endif -%}
+                  </div>
+                  <div class="free-ship-progress">
+                    <span class="free-ship-progress__bar" style="width: {{ progress_pct }}%"></span>
+                  </div>
+                </div>
               {%- endif -%}
+
+              <div class="empty-cart-container">
+                <a href="{{ settings.cart_drawer_collection.url }}" class="button">
+                  {{ 'general.continue_shopping' | t }}
+                </a>
+
+                {%- if shop.customer_accounts_enabled and customer == null -%}
+                  <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
+                  <p class="cart__login-paragraph">
+                    {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
+                  </p>
+                {%- endif -%}
+              </div>
             </div>
           </div>
-          {%- if settings.cart_drawer_collection != blank -%}
-            <div class="cart-drawer__collection">
-              {% render 'card-collection', card_collection: settings.cart_drawer_collection, columns: 1 %}
-            </div>
-          {%- endif -%}
+          {% comment %}
+            {%- if settings.cart_drawer_collection != blank -%}
+              <div class="cart-drawer__collection">
+                {% render 'card-collection', card_collection: settings.cart_drawer_collection, columns: 1 %}
+              </div>
+            {%- endif -%}
+          {% endcomment %}
         </div>
       {%- endif -%}
       <div class="drawer__header">
@@ -126,19 +206,8 @@
           </span>
         </button>
       </div>
-      {%- liquid
-        assign threshold_dollars = settings.free_shipping_threshold | default: 55
-        assign threshold_cents = threshold_dollars | times: 100
-        assign subtotal_cents = cart.total_price
-        assign remaining_cents = threshold_cents | minus: subtotal_cents
-        assign reached           = remaining_cents | <=: 0
-        assign progress_pct = subtotal_cents | times: 100 | divided_by: threshold_cents
-        if progress_pct > 100
-          assign progress_pct = 100
-        endif
-      -%}
 
-      {%- if threshold_cents > 0 -%}
+      {%- if threshold_cents > 0 and cart != empty -%}
         <div class="free-ship-banner{% if reached %} is-eligible{% endif %}">
           <div class="free-ship-banner__text">
             {%- if reached -%}
@@ -600,7 +669,7 @@
           </div>
           {%- if threshold_cents > 0 -%}
             <div class="cart-shipping-line">
-              <span>Shipping</span>
+              <span class="cart-shipping-line__title">Shipping</span>
               <span class="cart-shipping-line__value {% if reached %}is-free{% endif %}">
                 {%- if reached -%}
                   FREE
