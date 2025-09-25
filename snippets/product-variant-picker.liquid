@@ -17,7 +17,18 @@
     {%- for option in product.options_with_values -%}
       {%- liquid
         assign swatch_count = option.values | map: 'swatch' | compact | size
+
+        assign last_pos = product.options_with_values.size
+        assign is_last = false
+        if option.position == last_pos
+          assign is_last = true
+        endif
+
         assign picker_type = block.settings.picker_type
+
+        if picker_type == 'bundle_cards' and is_last == false
+          assign picker_type = 'button'
+        endif
 
         if picker_type != 'bundle_cards'
           if swatch_count > 0 and block.settings.swatch_shape != 'none'

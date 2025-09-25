@@ -1,49 +1,78 @@
 {%- comment -%}
-  Bundle cards option renderer (robust)
-  - Extracts quantity by scanning tokens and stripping common suffixes (pack, case, x, commas, parens, dashes).
-  - Baseline single price = price of the variant whose derived qty == 1 (fallback: product.price_min).
+  Bundle cards option renderer (last-level, type-aware)
+  - Keeps original structure and qty derivation.
+  - Prices and savings are computed against the currently selected upper-level options (same "type").
+  - Baseline single price = price of the variant in the filtered set whose derived qty == 1
+    (fallback: min price in the filtered set; fallback: product.price_min).
   - Save% = floor(100 - (variant_price*100) / (qty*single_price)).
-  - Uses the same input id/name/data-* that Dawn expects so variant-selects JS keeps working.
 {%- endcomment -%}
 
 {%- assign position = option.position -%}
-{%- assign single_variant = null -%}
+
+{%- comment -%}
+  Read current upper-level selections from the selected_or_first_available_variant.
+  Dawn re-renders the section on selection changes, so this stays in sync.
+{%- endcomment -%}
+{%- assign sel = product.selected_or_first_available_variant -%}
+{%- assign sel_o1 = sel.option1 -%}
+{%- assign sel_o2 = sel.option2 -%}
+{%- assign sel_o3 = sel.option3 -%}
+
+{%- comment -%}
+  Compute single_price for the current "type" (upper-level selections) without building arrays.
+  We scan all variants, keep the minimum price within the filtered set,
+  and prefer the first with qty == 1 at the current position.
+{%- endcomment -%}
+{%- assign single_variant_price = null -%}
+{%- assign min_price_in_type = null -%}
+
 {%- for v in product.variants -%}
-  {%- assign ov = '' -%}
-  {%- case position -%}
-    {%- when 1 -%}
-      {%- assign ov = v.option1 -%}
-    {%- when 2 -%}
-      {%- assign ov = v.option2 -%}
-    {%- when 3 -%}
-      {%- assign ov = v.option3 -%}
-  {%- endcase -%}
+  {%- assign ok = true -%}
+  {%- if position != 1 and sel_o1 and v.option1 != sel_o1 -%}{%- assign ok = false -%}{%- endif -%}
+  {%- if position != 2 and sel_o2 and v.option2 != sel_o2 -%}{%- assign ok = false -%}{%- endif -%}
+  {%- if position != 3 and sel_o3 and v.option3 != sel_o3 -%}{%- assign ok = false -%}{%- endif -%}
+  {%- if ok -%}
+    {%- comment -%} derive qty from the text of the option at the current position {%- endcomment -%}
+    {%- assign ov = '' -%}
+    {%- case position -%}
+      {%- when 1 -%}
+        {%- assign ov = v.option1 -%}
+      {%- when 2 -%}
+        {%- assign ov = v.option2 -%}
+      {%- when 3 -%}
+        {%- assign ov = v.option3 -%}
+    {%- endcase -%}
 
-  {%- assign lc = ov | downcase -%}
-  {%- assign words = lc | replace: '-', ' ' | split: ' ' -%}
-  {%- assign q = 0 -%}
-  {%- for w in words -%}
-    {%- assign t = w
-      | remove: ','
-      | remove: '.'
-      | remove: '('
-      | remove: ')'
-      | remove: 'x'
-      | remove: 'pack'
-      | remove: 'case'
-      | strip
-    -%}
-    {%- assign n = t | plus: 0 -%}
-    {%- if n > q -%}{%- assign q = n -%}{%- endif -%}
-  {%- endfor -%}
-  {%- if q == 0 -%}{%- assign q = 1 -%}{%- endif -%}
+    {%- assign lc = ov | downcase -%}
+    {%- assign words = lc | replace: '-', ' ' | split: ' ' -%}
+    {%- assign q = 0 -%}
+    {%- for w in words -%}
+      {%- assign t = w
+        | remove: ','
+        | remove: '.'
+        | remove: '('
+        | remove: ')'
+        | remove: 'x'
+        | remove: 'pack'
+        | remove: 'case'
+        | strip
+      -%}
+      {%- assign n = t | plus: 0 -%}
+      {%- if n > q -%}{%- assign q = n -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if q == 0 -%}{%- assign q = 1 -%}{%- endif -%}
 
-  {%- if q == 1 -%}
-    {%- assign single_variant = v -%}
-    {%- break -%}
+    {%- if min_price_in_type == null or v.price < min_price_in_type -%}
+      {%- assign min_price_in_type = v.price -%}
+    {%- endif -%}
+
+    {%- if single_variant_price == null and q == 1 -%}
+      {%- assign single_variant_price = v.price -%}
+    {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
-{%- assign single_price = single_variant.price | default: product.price_min -%}
+
+{%- assign single_price = single_variant_price | default: min_price_in_type | default: product.price_min -%}
 
 <div class="bundle-cards" data-single-price="{{ single_price }}">
   <div class="bundle-cards__grid">
@@ -59,26 +88,39 @@
       -%}
       {%- assign input_name = option.name | append: '-' | append: option.position -%}
 
-      {%- assign option_disabled = true -%}
-      {%- if value.available -%}{%- assign option_disabled = false -%}{%- endif -%}
-
+      {%- comment -%}
+        Find the matching variant within the same "type" (upper-level selections),
+        i.e., same option1/2/3 except at the current position which must equal value_text.
+      {%- endcomment -%}
       {%- assign match_variant = null -%}
       {%- for v in product.variants -%}
-        {%- assign ov = '' -%}
-        {%- case position -%}
-          {%- when 1 -%}
-            {%- assign ov = v.option1 -%}
-          {%- when 2 -%}
-            {%- assign ov = v.option2 -%}
-          {%- when 3 -%}
-            {%- assign ov = v.option3 -%}
-        {%- endcase -%}
-        {%- if ov == value_text -%}
-          {%- assign match_variant = v -%}
-          {%- break -%}
+        {%- assign ok = true -%}
+        {%- if position != 1 and sel_o1 and v.option1 != sel_o1 -%}{%- assign ok = false -%}{%- endif -%}
+        {%- if position != 2 and sel_o2 and v.option2 != sel_o2 -%}{%- assign ok = false -%}{%- endif -%}
+        {%- if position != 3 and sel_o3 and v.option3 != sel_o3 -%}{%- assign ok = false -%}{%- endif -%}
+        {%- if ok -%}
+          {%- assign ov = '' -%}
+          {%- case position -%}
+            {%- when 1 -%}
+              {%- assign ov = v.option1 -%}
+            {%- when 2 -%}
+              {%- assign ov = v.option2 -%}
+            {%- when 3 -%}
+              {%- assign ov = v.option3 -%}
+          {%- endcase -%}
+          {%- if ov == value_text -%}
+            {%- assign match_variant = v -%}
+            {%- break -%}
+          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
 
+      {%- assign option_disabled = true -%}
+      {%- if value.available and match_variant and match_variant.available -%}
+        {%- assign option_disabled = false -%}
+      {%- endif -%}
+
+      {%- comment -%} Derive qty from the value text (same logic as original) {%- endcomment -%}
       {%- assign lc = value_text | downcase -%}
       {%- assign words = lc | replace: '-', ' ' | split: ' ' -%}
       {%- assign qty = 0 -%}
@@ -98,17 +140,17 @@
       {%- endfor -%}
       {%- if qty == 0 -%}{%- assign qty = 1 -%}{%- endif -%}
 
-      {%- assign v_price = match_variant.price -%}
+      {%- assign v_price = match_variant.price | default: null -%}
       {%- assign is_checked = false -%}
       {%- if value.selected -%}{%- assign is_checked = true -%}{%- endif -%}
 
+      {%- comment -%} Save% against qty * single_price of THIS type {%- endcomment -%}
+      {%- assign save_pct = 0 -%}
       {%- assign denom = qty | times: single_price -%}
-      {%- if qty > 1 and denom > 0 and v_price < denom -%}
+      {%- if v_price and qty > 1 and denom > 0 and v_price < denom -%}
         {%- assign diff = denom | minus: v_price -%}
         {%- assign save_pct = diff | times: 100 | divided_by: denom -%}
         {%- assign save_pct = save_pct | at_least: 0 -%}
-      {%- else -%}
-        {%- assign save_pct = 0 -%}
       {%- endif -%}
 
       <input
@@ -124,10 +166,15 @@
           checked
         {% endif %}
         {% if option_disabled %}
-          class="disabled"
+          disabled
         {% endif %}
         data-qty="{{ qty }}"
-        data-variant-price="{{ v_price }}"
+        {% if match_variant %}
+          data-variant-id="{{ match_variant.id }}"
+        {% endif %}
+        {% if v_price %}
+          data-variant-price="{{ v_price }}"
+        {% endif %}
       >
 
       <label
@@ -138,7 +185,9 @@
           <span class="bundle-card__badge">Save {{ save_pct }}%</span>
         {%- endif -%}
         <span class="bundle-card__title">{{ value_text }}</span>
-        <span class="bundle-card__price">{{ v_price | money }}</span>
+        <span class="bundle-card__price">
+          {%- if v_price -%}{{ v_price | money }}{%- else -%}—{%- endif -%}
+        </span>
         <span class="visually-hidden label-unavailable">
           {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
         </span>
@@ -160,7 +209,7 @@
   .product-form__input--bundle-cards .bundle-card{
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    width:128px
+    width:128px;
     height:128px;
     position:relative;
     display:grid; gap:.35rem;
@@ -169,7 +218,7 @@
     border:2px solid #e5e7eb;
     background:#fff;
     cursor:pointer;
-    text-align: center;
+    text-align:center;
   }
   .product-form__input--bundle-cards .bundle-card.is-active{
     background:#2f2f2f; color:#fff; border-color:#2f2f2f;
@@ -179,20 +228,15 @@
   .product-form__input--bundle-cards .bundle-card__price{ font-weight:400; }
   .product-form__input--bundle-cards .bundle-card__badge{
     position:absolute;
-    top:-10px;
-    left:50%;
-    background:#4d7c0f;
-    color:#fff;
-    font-weight:500;
-    font-size:14px;
-    line-height:1;
-    padding:6px 10px;
-    border-radius:999px;
+    top:-10px; left:50%;
     transform: translateX(-50%);
+    background:#4d7c0f; color:#fff;
+    font-weight:500; font-size:14px; line-height:1;
+    padding:6px 10px; border-radius:999px;
     white-space: nowrap;
   }
 
-  /* strike inside main price */
+  /* strike inside main price (main product price area) */
   #price-{{ section_id }} .bundle-unit-strike{
     text-decoration: line-through;
     opacity:.6;
@@ -208,11 +252,10 @@
     fieldset.dataset.bundleInit = '1';
 
     const container = fieldset.querySelector('.bundle-cards');
-    const singlePrice = parseInt(container?.dataset.singlePrice || '0', 10);
     const priceRoot = document.getElementById('price-{{ section_id }}');
     if (!priceRoot) return;
 
-    // --- helpers ---
+    // --- helpers (idénticos a tu versión) ---
     function isVisible(el) {
       return !!(el && el.offsetParent !== null);
     }
@@ -248,22 +291,16 @@
       const inp = activeInput();
       if (sel && inp) sel.textContent = inp.value;
     }
-
-    // Qty robusto desde el texto visible (no confíes en data-qty)
-    function deriveQtyFromString(txt) {
-      if (!txt) return 1;
-      const s = String(txt).toLowerCase();
+    // Tu qty robusto. Si ya usas deriveQtyFromString, puedes dejarlo igual:
+    function qtyFromInput(input) {
+      const v = input?.getAttribute('data-qty');
+      if (v && !isNaN(parseInt(v, 10))) return Math.max(1, parseInt(v, 10));
+      const s = String(input?.value || '').toLowerCase();
       const nums = s.match(/\d+/g);
-      if (nums && nums.length)
-        return Math.max.apply(
-          null,
-          nums.map((n) => parseInt(n, 10))
-        );
+      if (nums?.length) return Math.max(...nums.map((n) => parseInt(n, 10)));
       if (s.includes('single')) return 1;
       return 1;
     }
-
-    // Formato siguiendo el precio visible actual
     function moneyLike(cents) {
       const target = getVisiblePriceNode();
       const sample = (target?.textContent || '').trim();
@@ -279,10 +316,38 @@
       return `${prefix}${n}${suffix}`.trim();
     }
 
-    // --- actualización con guardas para evitar bucles ---
+    // --- NUEVO: recalcular singlePrice siempre a partir del DOM actual ---
+    function getSinglePriceCents() {
+      const inputs = Array.from(fieldset.querySelectorAll('input.bundle-card__input'));
+      if (!inputs.length) {
+        // último recurso: dataset (puede venir del Liquid)
+        const ds = parseInt(container?.dataset.singlePrice || '0', 10);
+        return isNaN(ds) ? 0 : ds;
+      }
+
+      // 1) prefer a card with qty==1
+      const singleCard = inputs.find((inp) => qtyFromInput(inp) === 1 && inp.hasAttribute('data-variant-price'));
+      if (singleCard) {
+        const p = parseInt(singleCard.getAttribute('data-variant-price') || '0', 10);
+        if (!isNaN(p) && p > 0) return p;
+      }
+
+      // 2) else, minimum price among visible cards
+      let min = Infinity;
+      for (const inp of inputs) {
+        const p = parseInt(inp.getAttribute('data-variant-price') || '0', 10);
+        if (!isNaN(p) && p > 0 && p < min) min = p;
+      }
+      if (min !== Infinity) return min;
+
+      // 3) fallback: dataset
+      const ds = parseInt(container?.dataset.singlePrice || '0', 10);
+      return isNaN(ds) ? 0 : ds;
+    }
+
+    // --- actualización con guardas para evitar bucles (igual que tuyo) ---
     let rafId = 0;
     let isUpdating = false;
-
     function scheduleUpdate() {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(updateStrike);
@@ -297,7 +362,6 @@
         const target = getVisiblePriceNode();
         const strike = getOrCreateStrike();
 
-        // Colocar el strike justo antes del precio visible que Dawn muestre
         if (target) placeStrikeBefore(target, strike);
 
         if (!inp || !target) {
@@ -305,7 +369,10 @@
           return;
         }
 
-        const qty = deriveQtyFromString(inp.value);
+        // >>> AQUÍ EL CAMBIO CLAVE: recomputar singlePrice en cada update <<<
+        const singlePrice = getSinglePriceCents();
+
+        const qty = qtyFromInput(inp);
         const strikeTotal = qty > 1 ? qty * singlePrice : 0;
 
         if (strikeTotal > 0) {
@@ -315,52 +382,39 @@
           strike.style.display = 'none';
         }
 
-        // Limpia duplicados accidentales
+        // limpiar duplicados
         priceRoot
           .querySelectorAll('.bundle-unit-strike:not([data-bundle-strike="1"])')
           .forEach((n) => n.parentNode?.removeChild(n));
       } finally {
-        // Libera en el próximo frame para absorber mutaciones pendientes sin reentrar
         requestAnimationFrame(() => {
           isUpdating = false;
         });
       }
     }
 
-    // Eventos de interacción
+    // Eventos de interacción (igual que tuyo)
     fieldset.addEventListener('change', (e) => {
       if (e.target.matches('input.bundle-card__input')) {
         fieldset.querySelectorAll('.bundle-card').forEach((l) => l.classList.remove('is-active'));
-        const lbl = e.target.nextElementSibling;
-        if (lbl) lbl.classList.add('is-active');
+        e.target.nextElementSibling?.classList.add('is-active');
         updateSelectedLegend();
         scheduleUpdate();
       }
     });
 
+    // Disparar en cambios de variante (Dawn)
     const variantRoot = fieldset.closest('variant-selects');
     variantRoot?.addEventListener('change', scheduleUpdate);
     variantRoot?.addEventListener('variant:change', scheduleUpdate);
 
-    // Observer con filtro para ignorar nuestras propias mutaciones
-    const mo = new MutationObserver((records) => {
-      // Si todas las mutaciones afectan solo a nuestro strike, ignora
-      const onlyStrike = records.every((rec) => {
-        const isStrikeTarget = rec.target?.nodeType === 1 && rec.target.getAttribute?.('data-bundle-strike') === '1';
-        const addedOnlyStrike = Array.from(rec.addedNodes || []).every(
-          (n) => n.nodeType === 1 && n.getAttribute?.('data-bundle-strike') === '1'
-        );
-        const removedOnlyStrike = Array.from(rec.removedNodes || []).every(
-          (n) => n.nodeType === 1 && n.getAttribute?.('data-bundle-strike') === '1'
-        );
-        return isStrikeTarget || (addedOnlyStrike && removedOnlyStrike);
-      });
-      if (onlyStrike) return;
+    // Observar el precio principal
+    const moPrice = priceRoot ? new MutationObserver(() => scheduleUpdate()) : null;
+    moPrice?.observe(priceRoot, { childList: true, subtree: true, characterData: true });
 
-      // Si Dawn tocó el precio, reubica/actualiza en el siguiente frame
-      scheduleUpdate();
-    });
-    mo.observe(priceRoot, { childList: true, subtree: true, characterData: true });
+    // NUEVO: observar también el fieldset por si Dawn re-renderiza las cards/precios
+    const moCards = new MutationObserver(() => scheduleUpdate());
+    moCards.observe(fieldset, { childList: true, subtree: true, characterData: true, attributes: true });
 
     // Primer pintado
     updateSelectedLegend();
