@@ -61,18 +61,7 @@
                 {{ article.published_at | time_tag: format: 'date' }}
               </div>
               <div class="news-content">
-                {%-
-                  render 'article-card',
-                  article: article,
-                  media_height: 'adapt',
-                  media_aspect_ratio: article.image.aspect_ratio,
-                  show_image: section.settings.show_image,
-                  show_date: false,  /* date is shown in left column */
-                  show_author: section.settings.show_author,
-                  show_excerpt: true,
-                  title_truncate: false,
-                  show_read_more: section.settings.show_read_more
-                -%}
+                {%- render 'article-card', article: article, media_height: 'adapt', media_aspect_ratio: article.image.aspect_ratio, show_image: section.settings.show_image, show_date: false, show_author: section.settings.show_author, show_excerpt: true, title_truncate: false, show_read_more: section.settings.show_read_more -%}
               </div>
             </article>
           {%- endfor -%}
@@ -92,17 +81,7 @@
               style="--animation-order: {{ forloop.index }};"
             {% endif %}
           >
-            {%-
-              render 'article-card',
-              article: article,
-              media_height: section.settings.image_height,
-              media_aspect_ratio: article.image.aspect_ratio,
-              show_image: section.settings.show_image,
-              show_date: section.settings.show_date,
-              show_author: section.settings.show_author,
-              show_excerpt: section.settings.blog_style != 'recipes',
-              show_read_more: section.settings.show_read_more
-            -%}
+            {%- render 'article-card', article: article, media_height: section.settings.image_height, media_aspect_ratio: article.image.aspect_ratio, show_image: section.settings.show_image, show_date: section.settings.show_date, show_author: section.settings.show_author, show_excerpt: section.settings.blog_style, show_read_more: section.settings.show_read_more -%}
           </div>
         {%- endfor -%}
       </div>
@@ -526,3 +505,46 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%-
+                      render 'article-card',
+                      article: article,
+                      media_height: 'adapt',
+                      media_aspect_ratio: article.image.aspect_ratio,
+                      show_image: section.settings.show_image,
+                      show_date: false,  /* date is shown in left column */
+                      show_author: section.settings.show_author,
+                      show_excerpt: true,
+                      title_truncate: false,
+                      show_read_more: section.settings.show_read_more
+                    -%}
+  to: "{%- render 'article-card', article: article, media_height: 'adapt', media_aspect_ratio:
+    article.image.aspect_ratio, show_image: section.settings.show_image, show_date:
+    false, show_author: section.settings.show_author, show_excerpt: true, title_truncate:
+    false, show_read_more: section.settings.show_read_more -%}"
+  position: 2565..2877
+- from: |-
+    {%-
+                  render 'article-card',
+                  article: article,
+                  media_height: section.settings.image_height,
+                  media_aspect_ratio: article.image.aspect_ratio,
+                  show_image: section.settings.show_image,
+                  show_date: section.settings.show_date,
+                  show_author: section.settings.show_author,
+                  show_excerpt: section.settings.blog_style != 'recipes',
+                  show_read_more: section.settings.show_read_more
+                -%}
+  to: "{%- render 'article-card', article: article, media_height: section.settings.image_height,
+    media_aspect_ratio: article.image.aspect_ratio, show_image: section.settings.show_image,
+    show_date: section.settings.show_date, show_author: section.settings.show_author,
+    show_excerpt: section.settings.blog_style, show_read_more: section.settings.show_read_more
+    -%}"
+  position: 3605..3960
+{% endcomment %}
